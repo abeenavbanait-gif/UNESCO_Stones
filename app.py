@@ -31,14 +31,25 @@ st.markdown("""
     }
     
     /* Force Dropdown, Search Inputs, and Textareas to be readable and YELLOW */
-    div[data-baseweb="input"] > div, div[data-baseweb="select"] > div, div[data-baseweb="textarea"] > div {
+    div[data-testid="stTextInput"] div[data-baseweb="input"],
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div,
+    div[data-testid="stTextArea"] div[data-baseweb="textarea"] {
         background-color: #fff9c4 !important; /* Yellow background */
-        border: 2px solid #ff4b4b !important; /* Red border */
+        border: 2px solid #fbc02d !important; /* Yellow border */
         border-radius: 6px;
     }
     
-    div[data-baseweb="input"] input, div[data-baseweb="select"] div, div[data-baseweb="textarea"] textarea {
-        color: #333333 !important;
+    div[data-testid="stTextInput"] input, 
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] span,
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] div,
+    div[data-testid="stTextArea"] textarea {
+        color: #000000 !important; /* Black font */
+    }
+    
+    /* Make sure placeholder text is legible */
+    div[data-testid="stTextInput"] input::placeholder, 
+    div[data-testid="stTextArea"] textarea::placeholder {
+        color: #555555 !important;
     }
     
     /* Headers and text in main area */
