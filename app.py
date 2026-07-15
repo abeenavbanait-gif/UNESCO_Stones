@@ -1,10 +1,6 @@
 import streamlit as st
 import pandas as pd
 import re
-import urllib.request
-import urllib.parse
-import ssl
-import json
 from data_manager import load_monument_data, load_notes, save_note
 
 # Page Config
@@ -113,59 +109,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-@st.cache_data(show_spinner=False, ttl=3600)
-def fetch_wiki_images(site_name):
-    """Fetch multiple images dynamically from Wikimedia API using urllib to avoid macOS segfaults."""
+def get_unesco_images(unesco_id):
+    """Generate predictable UNESCO gallery image URLs to bypass Cloudflare scraping blocks."""
     try:
-        ctx = ssl.create_default_context()
-        ctx.check_hostname = False
-        ctx.verify_mode = ssl.CERT_NONE
-        
-        def fetch_json(url):
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'})
-            response = urllib.request.urlopen(req, context=ctx)
-            return json.loads(response.read())
-            
-        # First attempt: exact match
-        url = f'https://en.wikipedia.org/w/api.php?action=query&prop=images&titles={urllib.parse.quote(site_name)}&format=json&imlimit=15'
-        res = fetch_json(url)
-        pages = res.get('query', {}).get('pages', {})
-        page_id = list(pages.keys())[0]
-        
-        # Second attempt: search API fallback for long UNESCO names
-        if page_id == '-1':
-            search_url = f'https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={urllib.parse.quote(site_name)}&format=json&utf8='
-            search_res = fetch_json(search_url)
-            search_results = search_res.get('query', {}).get('search', [])
-            
-            if search_results:
-                best_match_title = search_results[0]['title']
-                url = f'https://en.wikipedia.org/w/api.php?action=query&prop=images&titles={urllib.parse.quote(best_match_title)}&format=json&imlimit=15'
-                res = fetch_json(url)
-                pages = res.get('query', {}).get('pages', {})
-                page_id = list(pages.keys())[0]
-        
-        if page_id != '-1':
-            images = pages[page_id].get('images', [])
-            # Filter out svg/gif, keep jpg/png
-            image_titles = [img['title'] for img in images if img['title'].lower().endswith(('.jpg', '.png', '.jpeg'))]
-            
-            if image_titles:
-                # Limit to 6 images for the sidebar gallery
-                titles_str = '|'.join(image_titles[:6])
-                img_url = f'https://en.wikipedia.org/w/api.php?action=query&prop=imageinfo&iiprop=url&titles={urllib.parse.quote(titles_str)}&format=json'
-                img_res = fetch_json(img_url)
-                
-                img_pages = img_res.get('query', {}).get('pages', {})
-                urls = []
-                for p_id, p_data in img_pages.items():
-                    if 'imageinfo' in p_data:
-                        urls.append(p_data['imageinfo'][0]['url'])
-                return urls
-    except Exception as e:
-        print(f"Image fetch error: {e}")
-        pass
-    return []
+        padded_id = str(unesco_id).zfill(4)
+        urls = []
+        for i in range(1, 7):
+            num = str(i).zfill(4)
+            url = f"https://whc.unesco.org/uploads/sites/gallery/original/site_{padded_id}_{num}.jpg"
+            urls.append(url)
+        return urls
+    except Exception:
+        return []
 
 # Load Data
 df = load_monument_data()
@@ -257,12 +212,12 @@ unesco_id = str(site_data['unesco_id'])
 # ==========================================
 # SIDEBAR IMAGE GALLERY
 # ==========================================
-image_urls = fetch_wiki_images(site_data['site_name'])
+image_urls = get_unesco_images(unesco_id)
 if image_urls:
     st.sidebar.markdown("### 📸 Site Gallery")
     # Display images vertically in the sidebar, wrapping them in clickable links
     for img_url in image_urls:
-        html_code = f'<a href="{img_url}" target="_blank"><img src="{img_url}" class="sidebar-gallery-img"></a>'
+        html_code = f'<a href="{img_url}" target="_blank"><img src="{img_url}" class="sidebar-gallery-img" onerror="this.style.display=\'none\'" referrerpolicy="no-referrer"></a>'
         st.sidebar.markdown(html_code, unsafe_allow_html=True)
 
 # ==========================================
