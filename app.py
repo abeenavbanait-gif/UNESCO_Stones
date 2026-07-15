@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import re
 from data_manager import load_monument_data, load_notes, save_note
+import asyncio
+from rag_pipeline import ingest_dossier, ask_question
 
 # Page Config
 st.set_page_config(page_title="UNESCO Building Stones Dashboard", layout="wide", page_icon="🏛️")
@@ -226,10 +228,13 @@ unesco_id = str(site_data['unesco_id'])
 image_urls = get_unesco_images(unesco_id)
 if image_urls:
     st.sidebar.markdown("### 📸 Site Gallery")
-    # Display images vertically in the sidebar, wrapping them in clickable links
     for img_url in image_urls:
         html_code = f'<a href="{img_url}" target="_blank"><img src="{img_url}" class="sidebar-gallery-img" onerror="this.style.display=\'none\'" referrerpolicy="no-referrer"></a>'
         st.sidebar.markdown(html_code, unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("### 🤖 RAG Configuration")
+api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required to chat with the dossier")
 
 # ==========================================
 # MAIN PANEL: TOP BAR
@@ -350,3 +355,34 @@ new_note = st.text_area("Observations, confirmations, or dossier excerpts for th
 if st.button("💾 Save Notes", type="primary"):
     if save_note(unesco_id, new_note):
         st.success("Notes saved successfully! (They will persist when you return to this site)")
+
+st.markdown("<br><hr>", unsafe_allow_html=True)
+
+# ==========================================
+# SECTION 4: CHAT WITH DOSSIER (RAG)
+# ==========================================
+st.markdown("## 🤖 Chat with Official Dossier (RAG)")
+st.markdown("Interact directly with this site's official UNESCO nomination file using AI.")
+
+# Use an expander to keep the UI clean
+with st.expander("Expand to Chat", expanded=False):
+    if st.button("📥 Load Dossier (Downloads & Embeds PDF)"):
+        with st.spinner("Downloading and embedding PDF... This may take a minute."):
+            success, msg = asyncio.run(ingest_dossier(unesco_id))
+            if success:
+                st.success(msg)
+            else:
+                st.error(msg)
+                
+    st.markdown("---")
+    
+    question = st.text_input("Ask a question about the materials, geology, or construction:")
+    if st.button("Ask AI"):
+        if not api_key:
+            st.error("Please enter your Gemini API Key in the sidebar.")
+        elif not question:
+            st.warning("Please enter a question.")
+        else:
+            with st.spinner("Analyzing dossier..."):
+                answer = ask_question(unesco_id, question, api_key)
+                st.markdown(f"**Answer:**\n\n{answer}")
