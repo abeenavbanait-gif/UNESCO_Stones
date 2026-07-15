@@ -1,6 +1,31 @@
 import pandas as pd
 import re
 import json
+import ssl
+import nltk
+from tqdm import tqdm
+from nltk.stem import WordNetLemmatizer
+from nltk.tokenize import word_tokenize
+
+# Bypass macOS SSL errors for NLTK downloads
+try:
+    _create_unverified_https_context = ssl._create_unverified_context
+except AttributeError:
+    pass
+else:
+    ssl._create_default_https_context = _create_unverified_https_context
+
+# Ensure NLTK data is downloaded
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet', quiet=True)
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt', quiet=True)
+
+lemmatizer = WordNetLemmatizer()
 
 df = pd.read_csv('Imp Data/unesco_cultural_sites.csv')
 
@@ -985,18 +1010,17 @@ for region, stones in named_stones.items():
 # Combine all stone/rock lists
 all_geological_stones = igneous_rocks + sedimentary_rocks + metamorphic_rocks
 
-def find_matches(text, keyword_list):
-    """Find all keywords that match in the text, using word-boundary for short keywords."""
+_REGEX_CACHE = {}
+
+def find_matches(lemmatized_text, keyword_list):
+    """Find keywords using NLP lemmatization and strict regex boundaries to prevent false positives (e.g., 'opal' in 'Episcopal')."""
     matches = []
     for kw in keyword_list:
         kw_lower = kw.lower()
-        if len(kw_lower) <= 3:
-            pattern = r'\b' + re.escape(kw_lower) + r'\b'
-            if re.search(pattern, text):
-                matches.append(kw)
-        else:
-            if kw_lower in text:
-                matches.append(kw)
+        if kw_lower not in _REGEX_CACHE:
+            _REGEX_CACHE[kw_lower] = re.compile(r'\b' + re.escape(kw_lower) + r'\b')
+        if _REGEX_CACHE[kw_lower].search(lemmatized_text):
+            matches.append(kw)
     return list(set(matches))
 
 def classify_geological(matched_stones):
@@ -1018,6 +1042,11 @@ def classify_site(row):
     criteria = str(row.get('criteria', '')).lower()
     short_desc = str(row.get('short_description', '')).lower() if 'short_description' in row.index else ''
     combined_text = ouv + ' ' + short_desc + ' ' + site_name
+
+    # NLP tokenization & lemmatization (done ONCE per site for massive speedup)
+    words = word_tokenize(combined_text)
+    lemmatized_words = [lemmatizer.lemmatize(w.lower()) for w in words]
+    lemmatized_text = " ".join(lemmatized_words)
 
     score = 0
     matched_categories = []
@@ -1054,7 +1083,7 @@ def classify_site(row):
     # ── LAYER 3: STONE-HEAVY OUV TEXT ANALYSIS ──
 
     # 3a. Geological stone types
-    geo_stone_matches = find_matches(combined_text, all_geological_stones)
+    geo_stone_matches = find_matches(lemmatized_text, all_geological_stones)
     if len(geo_stone_matches) >= 1:
         score += 4
         matched_categories.append('OUV_Stone')
@@ -1066,7 +1095,7 @@ def classify_site(row):
         matched_categories.append('OUV_Stone_5+')
 
     # 3b. Named/Trade stones (HIGHEST weight - very specific)
-    named_stone_matches = find_matches(combined_text, all_named_stones)
+    named_stone_matches = find_matches(lemmatized_text, all_named_stones)
     if len(named_stone_matches) >= 1:
         score += 5
         matched_categories.append('Named_Stone')
@@ -1075,7 +1104,7 @@ def classify_site(row):
         matched_categories.append('Named_Stone_3+')
 
     # 3c. Decorative minerals
-    deco_matches = find_matches(combined_text, decorative_minerals)
+    deco_matches = find_matches(lemmatized_text, decorative_minerals)
     if len(deco_matches) >= 1:
         score += 2
         matched_categories.append('Decorative_Mineral')
@@ -1084,7 +1113,7 @@ def classify_site(row):
         matched_categories.append('Decorative_Mineral_3+')
 
     # 3d. Construction terms
-    constr_matches = find_matches(combined_text, construction_terms)
+    constr_matches = find_matches(lemmatized_text, construction_terms)
     if len(constr_matches) >= 2:
         score += 2
         matched_categories.append('OUV_Construction')
@@ -1093,7 +1122,7 @@ def classify_site(row):
         matched_categories.append('OUV_Construction_5+')
 
     # 3e. Building materials
-    mat_matches = find_matches(combined_text, building_materials)
+    mat_matches = find_matches(lemmatized_text, building_materials)
     if len(mat_matches) >= 2:
         score += 2
         matched_categories.append('OUV_Materials')
@@ -1102,7 +1131,7 @@ def classify_site(row):
         matched_categories.append('OUV_Materials_5+')
 
     # 3f. Architectural elements
-    elem_matches = find_matches(combined_text, architectural_elements)
+    elem_matches = find_matches(lemmatized_text, architectural_elements)
     if len(elem_matches) >= 3:
         score += 3
         matched_categories.append('OUV_ArchElements')
@@ -1111,13 +1140,13 @@ def classify_site(row):
         matched_categories.append('OUV_ArchElements_6+')
 
     # 3g. Architecture terms / styles
-    style_matches = find_matches(combined_text, architecture_terms)
+    style_matches = find_matches(lemmatized_text, architecture_terms)
     if len(style_matches) >= 2:
         score += 2
         matched_categories.append('OUV_ArchTerms')
 
     # 3h. Construction verbs
-    verb_matches = find_matches(combined_text, construction_verbs)
+    verb_matches = find_matches(lemmatized_text, construction_verbs)
     if len(verb_matches) >= 2:
         score += 2
         matched_categories.append('OUV_ConstructionVerbs')
@@ -1184,7 +1213,9 @@ print(f"  ───────────────────────�
 print(f"  TOTAL DICTIONARY:    {total_dict} entries")
 print()
 
-results = df.apply(classify_site, axis=1)
+# Run the classification via tqdm for progress tracking
+tqdm.pandas()
+results = df.progress_apply(classify_site, axis=1)
 df_classified = pd.concat([df, results], axis=1)
 
 # Format the UNESCO URLs automatically!

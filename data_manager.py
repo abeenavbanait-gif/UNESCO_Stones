@@ -3,7 +3,7 @@ import json
 import os
 import streamlit as st
 
-DATA_PATH = "Imp Data/906-sites_built_monument_sites.csv"
+DATA_PATH = "Imp Data/built_monument_sites.csv"
 NOTES_PATH = "Imp Data/user_notes.json"
 
 @st.cache_data
