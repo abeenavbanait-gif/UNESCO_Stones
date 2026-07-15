@@ -369,7 +369,7 @@ named_stones = {
         'Pierre de Angoulême', 'Pierre de Hauterive',
         'Pierre de Saint-Maximin', 'Pierre de Conflans',
         'Pierre du Lot', 'Pierre du Périgord',
-        'grès des Vosges', 'grès rose', 'Vosges sandstone', 'pink sandstone',
+        'grès des Vosges', 'grès rose', 'Vosges sandstone',
         'Pierre de Berchères', 'Pierre de Chartres',
         'Pierre de Tonnerre', 'Pierre de Meuse',
         'marbre de Carrières-Saint-Denis',
@@ -488,7 +488,7 @@ named_stones = {
     'Indian': [
         'Makrana marble', 'Makrana white', 'Makrana stone',
         'Chunar sandstone', 'Chunar stone',
-        'red sandstone', 'Agra red sandstone', 'Fatehpur Sikri sandstone',
+        'Agra red sandstone', 'Fatehpur Sikri sandstone',
         'Jodhpur sandstone', 'Jodhpur stone', 'Jodhpur pink',
         'Jaisalmer stone', 'Jaisalmer limestone', 'Jaisalmer yellow',
         'golden limestone', 'golden sandstone',
@@ -506,7 +506,6 @@ named_stones = {
         'Udaipur green marble', 'Rajasthan green marble',
         'Ambaji marble', 'Ambaji white',
         'Dungri marble',
-        'laterite stone', 'laterite block', 'laterite brick',
         'Mandana red stone', 'Mandana stone',
         'Black Galaxy granite', 'Star Galaxy', 'Absolute Black granite',
         'Kashmir White granite', 'Himalayan White granite',
@@ -514,8 +513,6 @@ named_stones = {
         'Rajasthan marble', 'Indian marble',
         'Indian sandstone', 'Indian granite', 'Indian limestone',
         'Vindhyan sandstone', 'Bhander sandstone',
-        'soapstone', 'steatite',
-        'laterite',
     ],
     'Chinese_Japanese_Korean': [
         'Dali marble', 'Yunnan marble', 'Cangshan marble',
@@ -562,8 +559,8 @@ named_stones = {
         'Vermont marble', 'Danby marble', 'Dorset marble',
         'Tennessee marble', 'Tennessee pink', 'Holston marble',
         'Crab Orchard stone', 'Crab Orchard sandstone',
-        'brownstone', 'Connecticut brownstone', 'Portland brownstone',
-        'bluestone', 'Pennsylvania bluestone', 'New York bluestone',
+        'Connecticut brownstone', 'Portland brownstone',
+        'Pennsylvania bluestone', 'New York bluestone',
         'Berea sandstone', 'Berea stone',
         'Kasota stone', 'Kasota limestone',
         'Minnesota pipestone', 'catlinite',
@@ -581,7 +578,7 @@ named_stones = {
         'Rockville granite', 'Stony Creek granite',
         'Chelmsford granite',
         'Milford pink granite',
-        'cantera rosa', 'cantera stone',
+        'cantera rosa',
         'Oaxaca green stone', 'piedra verde',
         'Santo Tomás marble',
     ],
@@ -1159,6 +1156,18 @@ def classify_site(row):
             break
     if exclusion_hit:
         score = max(0, score - 3)
+
+    # ── MANUAL OVERRIDES FOR MAJOR SITES WHERE UNESCO TEXT OMITS STONES ──
+    manual_overrides = {
+        "taj mahal": ["Makrana marble"]
+    }
+    for site, override_stones in manual_overrides.items():
+        if site in site_name:
+            for s in override_stones:
+                if s not in named_stone_matches:
+                    named_stone_matches.append(s)
+                    matched_categories.append('Named_Stone_Override')
+                    score += 5
 
     # ── Geological classification of found stones ──
     all_stone_matches = list(set(geo_stone_matches + named_stone_matches))
