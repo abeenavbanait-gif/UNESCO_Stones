@@ -30,14 +30,14 @@ st.markdown("""
         color: #4e4376 !important;
     }
     
-    /* Force Dropdown and Search Inputs to be readable and RED */
-    div[data-baseweb="input"] > div, div[data-baseweb="select"] > div {
-        background-color: #ffffff !important;
+    /* Force Dropdown, Search Inputs, and Textareas to be readable and YELLOW */
+    div[data-baseweb="input"] > div, div[data-baseweb="select"] > div, div[data-baseweb="textarea"] > div {
+        background-color: #fff9c4 !important; /* Yellow background */
         border: 2px solid #ff4b4b !important; /* Red border */
         border-radius: 6px;
     }
     
-    div[data-baseweb="input"] input, div[data-baseweb="select"] div {
+    div[data-baseweb="input"] input, div[data-baseweb="select"] div, div[data-baseweb="textarea"] textarea {
         color: #333333 !important;
     }
     
