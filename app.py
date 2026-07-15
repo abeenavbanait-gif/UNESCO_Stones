@@ -4,6 +4,7 @@ import re
 from data_manager import load_monument_data, load_notes, save_note
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
+from graph_rag_pipeline import ingest_custom_pdf_graph, ask_graph_question
 
 # Page Config
 st.set_page_config(page_title="UNESCO Building Stones Dashboard", layout="wide", page_icon="🏛️")
@@ -386,3 +387,43 @@ with st.expander("Expand to Chat", expanded=False):
             with st.spinner("Analyzing dossier..."):
                 answer = ask_question(unesco_id, question, api_key)
                 st.markdown(f"**Answer:**\n\n{answer}")
+
+# ==========================================
+# SECTION 5: CUSTOM DOCUMENT GRAPHRAG
+# ==========================================
+st.markdown("<br><hr>", unsafe_allow_html=True)
+st.markdown("## 🕸️ Custom Document GraphRAG")
+st.markdown("Upload any architectural PDF to build a semantic Knowledge Graph and chat with it.")
+
+with st.expander("Expand to Upload & Chat with Graph", expanded=False):
+    uploaded_file = st.file_uploader("Upload a PDF document", type=["pdf"])
+    
+    if uploaded_file is not None:
+        if st.button("🏗️ Build Knowledge Graph (Takes 1-2 mins)"):
+            if not api_key:
+                st.error("Please enter your Gemini API Key in the sidebar first.")
+            else:
+                with st.spinner("Extracting entities and building Graph using Gemini..."):
+                    try:
+                        nodes, edges = ingest_custom_pdf_graph(uploaded_file.read(), api_key)
+                        st.success(f"Graph built successfully! Found {nodes} entities and {edges} relationships.")
+                    except Exception as e:
+                        st.error(f"Error building graph: {e}")
+        
+        st.markdown("---")
+        graph_q = st.text_input("Ask a question about your uploaded document's graph:")
+        if st.button("Ask Graph AI"):
+            if not api_key:
+                st.error("Please enter your Gemini API Key in the sidebar.")
+            elif not graph_q:
+                st.warning("Please enter a question.")
+            else:
+                with st.spinner("Traversing Knowledge Graph..."):
+                    try:
+                        ans, ctx = ask_graph_question(graph_q, api_key)
+                        st.markdown(f"**Answer:**\n\n{ans}")
+                        with st.expander("View Graph Context Used"):
+                            st.text(ctx)
+                    except Exception as e:
+                        st.error(f"Error querying graph: {e}")
+

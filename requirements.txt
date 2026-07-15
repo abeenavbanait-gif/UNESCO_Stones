@@ -9,3 +9,6 @@ sentence-transformers
 pymupdf
 playwright
 playwright-stealth
+langchain-experimental
+networkx
+pyvis
