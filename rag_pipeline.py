@@ -13,9 +13,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_google_genai import ChatGoogleGenerativeAI
-from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_core.prompts import ChatPromptTemplate
-from langchain.chains import create_retrieval_chain
+from langchain_core.messages import SystemMessage, HumanMessage
 
 from download_dossiers import download_dossier
 
@@ -88,7 +86,7 @@ async def ingest_dossier(unesco_id: str):
 
 def ask_question(unesco_id: str, question: str, api_key: str):
     """
-    Runs a RAG query over the vector database for a specific site.
+    Runs a RAG query over the vector database for a specific site without relying on langchain.chains.
     """
     if not api_key:
         return "Error: Google Gemini API Key is required."
@@ -97,31 +95,35 @@ def ask_question(unesco_id: str, question: str, api_key: str):
     
     vectorstore = get_vectorstore()
     
-    # We only want to retrieve context from THIS specific site's dossier
-    retriever = vectorstore.as_retriever(
-        search_kwargs={"k": 5, "filter": {"unesco_id": str(unesco_id)}}
+    # 1. Retrieve context
+    logger.info("Retrieving documents from ChromaDB...")
+    docs = vectorstore.similarity_search(
+        question, 
+        k=5, 
+        filter={"unesco_id": str(unesco_id)}
     )
+    context_text = "\\n\\n".join([doc.page_content for doc in docs])
     
+    # 2. Call LLM directly
     llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0)
     
     system_prompt = (
-        "You are an expert geologist and UNESCO researcher."
-        "Use the following pieces of retrieved context from the site's official nomination dossier to answer the question."
-        "If you don't know the answer based on the context, say that you don't know."
-        "Use detailed, professional language. Focus heavily on building stones, materials, and architectural details if asked."
-        "\n\n"
-        "{context}"
+        "You are an expert geologist and UNESCO researcher.\\n"
+        "Use the following pieces of retrieved context from the site's official nomination dossier to answer the question.\\n"
+        "If you don't know the answer based on the context, say that you don't know.\\n"
+        "Use detailed, professional language. Focus heavily on building stones, materials, and architectural details if asked.\\n"
+        "\\nContext:\\n"
+        f"{context_text}"
     )
     
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        ("human", "{input}"),
+    logger.info(f"Querying Gemini for site {unesco_id}...")
+    response = llm.invoke([
+        SystemMessage(content=system_prompt),
+        HumanMessage(content=question)
     ])
     
-    question_answer_chain = create_stuff_documents_chain(llm, prompt)
-    rag_chain = create_retrieval_chain(retriever, question_answer_chain)
-    
-    logger.info(f"Querying Gemini for site {unesco_id}...")
-    response = rag_chain.invoke({"input": question})
-    
-    return response["answer"]
+    return response.content
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(ingest_dossier("252"))

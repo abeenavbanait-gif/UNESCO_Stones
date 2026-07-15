@@ -61,14 +61,15 @@ async def download_dossier(unesco_id: str):
                 await browser.close()
                 return None
                 
-            logger.info("Found target document link. Attempting download...")
+            href = await target_element.get_attribute("href")
+            full_url = href if href.startswith("http") else f"https://whc.unesco.org{href}"
+            logger.info(f"Target URL: {full_url}. Downloading binary blob...")
             
-            async with page.expect_download(timeout=60000) as download_info:
-                # Some links might open in a new tab, so we just click it
-                await target_element.click()
+            response = await page.context.request.get(full_url)
+            pdf_bytes = await response.body()
             
-            download = await download_info.value
-            await download.save_as(str(pdf_path))
+            with open(pdf_path, "wb") as f:
+                f.write(pdf_bytes)
             
             logger.info(f"Successfully downloaded to {pdf_path}")
             await browser.close()
