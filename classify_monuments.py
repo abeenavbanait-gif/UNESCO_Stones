@@ -949,6 +949,14 @@ construction_verbs = [
 # ─────────────────────────────────────────────────────────
 
 architectural_elements = [
+    # Core Structures & Buildings
+    'tomb', 'mosque', 'mausoleum', 'palace', 'fort', 'fortress', 'castle', 
+    'temple', 'cathedral', 'church', 'monastery', 'abbey', 'basilica', 
+    'shrine', 'sanctuary', 'stupa', 'pyramid', 'bridge', 'aqueduct', 
+    'amphitheatre', 'theatre', 'arena', 'bath', 'thermae', 'gate', 
+    'gateway', 'tower', 'pavilion', 'cenotaph', 'crypt', 'facade',
+    
+    # Specific Architectural Elements
     'column', 'pillar', 'pier', 'arch', 'vault', 'dome', 'cupola',
     'spire', 'buttress', 'flying buttress', 'cornice', 'frieze',
     'pediment', 'capital', 'entablature', 'lintel', 'keystone',
@@ -1157,20 +1165,19 @@ def classify_site(row):
     if exclusion_hit:
         score = max(0, score - 3)
 
-    # ── MANUAL OVERRIDES FOR MAJOR SITES WHERE UNESCO TEXT OMITS STONES ──
+    # ── SUGGESTIONS FOR MAJOR SITES WHERE UNESCO TEXT OMITS STONES ──
     manual_overrides = {
         "taj mahal": ["Makrana marble"],
         "piazza del duomo, pisa": ["Carrara marble"],
         "historic centre of florence": ["Carrara marble"],
         "city of verona": ["Carrara marble"]
     }
+    suggested_stones = []
     for site, override_stones in manual_overrides.items():
         if site in site_name:
             for s in override_stones:
-                if s not in named_stone_matches:
-                    named_stone_matches.append(s)
-                    matched_categories.append('Named_Stone_Override')
-                    score += 5
+                if s not in named_stone_matches and s not in geo_stone_matches:
+                    suggested_stones.append(s)
 
     # ── Geological classification of found stones ──
     all_stone_matches = list(set(geo_stone_matches + named_stone_matches))
@@ -1201,6 +1208,7 @@ def classify_site(row):
         'construction_verbs_found': '; '.join(sorted(verb_matches)),
         'matched_categories': '; '.join(matched_categories),
         'matched_name_keywords': '; '.join(matched_name_kws),
+        'suggested_stones': '; '.join(suggested_stones),
     })
 
 
