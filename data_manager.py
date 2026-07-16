@@ -20,22 +20,26 @@ def load_monument_data():
 
 @st.cache_data
 def get_global_stats():
-    """Calculate macro statistics (using hardcoded totals and CSV for OUV checks)."""
-    stats = {
-        'total_unesco': 1248,
-        'cultural': 972,
-        'natural': 235,
-        'mixed': 41,
-        'missing_ouv': 0
-    }
+    """Calculate macro statistics dynamically from the master CSV datasets."""
+    stats = {}
     try:
-        # Load cultural sites CSV to check OUV statements dynamically
-        cultural_df = pd.read_csv('Imp Data/unesco_cultural_sites.csv')
+        # Load master CSV database
+        master_df = pd.read_csv('Imp Data/unesco_whs_master_database.csv')
+        stats['total_unesco'] = len(master_df)
+        stats['cultural'] = len(master_df[master_df['category'] == 'Cultural'])
+        stats['natural'] = len(master_df[master_df['category'] == 'Natural'])
+        stats['mixed'] = len(master_df[master_df['category'] == 'Mixed'])
+        
+        # Calculate missing OUV statements for cultural sites
+        cultural_df = master_df[master_df['category'] == 'Cultural']
         missing_ouv = cultural_df['ouv_statement'].isna().sum() + (cultural_df['ouv_statement'] == '').sum()
         stats['missing_ouv'] = int(missing_ouv)
     except Exception as e:
-        print(f"Error checking missing OUVs: {e}")
-        
+        print(f"Error loading dynamic global stats: {e}")
+        # Absolute fallback if file is missing
+        stats = {
+            'total_unesco': 1248, 'cultural': 972, 'natural': 235, 'mixed': 41, 'missing_ouv': 0
+        }
     return stats
 
 def load_notes():
