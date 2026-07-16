@@ -39,9 +39,9 @@ def get_global_stats():
         print(f"Error loading global stats: {e}")
         stats = {
             'total_unesco': 1248,
-            'cultural': 952,
-            'natural': 231,
-            'mixed': 40,
+            'cultural': 972,
+            'natural': 235,
+            'mixed': 41,
             'missing_ouv': 0
         }
     return stats

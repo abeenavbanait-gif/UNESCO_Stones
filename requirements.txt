@@ -13,3 +13,4 @@ langchain-experimental
 networkx
 pyvis
 plotly
+openpyxl
