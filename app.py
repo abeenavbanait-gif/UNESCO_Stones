@@ -627,9 +627,9 @@ def render_site_explorer(df, notes):
     def format_unesco_headers(text):
         if not text or pd.isna(text): return ""
         
-        # Pre-process weird formatting where colon is pushed to next line (e.g. "Criterion (ii)\n:\n")
+        # Pre-process weird formatting where colon is pushed to next line, or is missing entirely!
         # Ensure it becomes "Criterion (ii):\n\n"
-        text = re.sub(r'(Criterion\s*\([ivx]+\))\s*\\?n*\s*:\s*\\?n*', r'\1:\n\n', text, flags=re.IGNORECASE)
+        text = re.sub(r'(Criterion\s*\([ivx]+\))\s*\\?n*\s*:?\s*\\?n*', r'\1:\n\n', text, flags=re.IGNORECASE)
         
         # Bold the main headings (handling possible \n strings from raw dataset)
         headings = [
@@ -640,8 +640,9 @@ def render_site_explorer(df, notes):
         ]
         
         for h in headings:
-            # Match the heading at the start of a line or surrounded by spaces/newlines
-            text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})(\s|$|\n|\\n)', r'\1<strong>\2</strong>\3', text)
+            # Match the heading at the start of a line or surrounded by spaces/newlines. 
+            # Handle optional trailing colon (e.g. "Brief synthesis:")
+            text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})\s*:?(\s|$|\n|\\n)', r'\1<strong>\2</strong>\3', text)
             
         # Bold the criteria
         text = re.sub(r'(?i)(^|\n|\\n|\s)(Criterion\s*\([ivx]+\):)', r'\1<strong>\2</strong>', text)
