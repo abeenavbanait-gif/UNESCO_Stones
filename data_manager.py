@@ -6,9 +6,8 @@ import streamlit as st
 DATA_PATH = "Imp Data/built_monument_sites.csv"
 NOTES_PATH = "Imp Data/user_notes.json"
 
-@st.cache_data
 def load_monument_data(filepath=DATA_PATH):
-    """Load the master CSV data. Cached for performance."""
+    """Load the master CSV data."""
     try:
         df = pd.read_csv(filepath)
         # Ensure unesco_id is string for consistent mapping
@@ -18,7 +17,6 @@ def load_monument_data(filepath=DATA_PATH):
         st.error(f"Failed to load data from {DATA_PATH}: {e}")
         return pd.DataFrame()
 
-@st.cache_data
 def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv'):
     """Calculate macro statistics dynamically from the master CSV datasets."""
     stats = {}
