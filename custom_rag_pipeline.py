@@ -51,7 +51,7 @@ def ingest_custom_document(file_bytes: bytes, file_name: str) -> int:
         if ext == ".pdf":
             loader = PyMuPDFLoader(tmp_path)
             docs = loader.load()
-        elif ext == ".txt":
+        elif ext in [".txt", ".md"]:
             loader = TextLoader(tmp_path, encoding='utf-8')
             docs = loader.load()
         elif ext == ".docx":

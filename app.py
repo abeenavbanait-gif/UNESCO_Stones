@@ -704,10 +704,10 @@ def render_site_explorer(df, notes):
     # ==========================================
     st.markdown("<br><hr>", unsafe_allow_html=True)
     st.markdown("## 📚 Custom Document Chatbot (RAG)")
-    st.markdown("Upload PDFs, Word Docs, Text files, or Spreadsheets to train a local vector database and chat with your documents.")
+    st.markdown("Upload PDFs, Word Docs, Text files, Markdown files, or Spreadsheets to train a local vector database and chat with your documents.")
     
     with st.expander("Expand to Upload & Chat with Documents", expanded=False):
-        uploaded_file = st.file_uploader("Upload a document", type=["pdf", "txt", "docx", "csv", "xlsx"])
+        uploaded_file = st.file_uploader("Upload a document", type=["pdf", "txt", "md", "docx", "csv", "xlsx"])
         
         if uploaded_file is not None:
             if st.button("🏗️ Ingest Document into Database"):
