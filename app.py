@@ -7,6 +7,7 @@ from rag_pipeline import ingest_dossier, ask_question
 from graph_rag_pipeline import ingest_custom_pdf_graph, ask_graph_question
 import plotly.express as px
 import urllib.parse
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 st.set_page_config(page_title="UNESCO Building Stones Dashboard", layout="wide", page_icon="🏛️")
 
@@ -488,6 +489,39 @@ def render_site_explorer(df, notes):
                 </p>
             </div>
             """, unsafe_allow_html=True)
+            
+    # ==========================================
+    # SECTION: GEMINI AI INSIGHTS
+    # ==========================================
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("## ✨ Gemini AI Stone Researcher")
+    
+    if not api_key:
+        st.info("👋 Enter your **Gemini API Key** in the sidebar to dynamically research the geological history and stones of this site using Google AI!")
+    else:
+        st.markdown(f"Click below to ask Gemini: *What remarkable stone was used to build **{site_name}**?*")
+        
+        if st.button("Research Stones with Gemini ✨", type="primary"):
+            with st.spinner(f"Gemini is researching {site_name}..."):
+                try:
+                    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
+                    prompt = f"You are an expert geological historian. What remarkable stone or rock was used to build the UNESCO World Heritage site '{site_name}'? Suggest the major stone related to this site and explain in what context it was used. Keep it concise (1-2 short paragraphs)."
+                    
+                    response = llm.invoke(prompt)
+                    
+                    st.markdown(f"""
+                    <div style="background-color: #f3e8ff; border-left: 4px solid #9333ea; padding: 20px; border-radius: 8px; margin-top: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+                            <span style="font-size: 22px;">✨</span>
+                            <strong style="color: #6b21a8; font-size: 18px;">Gemini AI Insight</strong>
+                        </div>
+                        <div style="color: #4c1d95; line-height: 1.6; font-size: 1.05em; white-space: pre-wrap;">
+                            {response.content}
+                        </div>
+                    </div>
+                    """, unsafe_allow_html=True)
+                except Exception as e:
+                    st.error(f"Failed to query Gemini: {str(e)}")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
