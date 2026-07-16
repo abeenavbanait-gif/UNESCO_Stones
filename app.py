@@ -325,13 +325,35 @@ with col_stone:
 
 st.markdown("<br><hr>", unsafe_allow_html=True)
 
+# Generate list of all extracted terms for highlighting
+all_stones_list = []
+for col in ['stone_types_found', 'named_trade_stones', 'decorative_minerals_found', 'architectural_elements_found', 'architecture_style_found']:
+    val = site_data.get(col, '')
+    if pd.notna(val) and val:
+        all_stones_list.extend([s.strip() for s in val.split(';') if s.strip()])
+all_stones_list.sort(key=len, reverse=True)
+
+def highlight_text(text, terms):
+    if not text or pd.isna(text): return ""
+    highlighted = text
+    for term in terms:
+        if term:
+            pattern = re.compile(re.escape(term), re.IGNORECASE)
+            highlighted = pattern.sub(f'<span class="highlight-stone">{term}</span>', highlighted)
+    return highlighted.replace('\\n', '<br><br>').replace('\n', '<br><br>')
+
 # ==========================================
 # SECTION 2: SITE DESCRIPTION
 # ==========================================
 st.markdown("## 🌍 Site Description")
 brief_desc = site_data.get('brief_description', '')
 if pd.notna(brief_desc) and brief_desc:
-    st.info(brief_desc)
+    highlighted_brief = highlight_text(brief_desc, all_stones_list)
+    st.markdown(f"""
+    <div style="background-color: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 4px solid #3498db; line-height: 1.6; font-size: 1.05em;">
+        {highlighted_brief}
+    </div>
+    """, unsafe_allow_html=True)
 else:
     st.warning("No brief description available for this site.")
 
@@ -344,25 +366,11 @@ st.markdown("## 📄 Outstanding Universal Value (OUV)")
 
 ouv_text = site_data.get('ouv_statement', '')
 if pd.notna(ouv_text) and ouv_text:
-    all_stones_list = []
-    for col in ['stone_types_found', 'named_trade_stones', 'decorative_minerals_found', 'architectural_elements_found', 'architecture_style_found']:
-        val = site_data.get(col, '')
-        if pd.notna(val) and val:
-            all_stones_list.extend([s.strip() for s in val.split(';') if s.strip()])
-            
-    highlighted_text = ouv_text
-    all_stones_list.sort(key=len, reverse=True)
-    
-    for term in all_stones_list:
-        if term:
-            pattern = re.compile(re.escape(term), re.IGNORECASE)
-            highlighted_text = pattern.sub(f'<span class="highlight-stone">{term}</span>', highlighted_text)
-            
-    highlighted_text = highlighted_text.replace('\\n', '<br><br>').replace('\n', '<br><br>')
+    highlighted_ouv = highlight_text(ouv_text, all_stones_list)
     
     st.markdown(f"""
     <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
-        {highlighted_text}
+        {highlighted_ouv}
     </div>
     """, unsafe_allow_html=True)
 else:
