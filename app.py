@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import re
-from data_manager import load_monument_data, load_notes, save_note
+from data_manager import load_monument_data, load_notes, save_note, get_global_stats
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
 from graph_rag_pipeline import ingest_custom_pdf_graph, ask_graph_question
@@ -160,6 +160,22 @@ def render_home_page(df):
     st.markdown("Welcome to the analytical overview of built heritage and construction materials across UNESCO Cultural Sites.")
     
     st.markdown("---")
+    
+    # Fetch global stats
+    g_stats = get_global_stats()
+    
+    # Global Overview Breakdown
+    st.markdown(f"""
+    <div style="background-color: #f1f8ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0366d6; margin-bottom: 20px;">
+        <h4 style="margin-top: 0; color: #0366d6;">Global UNESCO Overview</h4>
+        <p style="margin-bottom: 0;">
+            Out of <strong>{g_stats['total_unesco']}</strong> total World Heritage Sites, there are: 
+            <strong>{g_stats['cultural']} Cultural</strong>, <strong>{g_stats['natural']} Natural</strong>, and <strong>{g_stats['mixed']} Mixed</strong> sites.<br>
+            Within the {g_stats['cultural']} Cultural sites, <strong>{len(df)}</strong> were classified as <em>Built Monuments</em>.<br>
+            <em>Note: {g_stats['missing_ouv']} cultural sites lacked official OUV statements and could not be fully analyzed.</em>
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
     # High-level metrics
     col1, col2, col3, col4 = st.columns(4)

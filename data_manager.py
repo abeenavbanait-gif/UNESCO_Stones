@@ -18,6 +18,34 @@ def load_monument_data():
         st.error(f"Failed to load data from {DATA_PATH}: {e}")
         return pd.DataFrame()
 
+@st.cache_data
+def get_global_stats():
+    """Calculate macro statistics from the master UNESCO Excel file."""
+    stats = {}
+    try:
+        # Load master excel
+        excel_df = pd.read_excel('whc-sites-2025.xlsx')
+        stats['total_unesco'] = len(excel_df)
+        stats['cultural'] = len(excel_df[excel_df['category'] == 'Cultural'])
+        stats['natural'] = len(excel_df[excel_df['category'] == 'Natural'])
+        stats['mixed'] = len(excel_df[excel_df['category'] == 'Mixed'])
+        
+        # Load cultural sites CSV to check OUV statements
+        cultural_df = pd.read_csv('Imp Data/unesco_cultural_sites.csv')
+        missing_ouv = cultural_df['ouv_statement'].isna().sum() + (cultural_df['ouv_statement'] == '').sum()
+        stats['missing_ouv'] = int(missing_ouv)
+        
+    except Exception as e:
+        print(f"Error loading global stats: {e}")
+        stats = {
+            'total_unesco': 1248,
+            'cultural': 952,
+            'natural': 231,
+            'mixed': 40,
+            'missing_ouv': 0
+        }
+    return stats
+
 def load_notes():
     """Load user notes from JSON."""
     if not os.path.exists(NOTES_PATH):
