@@ -243,7 +243,8 @@ image_urls = get_unesco_images(unesco_id)
 if image_urls:
     st.sidebar.markdown("### 📸 Site Gallery")
     for img_url in image_urls:
-        html_code = f'<a href="{img_url}" target="_blank"><img src="{img_url}" class="sidebar-gallery-img" onerror="this.style.display=\'none\'" referrerpolicy="no-referrer"></a>'
+        gallery_page_url = f"https://whc.unesco.org/en/list/{unesco_id}/gallery/"
+        html_code = f'<a href="{gallery_page_url}" target="_blank" title="View on UNESCO Gallery"><img src="{img_url}" class="sidebar-gallery-img" onerror="this.style.display=\'none\'" referrerpolicy="no-referrer"></a>'
         st.sidebar.markdown(html_code, unsafe_allow_html=True)
 
 st.sidebar.markdown("---")
