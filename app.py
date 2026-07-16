@@ -399,6 +399,11 @@ def render_site_explorer(df, notes):
     
     st.sidebar.markdown("---")
     
+    st.sidebar.markdown("### 🤖 Gemini API Configuration")
+    api_key = st.sidebar.text_input("Google Gemini API Key", type="password")
+    st.sidebar.caption("Required for the Official Dossier Chat and Custom GraphRAG features. [Get a free key here](https://aistudio.google.com/app/apikey).")
+    
+    st.sidebar.markdown("---")
     # ==========================================
     # MAIN PANEL: TOP BAR
     # ==========================================
