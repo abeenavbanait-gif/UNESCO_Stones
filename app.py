@@ -580,7 +580,7 @@ def render_site_explorer(df, notes):
     if pd.notna(brief_desc) and brief_desc:
         highlighted_brief = highlight_text(brief_desc, all_stones_list)
         st.markdown(f"""
-        <div style="background-color: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 4px solid #3498db; line-height: 1.6; font-size: 1.05em; white-space: pre-wrap;">
+        <div style="background-color: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 4px solid #3498db; line-height: 1.6; font-size: 1.05em;">
             {highlighted_brief}
         </div>
         """, unsafe_allow_html=True)
@@ -599,7 +599,7 @@ def render_site_explorer(df, notes):
         highlighted_ouv = highlight_text(ouv_text, all_stones_list)
         
         st.markdown(f"""
-        <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376; white-space: pre-wrap;">
+        <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
             {highlighted_ouv}
         </div>
         """, unsafe_allow_html=True)
