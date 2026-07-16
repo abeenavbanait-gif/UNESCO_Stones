@@ -624,6 +624,30 @@ def render_site_explorer(df, notes):
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
+    def format_unesco_headers(text):
+        if not text or pd.isna(text): return ""
+        
+        # Pre-process weird formatting where colon is pushed to next line (e.g. "Criterion (ii)\n:\n")
+        # Ensure it becomes "Criterion (ii):\n\n"
+        text = re.sub(r'(Criterion\s*\([ivx]+\))\s*\\?n*\s*:\s*\\?n*', r'\1:\n\n', text, flags=re.IGNORECASE)
+        
+        # Bold the main headings (handling possible \n strings from raw dataset)
+        headings = [
+            r'Brief synthesis',
+            r'Integrity',
+            r'Authenticity',
+            r'Protection and management requirements'
+        ]
+        
+        for h in headings:
+            # Match the heading at the start of a line or surrounded by spaces/newlines
+            text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})(\s|$|\n|\\n)', r'\1<strong>\2</strong>\3', text)
+            
+        # Bold the criteria
+        text = re.sub(r'(?i)(^|\n|\\n|\s)(Criterion\s*\([ivx]+\):)', r'\1<strong>\2</strong>', text)
+        
+        return text
+    
     # ==========================================
     # SECTION 3: OUV HIGHLIGHTING
     # ==========================================
@@ -631,7 +655,8 @@ def render_site_explorer(df, notes):
     
     ouv_text = site_data.get('ouv_statement', '')
     if pd.notna(ouv_text) and ouv_text:
-        highlighted_ouv = highlight_text(ouv_text, all_stones_list)
+        formatted_ouv = format_unesco_headers(ouv_text)
+        highlighted_ouv = highlight_text(formatted_ouv, all_stones_list)
         
         st.markdown(f"""
         <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
