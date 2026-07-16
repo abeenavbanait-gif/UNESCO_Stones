@@ -448,6 +448,21 @@ def render_site_explorer(df, notes):
             <p><strong>Trade Stones:</strong> <span style="color:#d35400; font-weight:bold;">{named_disp}</span></p>
         </div>
         """, unsafe_allow_html=True)
+        
+        suggested = site_data.get('suggested_stones', '')
+        if pd.notna(suggested) and suggested:
+            suggested_disp = ", ".join([s.strip().title() for s in str(suggested).split(';') if s.strip()])
+            st.markdown(f"""
+            <div style="background-color: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px; margin-top: 15px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 20px;">💡</span>
+                    <strong style="color: #b08d00; font-size: 16px;">Suggestion for UNESCO Database</strong>
+                </div>
+                <p style="margin-top: 8px; margin-bottom: 0; color: #5a4a00; line-height: 1.4;">
+                    The rock <strong>{suggested_disp}</strong> is historically significant to this monument, but it is <em>missing</em> from the official UNESCO OUV statement and site description. It should be explicitly mentioned.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
