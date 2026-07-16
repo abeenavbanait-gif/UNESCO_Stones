@@ -20,30 +20,22 @@ def load_monument_data():
 
 @st.cache_data
 def get_global_stats():
-    """Calculate macro statistics from the master UNESCO Excel file."""
-    stats = {}
+    """Calculate macro statistics (using hardcoded totals and CSV for OUV checks)."""
+    stats = {
+        'total_unesco': 1248,
+        'cultural': 972,
+        'natural': 235,
+        'mixed': 41,
+        'missing_ouv': 0
+    }
     try:
-        # Load master excel
-        excel_df = pd.read_excel('whc-sites-2025.xlsx')
-        stats['total_unesco'] = len(excel_df)
-        stats['cultural'] = len(excel_df[excel_df['category'] == 'Cultural'])
-        stats['natural'] = len(excel_df[excel_df['category'] == 'Natural'])
-        stats['mixed'] = len(excel_df[excel_df['category'] == 'Mixed'])
-        
-        # Load cultural sites CSV to check OUV statements
+        # Load cultural sites CSV to check OUV statements dynamically
         cultural_df = pd.read_csv('Imp Data/unesco_cultural_sites.csv')
         missing_ouv = cultural_df['ouv_statement'].isna().sum() + (cultural_df['ouv_statement'] == '').sum()
         stats['missing_ouv'] = int(missing_ouv)
-        
     except Exception as e:
-        print(f"Error loading global stats: {e}")
-        stats = {
-            'total_unesco': 1248,
-            'cultural': 972,
-            'natural': 235,
-            'mixed': 41,
-            'missing_ouv': 0
-        }
+        print(f"Error checking missing OUVs: {e}")
+        
     return stats
 
 def load_notes():
