@@ -184,12 +184,26 @@ def render_home_page(df):
     st.markdown("### 🗺️ Geographical Distribution of Sites")
     map_df = df.dropna(subset=['latitude', 'longitude']).copy()
     if not map_df.empty:
+        # Format columns for the hover tooltip
+        map_df['Category'] = map_df['category']
+        map_df['Architecture'] = map_df['architecture_style_found'].fillna('None Detected').apply(lambda x: x.replace(';', ', ').title())
+        map_df['Stone Mentions'] = map_df['stone_count'].apply(lambda x: 'Yes' if pd.notna(x) and x > 0 else 'No')
+        map_df['Major Rock Type'] = map_df['stone_types_found'].fillna('N/A').apply(lambda x: x.replace(';', ', ').title() if x != 'N/A' else 'None')
+        
         fig_map = px.scatter_mapbox(
             map_df, 
             lat="latitude", 
             lon="longitude", 
             hover_name="site_name", 
-            hover_data=["country", "score"],
+            hover_data={
+                "latitude": False,
+                "longitude": False,
+                "score": True,
+                "Category": True,
+                "Architecture": True,
+                "Stone Mentions": True,
+                "Major Rock Type": True
+            },
             color="score",
             color_continuous_scale=px.colors.sequential.YlOrRd,
             size_max=15, 
