@@ -7,10 +7,10 @@ DATA_PATH = "Imp Data/built_monument_sites.csv"
 NOTES_PATH = "Imp Data/user_notes.json"
 
 @st.cache_data
-def load_monument_data():
+def load_monument_data(filepath=DATA_PATH):
     """Load the master CSV data. Cached for performance."""
     try:
-        df = pd.read_csv(DATA_PATH)
+        df = pd.read_csv(filepath)
         # Ensure unesco_id is string for consistent mapping
         df['unesco_id'] = df['unesco_id'].astype(str)
         return df
