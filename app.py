@@ -492,13 +492,13 @@ def render_site_explorer(df, notes):
     # ==========================================
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("## 🔍 Web Search Stone Researcher")
-    st.markdown(f"Click below to run a live, automated web search for stones used to build **{site_name}**.")
+    st.markdown(f"Click below to run a live, automated web search for stones used to build **{site_data['site_name']}**.")
     
     if st.button("Search Web for Building Stones 🌐", type="primary"):
-        with st.spinner(f"Searching the web for {site_name} stones..."):
+        with st.spinner(f"Searching the web for {site_data['site_name']} stones..."):
             try:
                 from duckduckgo_search import DDGS
-                results = DDGS().text(f"What stone was used to build {site_name} UNESCO?", max_results=3)
+                results = DDGS().text(f"What stone was used to build {site_data['site_name']} UNESCO?", max_results=3)
                 
                 if results:
                     snippets = [r['body'] for r in results if 'body' in r]
