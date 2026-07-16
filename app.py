@@ -588,19 +588,39 @@ def render_site_explorer(df, notes):
         return highlighted
     
     # ==========================================
-    # SECTION 2: SITE DESCRIPTION
+    # SECTION 2 & 4: SITE DESCRIPTION & RESEARCHER NOTES (2-COLUMN LAYOUT)
     # ==========================================
-    st.markdown("## 🌍 Site Description")
-    brief_desc = site_data.get('brief_description', '')
-    if pd.notna(brief_desc) and brief_desc:
-        highlighted_brief = highlight_text(brief_desc, all_stones_list)
-        st.markdown(f"""
-        <div style="background-color: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 4px solid #3498db; line-height: 1.6; font-size: 1.05em;">
-            {highlighted_brief}
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.warning("No brief description available for this site.")
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    
+    col_desc, col_notes = st.columns(2)
+    
+    with col_desc:
+        st.markdown("## 🌍 Site Description")
+        brief_desc = site_data.get('brief_description', '')
+        if pd.notna(brief_desc) and brief_desc:
+            highlighted_brief = highlight_text(brief_desc, all_stones_list)
+            st.markdown(f"""
+            <div style="background-color: #e8f4f8; padding: 20px; border-radius: 12px; border-left: 4px solid #3498db; line-height: 1.6; font-size: 1.05em; height: 250px; overflow-y: auto;">
+                {highlighted_brief}
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.warning("No brief description available for this site.")
+            
+    with col_notes:
+        st.markdown("## 📝 Researcher Notes")
+        current_note = notes.get(unesco_id, "")
+        
+        new_note = st.text_area(
+            "Observations, confirmations, or dossier excerpts for this site:", 
+            value=current_note, 
+            height=200, 
+            label_visibility="collapsed"
+        )
+        
+        if st.button("💾 Save Notes", type="primary"):
+            if save_note(unesco_id, new_note):
+                st.success("Notes saved successfully!")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
@@ -620,20 +640,6 @@ def render_site_explorer(df, notes):
         """, unsafe_allow_html=True)
     else:
         st.warning("No OUV Statement available for this site.")
-    
-    st.markdown("<br><hr>", unsafe_allow_html=True)
-    
-    # ==========================================
-    # SECTION 4: NOTE TAKING MODULE
-    # ==========================================
-    st.markdown("## 📝 Researcher Notes")
-    current_note = notes.get(unesco_id, "")
-    
-    new_note = st.text_area("Observations, confirmations, or dossier excerpts for this site:", value=current_note, height=150, label_visibility="collapsed")
-    
-    if st.button("💾 Save Notes", type="primary"):
-        if save_note(unesco_id, new_note):
-            st.success("Notes saved successfully! (They will persist when you return to this site)")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
