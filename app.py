@@ -565,12 +565,22 @@ def render_site_explorer(df, notes):
     
     def highlight_text(text, terms):
         if not text or pd.isna(text): return ""
-        highlighted = text
-        for term in terms:
-            if term:
-                pattern = re.compile(re.escape(term), re.IGNORECASE)
-                highlighted = pattern.sub(f'<span class="highlight-stone">{term}</span>', highlighted)
-        return highlighted.replace('\\n', '<br><br>').replace('\n', '<br><br>')
+        
+        # Clean up excessive line breaks and messy data
+        cleaned = text.replace('\\n\\n', '\n\n').replace('\\n', ' ')
+        cleaned = re.sub(r'\n{3,}', '\n\n', cleaned)
+        cleaned = cleaned.replace('\n\n', '<br><br>')
+        cleaned = cleaned.replace('\n', ' ')
+        
+        valid_terms = [t for t in terms if t]
+        if not valid_terms: return cleaned
+        
+        # Single-pass regex replacement prevents nested <span> tags!
+        escaped_terms = [re.escape(t) for t in valid_terms]
+        pattern = re.compile(r'\b(' + '|'.join(escaped_terms) + r')\b', re.IGNORECASE)
+        
+        highlighted = pattern.sub(lambda m: f'<span class="highlight-stone">{m.group(1)}</span>', cleaned)
+        return highlighted
     
     # ==========================================
     # SECTION 2: SITE DESCRIPTION
