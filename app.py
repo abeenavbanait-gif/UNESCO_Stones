@@ -225,6 +225,10 @@ def render_home_page(df):
         region_counts = df['region'].value_counts().reset_index()
         region_counts.columns = ['Region', 'Count']
         fig_pie = px.pie(region_counts, values='Count', names='Region', hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel)
+        fig_pie.update_layout(
+            legend=dict(orientation="h", yanchor="top", y=-0.1, xanchor="center", x=0.5),
+            margin=dict(t=20, b=20, l=20, r=20)
+        )
         st.plotly_chart(fig_pie, use_container_width=True)
         
     with col_chart2:
