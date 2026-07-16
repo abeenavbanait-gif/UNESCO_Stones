@@ -200,12 +200,16 @@ def next_site():
         st.session_state.current_index += 1
     else:
         st.session_state.current_index = 0
+    # Force the selectbox to update its value
+    st.session_state.site_selector = site_options[st.session_state.current_index]
 
 def prev_site():
     if st.session_state.current_index > 0:
         st.session_state.current_index -= 1
     else:
         st.session_state.current_index = len(site_options) - 1
+    # Force the selectbox to update its value
+    st.session_state.site_selector = site_options[st.session_state.current_index]
 
 def on_select_change():
     selected = st.session_state.site_selector
