@@ -326,7 +326,19 @@ with col_stone:
 st.markdown("<br><hr>", unsafe_allow_html=True)
 
 # ==========================================
-# SECTION 2: OUV HIGHLIGHTING
+# SECTION 2: SITE DESCRIPTION
+# ==========================================
+st.markdown("## 🌍 Site Description")
+brief_desc = site_data.get('brief_description', '')
+if pd.notna(brief_desc) and brief_desc:
+    st.info(brief_desc)
+else:
+    st.warning("No brief description available for this site.")
+
+st.markdown("<br><hr>", unsafe_allow_html=True)
+
+# ==========================================
+# SECTION 3: OUV HIGHLIGHTING
 # ==========================================
 st.markdown("## 📄 Outstanding Universal Value (OUV)")
 
@@ -359,7 +371,7 @@ else:
 st.markdown("<br><hr>", unsafe_allow_html=True)
 
 # ==========================================
-# SECTION 3: NOTE TAKING MODULE
+# SECTION 4: NOTE TAKING MODULE
 # ==========================================
 st.markdown("## 📝 Researcher Notes")
 current_note = notes.get(unesco_id, "")
@@ -373,7 +385,7 @@ if st.button("💾 Save Notes", type="primary"):
 st.markdown("<br><hr>", unsafe_allow_html=True)
 
 # ==========================================
-# SECTION 4: CHAT WITH DOSSIER (RAG)
+# SECTION 5: CHAT WITH DOSSIER (RAG)
 # ==========================================
 st.markdown("## 🤖 Chat with Official Dossier (RAG)")
 st.markdown("Interact directly with this site's official UNESCO nomination file using AI.")
@@ -402,7 +414,7 @@ with st.expander("Expand to Chat", expanded=False):
                 st.markdown(f"**Answer:**\n\n{answer}")
 
 # ==========================================
-# SECTION 5: CUSTOM DOCUMENT GRAPHRAG
+# SECTION 6: CUSTOM DOCUMENT GRAPHRAG
 # ==========================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown("## 🕸️ Custom Document GraphRAG")
