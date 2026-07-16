@@ -14,3 +14,4 @@ networkx
 pyvis
 plotly
 openpyxl
+duckduckgo-search

@@ -7,7 +7,6 @@ from rag_pipeline import ingest_dossier, ask_question
 from graph_rag_pipeline import ingest_custom_pdf_graph, ask_graph_question
 import plotly.express as px
 import urllib.parse
-from langchain_google_genai import ChatGoogleGenerativeAI
 
 st.set_page_config(page_title="UNESCO Building Stones Dashboard", layout="wide", page_icon="🏛️")
 
@@ -399,8 +398,6 @@ def render_site_explorer(df, notes):
             st.sidebar.markdown(html_code, unsafe_allow_html=True)
     
     st.sidebar.markdown("---")
-    st.sidebar.markdown("### 🤖 RAG Configuration")
-    api_key = st.sidebar.text_input("Gemini API Key", type="password", help="Required to chat with the dossier")
     
     # ==========================================
     # MAIN PANEL: TOP BAR
@@ -491,37 +488,66 @@ def render_site_explorer(df, notes):
             """, unsafe_allow_html=True)
             
     # ==========================================
-    # SECTION: GEMINI AI INSIGHTS
+    # SECTION: WEB SEARCH INSIGHTS
     # ==========================================
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("## ✨ Gemini AI Stone Researcher")
+    st.markdown("## 🔍 Web Search Stone Researcher")
+    st.markdown(f"Click below to run a live, automated web search for stones used to build **{site_name}**.")
     
-    if not api_key:
-        st.info("👋 Enter your **Gemini API Key** in the sidebar to dynamically research the geological history and stones of this site using Google AI!")
-    else:
-        st.markdown(f"Click below to ask Gemini: *What remarkable stone was used to build **{site_name}**?*")
-        
-        if st.button("Research Stones with Gemini ✨", type="primary"):
-            with st.spinner(f"Gemini is researching {site_name}..."):
-                try:
-                    llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key=api_key)
-                    prompt = f"You are an expert geological historian. What remarkable stone or rock was used to build the UNESCO World Heritage site '{site_name}'? Suggest the major stone related to this site and explain in what context it was used. Keep it concise (1-2 short paragraphs)."
+    if st.button("Search Web for Building Stones 🌐", type="primary"):
+        with st.spinner(f"Searching the web for {site_name} stones..."):
+            try:
+                from duckduckgo_search import DDGS
+                results = DDGS().text(f"What stone was used to build {site_name} UNESCO?", max_results=3)
+                
+                if results:
+                    snippets = [r['body'] for r in results if 'body' in r]
+                    combined_text = " ".join(snippets).lower()
                     
-                    response = llm.invoke(prompt)
+                    # Extract stones
+                    COMMON_STONES = [
+                        'marble', 'granite', 'limestone', 'sandstone', 'basalt', 'tuff', 
+                        'slate', 'quartzite', 'travertine', 'andesite', 'diorite', 'porphyry', 
+                        'alabaster', 'schist', 'gneiss', 'obsidian', 'laterite', 'coral', 
+                        'chalk', 'flint', 'chert', 'adobe', 'brick', 'terracotta', 'sillar',
+                        'makrana marble', 'carrara marble', 'pietra serena'
+                    ]
                     
-                    st.markdown(f"""
-                    <div style="background-color: #f3e8ff; border-left: 4px solid #9333ea; padding: 20px; border-radius: 8px; margin-top: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                    found_stones = set()
+                    for stone in COMMON_STONES:
+                        if re.search(r'\\b' + re.escape(stone) + r'\\b', combined_text):
+                            found_stones.add(stone.title())
+                            
+                    st.markdown(f\"\"\"
+                    <div style="background-color: #f0fdfa; border-left: 4px solid #0d9488; padding: 20px; border-radius: 8px; margin-top: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
-                            <span style="font-size: 22px;">✨</span>
-                            <strong style="color: #6b21a8; font-size: 18px;">Gemini AI Insight</strong>
+                            <span style="font-size: 22px;">🌐</span>
+                            <strong style="color: #0f766e; font-size: 18px;">Top Web Search Results</strong>
                         </div>
-                        <div style="color: #4c1d95; line-height: 1.6; font-size: 1.05em; white-space: pre-wrap;">
-                            {response.content}
-                        </div>
+                        <ul style="color: #115e59; line-height: 1.6; font-size: 1.05em; padding-left: 20px;">
+                            {"".join([f"<li>{s}</li>" for s in snippets])}
+                        </ul>
                     </div>
-                    """, unsafe_allow_html=True)
-                except Exception as e:
-                    st.error(f"Failed to query Gemini: {str(e)}")
+                    \"\"\", unsafe_allow_html=True)
+                    
+                    st.markdown("### 💡 Dynamic Suggestion Based on Search")
+                    if found_stones:
+                        found_str = ", ".join(found_stones)
+                        st.markdown(f\"\"\"
+                        <div style="background-color: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px;">
+                            <span style="font-size: 18px;">💡</span>
+                            <strong style="color: #b08d00;">Extracted from Web Search:</strong> 
+                            The rock(s) <strong>{found_str}</strong> appear to be highly related to this monument based on live web results.
+                        </div>
+                        \"\"\", unsafe_allow_html=True)
+                    else:
+                        st.warning("Not available (No major building stones definitively extracted from the top 3 search results).")
+                        
+                else:
+                    st.warning("No search results found.")
+                    
+            except Exception as e:
+                st.error(f"Failed to query web search: {str(e)}")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
