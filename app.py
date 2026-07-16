@@ -515,10 +515,10 @@ def render_site_explorer(df, notes):
                     
                     found_stones = set()
                     for stone in COMMON_STONES:
-                        if re.search(r'\\b' + re.escape(stone) + r'\\b', combined_text):
+                        if re.search(r'\b' + re.escape(stone) + r'\b', combined_text):
                             found_stones.add(stone.title())
                             
-                    st.markdown(f\"\"\"
+                    st.markdown(f"""
                     <div style="background-color: #f0fdfa; border-left: 4px solid #0d9488; padding: 20px; border-radius: 8px; margin-top: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                         <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
                             <span style="font-size: 22px;">🌐</span>
@@ -528,18 +528,18 @@ def render_site_explorer(df, notes):
                             {"".join([f"<li>{s}</li>" for s in snippets])}
                         </ul>
                     </div>
-                    \"\"\", unsafe_allow_html=True)
+                    """, unsafe_allow_html=True)
                     
                     st.markdown("### 💡 Dynamic Suggestion Based on Search")
                     if found_stones:
                         found_str = ", ".join(found_stones)
-                        st.markdown(f\"\"\"
+                        st.markdown(f"""
                         <div style="background-color: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; border-radius: 5px;">
                             <span style="font-size: 18px;">💡</span>
                             <strong style="color: #b08d00;">Extracted from Web Search:</strong> 
                             The rock(s) <strong>{found_str}</strong> appear to be highly related to this monument based on live web results.
                         </div>
-                        \"\"\", unsafe_allow_html=True)
+                        """, unsafe_allow_html=True)
                     else:
                         st.warning("Not available (No major building stones definitively extracted from the top 3 search results).")
                         
