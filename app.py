@@ -106,6 +106,15 @@ st.markdown("""
     .stButton>button {
         border-radius: 20px;
         font-weight: bold;
+        background-color: #4CAF50 !important;
+        color: white !important;
+        border: 2px solid #45a049 !important;
+        transition: all 0.2s ease-in-out;
+    }
+    .stButton>button:hover {
+        background-color: #45a049 !important;
+        color: white !important;
+        border-color: #3d8b40 !important;
     }
     
     /* Sidebar Gallery Image Hover Effect */
