@@ -641,8 +641,9 @@ def render_site_explorer(df, notes):
         
         for h in headings:
             # Match the heading at the start of a line or surrounded by spaces/newlines. 
-            # Handle optional trailing colon (e.g. "Brief synthesis:")
-            text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})\s*:?(\s|$|\n|\\n)', r'\1<strong>\2</strong>\3', text)
+            # Handle optional trailing colon.
+            # Force a double newline (\n\n) after the heading so it sits on its own line like UNESCO.
+            text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})\s*:?\s*(\n|\\n|$)?', r'\1<strong>\2</strong>\n\n', text)
             
         # Bold the criteria
         text = re.sub(r'(?i)(^|\n|\\n|\s)(Criterion\s*\([ivx]+\):)', r'\1<strong>\2</strong>', text)
