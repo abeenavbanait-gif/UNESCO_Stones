@@ -1159,7 +1159,10 @@ def classify_site(row):
 
     # ── MANUAL OVERRIDES FOR MAJOR SITES WHERE UNESCO TEXT OMITS STONES ──
     manual_overrides = {
-        "taj mahal": ["Makrana marble"]
+        "taj mahal": ["Makrana marble"],
+        "piazza del duomo, pisa": ["Carrara marble"],
+        "historic centre of florence": ["Carrara marble"],
+        "city of verona": ["Carrara marble"]
     }
     for site, override_stones in manual_overrides.items():
         if site in site_name:
