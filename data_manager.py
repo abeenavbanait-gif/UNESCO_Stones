@@ -19,12 +19,12 @@ def load_monument_data(filepath=DATA_PATH):
         return pd.DataFrame()
 
 @st.cache_data
-def get_global_stats():
+def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv'):
     """Calculate macro statistics dynamically from the master CSV datasets."""
     stats = {}
     try:
         # Load master CSV database
-        master_df = pd.read_csv('Imp Data/unesco_whs_master_database.csv')
+        master_df = pd.read_csv(filepath)
         stats['total_unesco'] = len(master_df)
         stats['cultural'] = len(master_df[master_df['category'] == 'Cultural'])
         stats['natural'] = len(master_df[master_df['category'] == 'Natural'])
