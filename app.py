@@ -4,7 +4,7 @@ import re
 from data_manager import load_monument_data, load_notes, save_note, get_global_stats
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
-from graph_rag_pipeline import ingest_custom_pdf_graph, ask_graph_question
+from custom_rag_pipeline import ingest_custom_document, ask_custom_question
 import plotly.express as px
 import urllib.parse
 
@@ -700,43 +700,39 @@ def render_site_explorer(df, notes):
                     st.markdown(f"**Answer:**\n\n{answer}")
     
     # ==========================================
-    # SECTION 6: CUSTOM DOCUMENT GRAPHRAG
+    # SECTION 6: CUSTOM DOCUMENT RAG
     # ==========================================
     st.markdown("<br><hr>", unsafe_allow_html=True)
-    st.markdown("## 🕸️ Custom Document GraphRAG")
-    st.markdown("Upload any architectural PDF to build a semantic Knowledge Graph and chat with it.")
+    st.markdown("## 📚 Custom Document Chatbot (RAG)")
+    st.markdown("Upload PDFs, Word Docs, Text files, or Spreadsheets to train a local vector database and chat with your documents.")
     
-    with st.expander("Expand to Upload & Chat with Graph", expanded=False):
-        uploaded_file = st.file_uploader("Upload a PDF document", type=["pdf"])
+    with st.expander("Expand to Upload & Chat with Documents", expanded=False):
+        uploaded_file = st.file_uploader("Upload a document", type=["pdf", "txt", "docx", "csv", "xlsx"])
         
         if uploaded_file is not None:
-            if st.button("🏗️ Build Knowledge Graph (Takes 1-2 mins)"):
-                if not api_key:
-                    st.error("Please enter your Gemini API Key in the sidebar first.")
-                else:
-                    with st.spinner("Extracting entities and building Graph using Gemini..."):
-                        try:
-                            nodes, edges = ingest_custom_pdf_graph(uploaded_file.read(), api_key)
-                            st.success(f"Graph built successfully! Found {nodes} entities and {edges} relationships.")
-                        except Exception as e:
-                            st.error(f"Error building graph: {e}")
+            if st.button("🏗️ Ingest Document into Database"):
+                with st.spinner("Extracting text, chunking, and saving to ChromaDB (Local Vector Store)..."):
+                    try:
+                        # UploadedFile is essentially a BytesIO object with a .name property
+                        chunks_added = ingest_custom_document(uploaded_file.getvalue(), uploaded_file.name)
+                        st.success(f"Document ingested successfully! Saved {chunks_added} chunks to the vector database.")
+                    except Exception as e:
+                        st.error(f"Error ingesting document: {e}")
             
             st.markdown("---")
-            graph_q = st.text_input("Ask a question about your uploaded document's graph:")
-            if st.button("Ask Graph AI"):
+            doc_q = st.text_input("Ask a question about your uploaded documents:")
+            if st.button("Ask Document AI"):
                 if not api_key:
                     st.error("Please enter your Gemini API Key in the sidebar.")
-                elif not graph_q:
+                elif not doc_q:
                     st.warning("Please enter a question.")
                 else:
-                    with st.spinner("Traversing Knowledge Graph..."):
+                    with st.spinner("Searching Vector Database and generating answer..."):
                         try:
-                            ans, ctx = ask_graph_question(graph_q, api_key)
+                            ans = ask_custom_question(doc_q, api_key)
                             st.markdown(f"**Answer:**\n\n{ans}")
-                            with st.expander("View Graph Context Used"):
-                                st.text(ctx)
                         except Exception as e:
-                            st.error(f"Error querying graph: {e}")
+                            st.error(f"Error querying documents: {e}")
     
 
 
