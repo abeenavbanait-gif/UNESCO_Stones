@@ -162,16 +162,41 @@ def render_home_page(df):
     st.markdown("---")
     
     # Fetch global stats
-    g_stats = get_global_stats()
+
     
     # Global Overview Breakdown
+    g_stats = get_global_stats('Imp Data/unesco_whs_master_database.csv')
+    
     st.markdown(f"""
-    <div style="background-color: #f1f8ff; padding: 15px; border-radius: 8px; border-left: 4px solid #0366d6; margin-bottom: 20px;">
-        <h4 style="margin-top: 0; color: #0366d6;">Global UNESCO Overview</h4>
-        <p style="margin-bottom: 0;">
-            Out of <strong>{g_stats['total_unesco']}</strong> total World Heritage Sites, there are: 
-            <strong>{g_stats['cultural']} Cultural</strong>, <strong>{g_stats['natural']} Natural</strong>, and <strong>{g_stats['mixed']} Mixed</strong> sites.<br>
-            Within the {g_stats['cultural']} Cultural sites, <strong>{len(df)}</strong> were classified as <em>Built Monuments</em>.<br>
+    <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0366d6; margin-bottom: 20px;">
+        <h4 style="margin-top: 0; margin-bottom: 15px; color: #0366d6;">Global UNESCO Overview</h4>
+        <table style="width: 100%; border-collapse: collapse; text-align: left; background-color: white; border-radius: 6px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+            <tr style="background-color: #e1efff; border-bottom: 1px solid #c8e1ff;">
+                <th style="padding: 10px; color: #0366d6;">Metric</th>
+                <th style="padding: 10px; color: #0366d6;">Count</th>
+            </tr>
+            <tr style="border-bottom: 1px solid #eaeaea;">
+                <td style="padding: 10px;">Total World Heritage Sites</td>
+                <td style="padding: 10px;"><strong>{g_stats['total_unesco']}</strong></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eaeaea;">
+                <td style="padding: 10px;">Cultural Sites</td>
+                <td style="padding: 10px;"><strong>{g_stats['cultural']}</strong></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eaeaea;">
+                <td style="padding: 10px;">Natural Sites</td>
+                <td style="padding: 10px;"><strong>{g_stats['natural']}</strong></td>
+            </tr>
+            <tr style="border-bottom: 1px solid #eaeaea;">
+                <td style="padding: 10px;">Mixed Sites</td>
+                <td style="padding: 10px;"><strong>{g_stats['mixed']}</strong></td>
+            </tr>
+            <tr style="background-color: #f8fbfd; border-bottom: 1px solid #eaeaea;">
+                <td style="padding: 10px; color: #d35400;"><strong>Built Monuments (Analyzed)</strong></td>
+                <td style="padding: 10px; color: #d35400;"><strong>{len(df)}</strong></td>
+            </tr>
+        </table>
+        <p style="margin-top: 10px; margin-bottom: 0; font-size: 0.9em; color: #666;">
             <em>Note: {g_stats['missing_ouv']} cultural sites lacked official OUV statements and could not be fully analyzed.</em>
         </p>
     </div>
