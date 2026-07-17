@@ -513,9 +513,7 @@ def render_site_explorer(df, notes):
                 
                 content = page.content.lower()
                 summary_text = page.summary
-                if len(summary_text) > 500:
-                    summary_text = summary_text[:500] + "..."
-                    
+
                 # Extract stones
                 COMMON_STONES = [
                     'marble', 'granite', 'limestone', 'sandstone', 'basalt', 'tuff', 
