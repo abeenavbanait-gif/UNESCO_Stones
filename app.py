@@ -558,6 +558,41 @@ def render_site_explorer(df, notes):
             except Exception as e:
                 st.error(f"Failed to query Wikipedia: {str(e)}")
     
+    # ==========================================
+    # SECTION 6: CUSTOM DOCUMENT RAG
+    # ==========================================
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    st.markdown("## 📚 Custom Document Chatbot (RAG)")
+    st.markdown("Upload PDFs, Word Docs, Text files, Markdown files, or Spreadsheets to train a local vector database and chat with your documents.")
+    
+    with st.expander("Expand to Upload & Chat with Documents", expanded=False):
+        uploaded_file = st.file_uploader("Upload a document", type=["pdf", "txt", "md", "docx", "csv", "xlsx"])
+        
+        if uploaded_file is not None:
+            if st.button("🏗️ Ingest Document into Database"):
+                with st.spinner("Extracting text, chunking, and saving to ChromaDB (Local Vector Store)..."):
+                    try:
+                        # UploadedFile is essentially a BytesIO object with a .name property
+                        chunks_added = ingest_custom_document(uploaded_file.getvalue(), uploaded_file.name)
+                        st.success(f"Document ingested successfully! Saved {chunks_added} chunks to the vector database.")
+                    except Exception as e:
+                        st.error(f"Error ingesting document: {e}")
+            
+            st.markdown("---")
+            doc_q = st.text_input("Ask a question about your uploaded documents:")
+            if st.button("Ask Document AI"):
+                if not api_key:
+                    st.error("Please enter your Gemini API Key in the sidebar.")
+                elif not doc_q:
+                    st.warning("Please enter a question.")
+                else:
+                    with st.spinner("Searching Vector Database and generating answer..."):
+                        try:
+                            ans = ask_custom_question(doc_q, api_key)
+                            st.markdown(f"**Answer:**\n\n{ans}")
+                        except Exception as e:
+                            st.error(f"Error querying documents: {e}")
+
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
     # Generate list of all extracted terms for highlighting
@@ -698,41 +733,6 @@ def render_site_explorer(df, notes):
                 with st.spinner("Analyzing dossier..."):
                     answer = ask_question(unesco_id, question, api_key)
                     st.markdown(f"**Answer:**\n\n{answer}")
-    
-    # ==========================================
-    # SECTION 6: CUSTOM DOCUMENT RAG
-    # ==========================================
-    st.markdown("<br><hr>", unsafe_allow_html=True)
-    st.markdown("## 📚 Custom Document Chatbot (RAG)")
-    st.markdown("Upload PDFs, Word Docs, Text files, Markdown files, or Spreadsheets to train a local vector database and chat with your documents.")
-    
-    with st.expander("Expand to Upload & Chat with Documents", expanded=False):
-        uploaded_file = st.file_uploader("Upload a document", type=["pdf", "txt", "md", "docx", "csv", "xlsx"])
-        
-        if uploaded_file is not None:
-            if st.button("🏗️ Ingest Document into Database"):
-                with st.spinner("Extracting text, chunking, and saving to ChromaDB (Local Vector Store)..."):
-                    try:
-                        # UploadedFile is essentially a BytesIO object with a .name property
-                        chunks_added = ingest_custom_document(uploaded_file.getvalue(), uploaded_file.name)
-                        st.success(f"Document ingested successfully! Saved {chunks_added} chunks to the vector database.")
-                    except Exception as e:
-                        st.error(f"Error ingesting document: {e}")
-            
-            st.markdown("---")
-            doc_q = st.text_input("Ask a question about your uploaded documents:")
-            if st.button("Ask Document AI"):
-                if not api_key:
-                    st.error("Please enter your Gemini API Key in the sidebar.")
-                elif not doc_q:
-                    st.warning("Please enter a question.")
-                else:
-                    with st.spinner("Searching Vector Database and generating answer..."):
-                        try:
-                            ans = ask_custom_question(doc_q, api_key)
-                            st.markdown(f"**Answer:**\n\n{ans}")
-                        except Exception as e:
-                            st.error(f"Error querying documents: {e}")
     
 
 
