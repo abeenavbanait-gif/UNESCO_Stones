@@ -12,6 +12,9 @@ logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
 def ingest_all_wikipedia_sites():
+    # Set a custom user agent to prevent Wikipedia API from rejecting our requests
+    wikipedia.set_user_agent('UNESCOHeritageStonesBot/1.0 (contact@example.com)')
+    
     print("==========================================================")
     print("🌍 UNESCO Heritage Stones - Wikipedia Batch Ingestion 🌍")
     print("==========================================================")
@@ -44,10 +47,12 @@ def ingest_all_wikipedia_sites():
         try:
             # First try exact match, no auto suggest
             page = wikipedia.page(site, auto_suggest=False)
+            content = page.content
         except wikipedia.exceptions.DisambiguationError as e:
             # If disambiguation, just take the first option
             try:
                 page = wikipedia.page(e.options[0], auto_suggest=False)
+                content = page.content
             except Exception:
                 logger.warning(f"{progress} Disambiguation failed for {site}. Skipping.")
                 fail_count += 1
@@ -56,6 +61,7 @@ def ingest_all_wikipedia_sites():
             # If not found, try with auto_suggest enabled
             try:
                 page = wikipedia.page(site, auto_suggest=True)
+                content = page.content
             except Exception:
                 logger.warning(f"{progress} Page not found for {site}. Skipping.")
                 fail_count += 1
@@ -63,9 +69,10 @@ def ingest_all_wikipedia_sites():
         except Exception as e:
             logger.error(f"{progress} Unexpected error searching for {site}: {e}")
             fail_count += 1
+            # Sleep extra on API errors
+            time.sleep(5)
             continue
             
-        content = page.content
         if not content.strip():
             logger.warning(f"{progress} Page content is empty for {site}.")
             fail_count += 1

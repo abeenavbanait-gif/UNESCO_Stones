@@ -110,7 +110,7 @@ def ask_custom_question(question: str, api_key: str):
     context_text = "\n\n".join([f"Source: {doc.metadata.get('source', 'Unknown')}\n{doc.page_content}" for doc in docs])
     
     # 2. Call LLM
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0)
     
     system_prompt = (
         "You are an expert analytical assistant. "

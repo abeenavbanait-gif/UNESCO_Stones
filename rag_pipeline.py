@@ -105,7 +105,7 @@ def ask_question(unesco_id: str, question: str, api_key: str):
     context_text = "\\n\\n".join([doc.page_content for doc in docs])
     
     # 2. Call LLM directly
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-3.5-flash", temperature=0)
     
     system_prompt = (
         "You are an expert geologist and UNESCO researcher.\\n"
