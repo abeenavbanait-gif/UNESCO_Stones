@@ -577,21 +577,21 @@ def render_site_explorer(df, notes):
                         st.success(f"Document ingested successfully! Saved {chunks_added} chunks to the vector database.")
                     except Exception as e:
                         st.error(f"Error ingesting document: {e}")
-            
-            st.markdown("---")
-            doc_q = st.text_input("Ask a question about your uploaded documents:")
-            if st.button("Ask Document AI"):
-                if not api_key:
-                    st.error("Please enter your Gemini API Key in the sidebar.")
-                elif not doc_q:
-                    st.warning("Please enter a question.")
-                else:
-                    with st.spinner("Searching Vector Database and generating answer..."):
-                        try:
-                            ans = ask_custom_question(doc_q, api_key)
-                            st.markdown(f"**Answer:**\n\n{ans}")
-                        except Exception as e:
-                            st.error(f"Error querying documents: {e}")
+        
+        st.markdown("---")
+        doc_q = st.text_input("Ask a question about your uploaded documents or the Wikipedia database:")
+        if st.button("Ask Document AI"):
+            if not api_key:
+                st.error("Please enter your Gemini API Key in the sidebar.")
+            elif not doc_q:
+                st.warning("Please enter a question.")
+            else:
+                with st.spinner("Searching Vector Database and generating answer..."):
+                    try:
+                        ans = ask_custom_question(doc_q, api_key)
+                        st.markdown(f"**Answer:**\n\n{ans}")
+                    except Exception as e:
+                        st.error(f"Error querying documents: {e}")
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
