@@ -260,7 +260,7 @@ def render_home_page(df):
     st.markdown("<br>", unsafe_allow_html=True)
     
     # Charts
-    col_chart1, col_chart2 = st.columns(2)
+    col_chart1, col_chart2, col_chart3 = st.columns(3)
     with col_chart1:
         st.markdown("### 📊 Sites by Region")
         region_counts = df['region'].value_counts().reset_index()
@@ -273,6 +273,41 @@ def render_home_page(df):
         st.plotly_chart(fig_pie, use_container_width=True)
         
     with col_chart2:
+        st.markdown("### 🪨 Rock Class Distribution")
+        # Calculate rock class distribution
+        class_counts = {"Igneous": 0, "Metamorphic": 0, "Sedimentary": 0}
+        for val in df['stone_geological_class'].dropna():
+            for rock_class in val.split(';'):
+                rc = rock_class.strip().capitalize()
+                if rc in class_counts:
+                    class_counts[rc] += 1
+        
+        if sum(class_counts.values()) > 0:
+            pie_df = pd.DataFrame({
+                "Rock Class": list(class_counts.keys()),
+                "Count": list(class_counts.values())
+            })
+            fig_pie_class = px.pie(
+                pie_df, 
+                values="Count", 
+                names="Rock Class",
+                hole=0.4,
+                color="Rock Class",
+                color_discrete_map={
+                    "Igneous": "#e74c3c",       # Red
+                    "Metamorphic": "#9b59b6",   # Purple
+                    "Sedimentary": "#f1c40f"    # Yellow
+                }
+            )
+            fig_pie_class.update_layout(
+                legend=dict(orientation="h", yanchor="top", y=-0.1, xanchor="center", x=0.5),
+                margin=dict(t=20, b=20, l=20, r=20)
+            )
+            st.plotly_chart(fig_pie_class, use_container_width=True)
+        else:
+            st.info("No rock class data available.")
+            
+    with col_chart3:
         st.markdown("### 🪨 Top 15 Most Common Stones")
         # Flatten stone types
         stone_list = []
