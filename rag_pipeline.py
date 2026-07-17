@@ -122,7 +122,17 @@ def ask_question(unesco_id: str, question: str, api_key: str):
         HumanMessage(content=question)
     ])
     
-    return response.content
+    content = response.content
+    if isinstance(content, list):
+        for item in content:
+            if isinstance(item, dict) and item.get("type") == "text":
+                return item.get("text", str(content))
+            elif isinstance(item, dict) and "text" in item:
+                return item["text"]
+    elif isinstance(content, dict):
+        if "text" in content: return content["text"]
+        
+    return str(content)
 
 if __name__ == "__main__":
     import asyncio
