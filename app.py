@@ -336,6 +336,44 @@ def render_home_page(df):
        - It searches for geological terms, trade stones (e.g., *Carrara marble*), construction verbs (*carved*, *quarried*), and architectural elements (*facade*, *dome*).
        - The density of these terms heavily influences the final score.
     """)
+    
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    
+    # Data Download Section
+    st.markdown("### 💾 Download Raw Datasets")
+    st.markdown("Download the processed CSV files containing the heritage stones database, classification models, and NLP results.")
+    
+    import os
+    data_dir = "Imp Data"
+    if os.path.exists(data_dir):
+        csv_files = sorted([f for f in os.listdir(data_dir) if f.endswith('.csv')])
+        
+        if csv_files:
+            # Create a nice layout with 2 or 3 columns for buttons
+            cols = st.columns(3)
+            for i, file in enumerate(csv_files):
+                file_path = os.path.join(data_dir, file)
+                try:
+                    with open(file_path, "rb") as f:
+                        csv_bytes = f.read()
+                    
+                    # Convert file name to a more readable format for the label
+                    clean_name = file.replace('.csv', '').replace('_', ' ').title()
+                    if len(clean_name) > 30:
+                        clean_name = clean_name[:27] + "..."
+                        
+                    cols[i % 3].download_button(
+                        label=f"📥 {clean_name}",
+                        data=csv_bytes,
+                        file_name=file,
+                        mime="text/csv",
+                        help=f"Download {file}",
+                        key=f"dl_{file}"
+                    )
+                except Exception as e:
+                    pass
+        else:
+            st.info("No CSV datasets found in the data directory.")
 
 def render_site_explorer(df, notes):
     # ==========================================
