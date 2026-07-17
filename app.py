@@ -503,6 +503,8 @@ def render_site_explorer(df, notes):
         with st.spinner(f"Searching Wikipedia for {site_data['site_name']}..."):
             try:
                 import wikipedia
+                # Set a custom user agent to prevent Wikipedia API from rejecting our requests
+                wikipedia.set_user_agent('UNESCOHeritageStonesBot/1.0 (contact@example.com)')
                 
                 try:
                     page = wikipedia.page(site_data['site_name'], auto_suggest=False)
