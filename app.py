@@ -823,7 +823,18 @@ def render_site_explorer(df, notes):
             papers = col1.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
             confidence = col2.selectbox("Confidence Score", ["", "High", "Medium", "Low"], index=["", "High", "Medium", "Low"].index(manual_data.get('Confidence Score', '')) if manual_data.get('Confidence Score', '') in ["", "High", "Medium", "Low"] else 0)
             
-        submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
+        col_btn1, col_btn2 = st.columns([1, 4])
+        with col_btn1:
+            submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
+        with col_btn2:
+            # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
+            with st.popover("👀 View Table"):
+                import pandas as pd
+                try:
+                    current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
+                    st.dataframe(current_db)
+                except Exception as e:
+                    st.warning("Database not found or empty.")
         if submit_btn:
             form_data = {
                 'Architecture Type': arch_type,
