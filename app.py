@@ -202,6 +202,39 @@ def render_home_page(df):
     </div>
     """, unsafe_allow_html=True)
     
+    # Data Entry Progress Section
+    try:
+        manual_df = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
+        meta_cols = ['Site ID', 'Site Name', 'Country', 'safe_id']
+        data_cols = [c for c in manual_df.columns if c not in meta_cols]
+        
+        if len(data_cols) > 0:
+            calc_df = manual_df[data_cols].copy()
+            # Treat empty strings, string NaNs, and "Unknown" as empty data
+            calc_df = calc_df.replace([r'^\s*$', 'NaN', 'nan', 'None', 'Unknown'], pd.NA, regex=True)
+            
+            filled_counts = calc_df.notna().sum(axis=1)
+            visited_mask = filled_counts > 0
+            
+            visited_sites = manual_df[visited_mask].copy()
+            visited_sites['Fields Filled'] = filled_counts[visited_mask]
+            visited_sites['Total Fields'] = len(data_cols)
+            visited_sites['Completion (%)'] = ((visited_sites['Fields Filled'] / visited_sites['Total Fields']) * 100).round(1)
+            
+            num_visited = len(visited_sites)
+            
+            st.markdown(f"### 📊 Data Entry Progress: {num_visited} / {len(manual_df)} Sites Visited")
+            if num_visited > 0:
+                display_df = visited_sites[['Site Name', 'Country', 'Completion (%)', 'Fields Filled']].sort_values(by='Completion (%)', ascending=False).reset_index(drop=True)
+                display_df['Completion (%)'] = display_df['Completion (%)'].astype(str) + "%"
+                st.dataframe(display_df, use_container_width=True)
+            else:
+                st.info("No data has been filled yet. Head over to the Site Explorer to get started!")
+            
+            st.markdown("---")
+    except Exception as e:
+        st.warning(f"Could not load data entry statistics: {e}")
+        
     # High-level metrics
     col1, col2, col3, col4 = st.columns(4)
     total_sites = len(df)
