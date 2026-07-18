@@ -871,9 +871,42 @@ def render_site_explorer(df, notes):
             unesco_mention = col1.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('UNESCO Mention', '')) if manual_data.get('UNESCO Mention', '') in ["", "Yes", "No"] else 0)
             papers = col2.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
             
+        save_success = False
+        
         col_btn1, col_btn2 = st.columns([1, 4])
         with col_btn1:
             submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
+            if submit_btn:
+                form_data = {
+                    'Architecture Type': arch_type,
+                    'Construction Period': const_period,
+                    'Civilization': civilization,
+                    'UNESCO Criteria': unesco_crit,
+                    'Major Stone': major_stone,
+                    'Secondary Stone': secondary_stone,
+                    'Local Stone Name': local_name,
+                    'Lithology': lithology,
+                    'Geological Age': geo_age,
+                    'Formation': formation,
+                    'Colour': colour,
+                    'Texture': texture,
+                    'Minerals': minerals,
+                    'Quarry': quarry,
+                    'Quarry Country': quarry_country,
+                    'Local vs Imported': local_vs_imp,
+                    'Transport Distance': transport_dist,
+                    'Structural Use': struct_use,
+                    'Decorative Use': dec_use,
+                    'Masonry Technique': masonry,
+                    'Weathering': weathering,
+                    'Replacement Stone': replacement,
+                    'Restoration': restoration,
+                    'Condition': condition,
+                    'UNESCO Mention': unesco_mention,
+                    'Research Papers': papers
+                }
+                save_success = save_manual_data(unesco_id, form_data)
+                
         with col_btn2:
             # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
             with st.popover("👀 View Table"):
@@ -891,39 +924,12 @@ def render_site_explorer(df, notes):
                         st.dataframe(filtered_db)
                 except Exception as e:
                     st.warning("Database not found or empty.")
-        if submit_btn:
-            form_data = {
-                'Architecture Type': arch_type,
-                'Construction Period': const_period,
-                'Civilization': civilization,
-                'UNESCO Criteria': unesco_crit,
-                'Major Stone': major_stone,
-                'Secondary Stone': secondary_stone,
-                'Local Stone Name': local_name,
-                'Lithology': lithology,
-                'Geological Age': geo_age,
-                'Formation': formation,
-                'Colour': colour,
-                'Texture': texture,
-                'Minerals': minerals,
-                'Quarry': quarry,
-                'Quarry Country': quarry_country,
-                'Local vs Imported': local_vs_imp,
-                'Transport Distance': transport_dist,
-                'Structural Use': struct_use,
-                'Decorative Use': dec_use,
-                'Masonry Technique': masonry,
-                'Weathering': weathering,
-                'Replacement Stone': replacement,
-                'Restoration': restoration,
-                'Condition': condition,
-                'UNESCO Mention': unesco_mention,
-                'Research Papers': papers
-            }
-            if save_manual_data(unesco_id, form_data):
-                st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
-            else:
-                st.error("Failed to save data. Please check the logs.")
+                    
+    if submit_btn:
+        if save_success:
+            st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
+        else:
+            st.error("Failed to save data. Please check the logs.")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
