@@ -909,7 +909,7 @@ def render_site_explorer(df, notes):
         render_field("Restoration", "Restoration")
         render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
             
-    with st.expander("📚 G. Sources"):
+    with st.expander("📚 F. Sources"):
         val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get("UNESCO Mention", "")) if manual_data.get("UNESCO Mention", "") in ["", "Yes", "No"] else 0, key=f"unesco_{unesco_id}")
         val_other = st.text_input("Other references", value=str(manual_data.get("Other references", "")), key=f"other_ref_{unesco_id}")
         form_data["UNESCO Mention"] = val_unesco
