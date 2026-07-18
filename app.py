@@ -909,19 +909,24 @@ def render_site_explorer(df, notes):
                 
         with col_btn2:
             # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
-            with st.popover("👀 View Table"):
+            with st.popover("👀 View Site Data"):
                 try:
                     import numpy as np
                     current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-                    # Find columns that are not the ID or Name
-                    data_cols = [c for c in current_db.columns if c not in ['Site ID', 'Site Name']]
-                    # Replace empty strings/spaces with NaN and drop rows where ALL data columns are NaN
-                    filtered_db = current_db.replace(r'^\s*$', np.nan, regex=True).dropna(subset=data_cols, how='all')
                     
-                    if filtered_db.empty:
-                        st.info("No data has been saved yet. Start typing and hit save!")
+                    # Filter for the current site
+                    site_db = current_db[current_db['Site ID'].astype(str) == str(unesco_id)].copy()
+                    
+                    # Replace empty strings/spaces with NaN and drop columns that have no data
+                    site_db = site_db.replace(r'^\s*$', np.nan, regex=True).dropna(axis=1, how='all')
+                    
+                    if len(site_db.columns) <= 2:
+                        st.info("No manual data has been saved for this site yet. Start typing and hit save!")
                     else:
-                        st.dataframe(filtered_db)
+                        # Transpose for readability (creates a vertical key-value list)
+                        display_df = site_db.T
+                        display_df.columns = ["Value"]
+                        st.dataframe(display_df, use_container_width=True)
                 except Exception as e:
                     st.warning("Database not found or empty.")
                     
