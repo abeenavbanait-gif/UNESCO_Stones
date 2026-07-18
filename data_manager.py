@@ -5,6 +5,7 @@ import streamlit as st
 
 DATA_PATH = "Imp Data/built_monument_sites.csv"
 NOTES_PATH = "Imp Data/user_notes.json"
+MANUAL_DATA_PATH = "Imp Data/UNESCO_Stones_Manual_Data.csv"
 
 def load_monument_data(filepath=DATA_PATH):
     """Load the master CSV data."""
@@ -66,3 +67,43 @@ def save_note(unesco_id, note_text):
     except Exception as e:
         st.error(f"Failed to save note: {e}")
         return False
+
+def load_manual_data():
+    """Load the manual data CSV."""
+    if not os.path.exists(MANUAL_DATA_PATH):
+        return pd.DataFrame()
+    return pd.read_csv(MANUAL_DATA_PATH)
+
+def get_manual_data_for_site(unesco_id):
+    """Retrieve existing manual data for a specific site so the form can be pre-filled."""
+    df = load_manual_data()
+    if df.empty:
+        return {}
+    try:
+        df['Site ID'] = df['Site ID'].astype(str)
+        row = df[df['Site ID'] == str(unesco_id)]
+        if not row.empty:
+            return row.iloc[0].fillna("").to_dict()
+    except Exception as e:
+        pass
+    return {}
+
+def save_manual_data(unesco_id, form_data: dict):
+    """Save the form inputs back to the CSV."""
+    df = load_manual_data()
+    if df.empty:
+        return False
+        
+    try:
+        df['Site ID'] = df['Site ID'].astype(str)
+        idx = df[df['Site ID'] == str(unesco_id)].index
+        if len(idx) > 0:
+            for key, val in form_data.items():
+                if key in df.columns:
+                    df.loc[idx, key] = val
+            df.to_csv(MANUAL_DATA_PATH, index=False)
+            return True
+    except Exception as e:
+        st.error(f"Save manual data error: {e}")
+    return False
+

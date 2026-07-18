@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import re
-from data_manager import load_monument_data, load_notes, save_note, get_global_stats
+from data_manager import load_monument_data, load_notes, save_note, get_global_stats, get_manual_data_for_site, save_manual_data
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
 from custom_rag_pipeline import ingest_custom_document, ask_custom_question
@@ -729,6 +729,108 @@ def render_site_explorer(df, notes):
         if st.button("💾 Save Notes", type="primary"):
             if save_note(unesco_id, new_note):
                 st.success("Notes saved successfully!")
+                
+    # ==========================================
+    # SECTION X: MANUAL DATA ENTRY FORM
+    # ==========================================
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    st.markdown("## ✍️ Manual Data Entry Form")
+    st.markdown("Use this form to build out the master database while reviewing the site documents.")
+    
+    manual_data = get_manual_data_for_site(unesco_id)
+    
+    with st.form(key=f"manual_data_form_{unesco_id}"):
+        with st.expander("🏛️ A. Monument Information", expanded=True):
+            col1, col2 = st.columns(2)
+            arch_type = col1.text_input("Architecture Type", value=manual_data.get('Architecture Type', ''))
+            const_period = col2.text_input("Construction Period", value=manual_data.get('Construction Period', ''))
+            civilization = col1.text_input("Civilization", value=manual_data.get('Civilization', ''))
+            unesco_crit = col2.text_input("UNESCO Criteria", value=manual_data.get('UNESCO Criteria', ''))
+            
+        with st.expander("🪨 B. Geological Materials"):
+            col1, col2 = st.columns(2)
+            major_stone = col1.text_input("Major Stone", value=manual_data.get('Major Stone', ''))
+            secondary_stone = col2.text_input("Secondary Stone", value=manual_data.get('Secondary Stone', ''))
+            local_name = col1.text_input("Local Stone Name", value=manual_data.get('Local Stone Name', ''))
+            lithology = col2.text_input("Lithology", value=manual_data.get('Lithology', ''))
+            geo_age = col1.text_input("Geological Age", value=manual_data.get('Geological Age', ''))
+            formation = col2.text_input("Formation", value=manual_data.get('Formation', ''))
+            colour = col1.text_input("Colour", value=manual_data.get('Colour', ''))
+            texture = col2.text_input("Texture", value=manual_data.get('Texture', ''))
+            minerals = col1.text_input("Minerals", value=manual_data.get('Minerals', ''))
+            
+        with st.expander("🗺️ C. Provenance"):
+            col1, col2 = st.columns(2)
+            quarry = col1.text_input("Quarry", value=manual_data.get('Quarry', ''))
+            quarry_country = col2.text_input("Quarry Country", value=manual_data.get('Quarry Country', ''))
+            local_vs_imp = col1.selectbox("Local vs Imported", ["", "Local", "Imported", "Unknown"], index=["", "Local", "Imported", "Unknown"].index(manual_data.get('Local vs Imported', '')) if manual_data.get('Local vs Imported', '') in ["", "Local", "Imported", "Unknown"] else 0)
+            transport_dist = col2.text_input("Transport Distance", value=manual_data.get('Transport Distance', ''))
+            
+        with st.expander("🏗️ D. Architectural Use"):
+            col1, col2 = st.columns(2)
+            struct_use = col1.text_input("Structural Use", value=manual_data.get('Structural Use', ''))
+            dec_use = col2.text_input("Decorative Use", value=manual_data.get('Decorative Use', ''))
+            masonry = col1.text_input("Masonry Technique", value=manual_data.get('Masonry Technique', ''))
+            
+        with st.expander("🛠️ E. Conservation"):
+            col1, col2 = st.columns(2)
+            weathering = col1.text_input("Weathering", value=manual_data.get('Weathering', ''))
+            replacement = col2.text_input("Replacement Stone", value=manual_data.get('Replacement Stone', ''))
+            restoration = col1.text_input("Restoration", value=manual_data.get('Restoration', ''))
+            condition = col2.selectbox("Condition", ["", "Excellent", "Good", "Moderate", "Poor"], index=["", "Excellent", "Good", "Moderate", "Poor"].index(manual_data.get('Condition', '')) if manual_data.get('Condition', '') in ["", "Excellent", "Good", "Moderate", "Poor"] else 0)
+            
+        with st.expander("💎 F. Heritage Stone"):
+            col1, col2 = st.columns(2)
+            ghsr = col1.selectbox("GHSR", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('GHSR', '')) if manual_data.get('GHSR', '') in ["", "Yes", "No"] else 0)
+            heritage_cand = col2.selectbox("Heritage Stone Candidate", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('Heritage Stone Candidate', '')) if manual_data.get('Heritage Stone Candidate', '') in ["", "Yes", "No"] else 0)
+            geo_val = col1.selectbox("Geoheritage Value", ["", "High", "Medium", "Low"], index=["", "High", "Medium", "Low"].index(manual_data.get('Geoheritage Value', '')) if manual_data.get('Geoheritage Value', '') in ["", "High", "Medium", "Low"] else 0)
+            
+        with st.expander("📚 G. Sources"):
+            col1, col2 = st.columns(2)
+            unesco_mention = col1.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('UNESCO Mention', '')) if manual_data.get('UNESCO Mention', '') in ["", "Yes", "No"] else 0)
+            wiki_mention = col2.selectbox("Wikipedia Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('Wikipedia Mention', '')) if manual_data.get('Wikipedia Mention', '') in ["", "Yes", "No"] else 0)
+            papers = col1.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
+            confidence = col2.selectbox("Confidence Score", ["", "High", "Medium", "Low"], index=["", "High", "Medium", "Low"].index(manual_data.get('Confidence Score', '')) if manual_data.get('Confidence Score', '') in ["", "High", "Medium", "Low"] else 0)
+            
+        submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
+        if submit_btn:
+            form_data = {
+                'Architecture Type': arch_type,
+                'Construction Period': const_period,
+                'Civilization': civilization,
+                'UNESCO Criteria': unesco_crit,
+                'Major Stone': major_stone,
+                'Secondary Stone': secondary_stone,
+                'Local Stone Name': local_name,
+                'Lithology': lithology,
+                'Geological Age': geo_age,
+                'Formation': formation,
+                'Colour': colour,
+                'Texture': texture,
+                'Minerals': minerals,
+                'Quarry': quarry,
+                'Quarry Country': quarry_country,
+                'Local vs Imported': local_vs_imp,
+                'Transport Distance': transport_dist,
+                'Structural Use': struct_use,
+                'Decorative Use': dec_use,
+                'Masonry Technique': masonry,
+                'Weathering': weathering,
+                'Replacement Stone': replacement,
+                'Restoration': restoration,
+                'Condition': condition,
+                'GHSR': ghsr,
+                'Heritage Stone Candidate': heritage_cand,
+                'Geoheritage Value': geo_val,
+                'UNESCO Mention': unesco_mention,
+                'Wikipedia Mention': wiki_mention,
+                'Research Papers': papers,
+                'Confidence Score': confidence
+            }
+            if save_manual_data(unesco_id, form_data):
+                st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
+            else:
+                st.error("Failed to save data. Please check the logs.")
     
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
