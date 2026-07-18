@@ -80,8 +80,9 @@ def get_manual_data_for_site(unesco_id):
     if df.empty:
         return {}
     try:
-        df['Site ID'] = df['Site ID'].astype(str)
-        row = df[df['Site ID'] == str(unesco_id)]
+        safe_unesco_id = str(unesco_id).replace('.0', '')
+        df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+        row = df[df['safe_id'] == safe_unesco_id]
         if not row.empty:
             return row.iloc[0].fillna("").to_dict()
     except Exception as e:
@@ -95,8 +96,9 @@ def save_manual_data(unesco_id, form_data: dict):
         return False
         
     try:
-        df['Site ID'] = df['Site ID'].astype(str)
-        idx = df[df['Site ID'] == str(unesco_id)].index
+        safe_unesco_id = str(unesco_id).replace('.0', '')
+        df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+        idx = df[df['safe_id'] == safe_unesco_id].index
         if len(idx) > 0:
             for key, val in form_data.items():
                 if key in df.columns:

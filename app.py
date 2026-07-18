@@ -928,10 +928,18 @@ def render_site_explorer(df, notes):
                     
                     # Filter for current site and ONLY include active fields
                     valid_cols = [c for c in active_fields if c in current_db.columns]
-                    site_db = current_db[current_db['Site ID'].astype(str) == str(unesco_id)][valid_cols].copy()
                     
-                    # Transpose for readability (creates a vertical key-value list)
-                    display_df = site_db.T
+                    # Safely match IDs (handling '252' vs '252.0')
+                    safe_unesco_id = str(unesco_id).replace('.0', '')
+                    current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
+                    
+                    site_db = current_db[current_db['safe_id'] == safe_unesco_id][valid_cols].copy()
+                    
+                    if site_db.empty:
+                        st.info("No manual data has been saved for this site yet. Start typing and hit save!")
+                    else:
+                        # Transpose for readability (creates a vertical key-value list)
+                        display_df = site_db.T
                     display_df.columns = ["Value"]
                     
                     # Fill NaN with empty string for cleaner UI
