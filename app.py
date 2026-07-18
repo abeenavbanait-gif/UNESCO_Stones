@@ -891,7 +891,7 @@ def render_site_explorer(df, notes):
             
     with st.expander("🪨 B. Geological Materials"):
         render_field("Major Stone", "Major Stone")
-        render_field("Rock Class", "Rock Class")
+        render_field("Rock Class", "Rock Class", widget_type="selectbox", options=["", "Igneous Rock", "Sedimentary Rock", "Metamorphic Rock"])
         render_field("Secondary Stone(s)", "Secondary Stone")
         render_field("Local Stone Name", "Local Stone Name")
         render_field("Lithology", "Lithology")
