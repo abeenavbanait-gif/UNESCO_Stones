@@ -814,9 +814,7 @@ def render_site_explorer(df, notes):
         with st.expander("📚 G. Sources"):
             col1, col2 = st.columns(2)
             unesco_mention = col1.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('UNESCO Mention', '')) if manual_data.get('UNESCO Mention', '') in ["", "Yes", "No"] else 0)
-            wiki_mention = col2.selectbox("Wikipedia Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('Wikipedia Mention', '')) if manual_data.get('Wikipedia Mention', '') in ["", "Yes", "No"] else 0)
-            papers = col1.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
-            confidence = col2.selectbox("Confidence Score", ["", "High", "Medium", "Low"], index=["", "High", "Medium", "Low"].index(manual_data.get('Confidence Score', '')) if manual_data.get('Confidence Score', '') in ["", "High", "Medium", "Low"] else 0)
+            papers = col2.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
             
         col_btn1, col_btn2 = st.columns([1, 4])
         with col_btn1:
@@ -856,9 +854,7 @@ def render_site_explorer(df, notes):
                 'Restoration': restoration,
                 'Condition': condition,
                 'UNESCO Mention': unesco_mention,
-                'Wikipedia Mention': wiki_mention,
-                'Research Papers': papers,
-                'Confidence Score': confidence
+                'Research Papers': papers
             }
             if save_manual_data(unesco_id, form_data):
                 st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
