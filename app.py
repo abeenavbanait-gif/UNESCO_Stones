@@ -872,23 +872,42 @@ def render_site_explorer(df, notes):
         
     def render_field(label, field_key, widget_type="text_input", options=None, default=None):
         col_input, col_ref = st.columns([2, 1])
+        
+        main_key = f"data_{field_key}_{unesco_id}"
+        ref_key = f"ref_{field_key}_{unesco_id}"
+        ext_key = f"ext_{field_key}_{unesco_id}"
+        
+        # Initialize session state from DB if not already present for this site
+        if main_key not in st.session_state:
+            if widget_type == "multiselect":
+                st.session_state[main_key] = default if default else []
+            elif widget_type == "selectbox":
+                # Ensure the DB value is actually in the options, otherwise default to options[0]
+                db_val = str(manual_data.get(field_key, ''))
+                st.session_state[main_key] = db_val if db_val in options else options[0]
+            else:
+                st.session_state[main_key] = str(manual_data.get(field_key, ''))
+                
+        if ref_key not in st.session_state:
+            db_ref = str(manual_data.get(f"{field_key}_Ref", ""))
+            st.session_state[ref_key] = db_ref if db_ref in ["", "Internal (DS/OUV)", "External"] else ""
+            
+        if ext_key not in st.session_state:
+            st.session_state[ext_key] = str(manual_data.get(f"{field_key}_Ext", ""))
             
         if widget_type == "text_input":
-            val = col_input.text_input(label, value=str(manual_data.get(field_key, '')), key=f"data_{field_key}_{unesco_id}")
+            val = col_input.text_input(label, key=main_key)
         elif widget_type == "selectbox":
-            idx = options.index(manual_data.get(field_key, '')) if manual_data.get(field_key, '') in options else 0
-            val = col_input.selectbox(label, options, index=idx, key=f"data_{field_key}_{unesco_id}")
+            val = col_input.selectbox(label, options, key=main_key)
         elif widget_type == "multiselect":
-            val_list = col_input.multiselect(label, options=options, default=default, key=f"data_{field_key}_{unesco_id}")
+            val_list = col_input.multiselect(label, options=options, key=main_key)
             val = " | ".join(val_list)
                 
-        ref_val = str(manual_data.get(f"{field_key}_Ref", ""))
-        ref_idx = ["", "Internal (DS/OUV)", "External"].index(ref_val) if ref_val in ["", "Internal (DS/OUV)", "External"] else 0
-        ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], index=ref_idx, key=f"ref_{field_key}_{unesco_id}")
+        ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], key=ref_key)
             
         ext_val = ""
         if ref_choice == "External":
-            ext_val = col_ref.text_input("Citation / Link", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
+            ext_val = col_ref.text_input("Citation / Link", key=ext_key)
                 
         form_data[field_key] = val
         form_data[f"{field_key}_Ref"] = ref_choice
@@ -952,8 +971,14 @@ def render_site_explorer(df, notes):
         render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
             
     with st.expander("📚 F. Sources"):
-        val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get("UNESCO Mention", "")) if manual_data.get("UNESCO Mention", "") in ["", "Yes", "No"] else 0, key=f"unesco_{unesco_id}")
-        val_other = st.text_input("Other references", value=str(manual_data.get("Other references", "")), key=f"other_ref_{unesco_id}")
+        if f"unesco_{unesco_id}" not in st.session_state:
+            db_u = str(manual_data.get("UNESCO Mention", ""))
+            st.session_state[f"unesco_{unesco_id}"] = db_u if db_u in ["", "Yes", "No"] else ""
+        if f"other_ref_{unesco_id}" not in st.session_state:
+            st.session_state[f"other_ref_{unesco_id}"] = str(manual_data.get("Other references", ""))
+            
+        val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}")
+        val_other = st.text_input("Other references", key=f"other_ref_{unesco_id}")
         form_data["UNESCO Mention"] = val_unesco
         form_data["Other references"] = val_other
             
