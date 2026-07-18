@@ -845,9 +845,7 @@ def render_site_explorer(df, notes):
             ref_idx = ["", "Internal (DS/OUV)", "External"].index(ref_val) if ref_val in ["", "Internal (DS/OUV)", "External"] else 0
             ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], index=ref_idx, key=f"ref_{field_key}_{unesco_id}")
             
-            ext_val = ""
-            if ref_choice == "External":
-                ext_val = col_ext.text_input("External Citation", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
+            ext_val = col_ext.text_input("Citation / Link", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
                 
             form_data[field_key] = val
             form_data[f"{field_key}_Ref"] = ref_choice
