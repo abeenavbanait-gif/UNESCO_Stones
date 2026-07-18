@@ -744,14 +744,23 @@ def render_site_explorer(df, notes):
     if saved_docs:
         st.markdown("**Currently Saved Documents:**")
         for doc in saved_docs:
+            col_dl, col_del = st.columns([3, 1])
             with open(doc['path'], "rb") as f:
-                st.download_button(
+                col_dl.download_button(
                     label=f"⬇️ Download {doc['name']}",
                     data=f.read(),
                     file_name=doc['file'],
                     mime="application/octet-stream",
                     key=f"dl_{doc['file']}"
                 )
+            if col_del.button("🗑️ Delete", key=f"del_{doc['file']}", type="secondary"):
+                try:
+                    import os
+                    os.remove(doc['path'])
+                    st.toast(f"Deleted {doc['name']}")
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Error deleting file: {e}")
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
