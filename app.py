@@ -917,16 +917,13 @@ def render_site_explorer(df, notes):
                     # Filter for the current site
                     site_db = current_db[current_db['Site ID'].astype(str) == str(unesco_id)].copy()
                     
-                    # Replace empty strings/spaces with NaN and drop columns that have no data
-                    site_db = site_db.replace(r'^\s*$', np.nan, regex=True).dropna(axis=1, how='all')
+                    # Transpose for readability (creates a vertical key-value list)
+                    display_df = site_db.T
+                    display_df.columns = ["Value"]
                     
-                    if len(site_db.columns) <= 2:
-                        st.info("No manual data has been saved for this site yet. Start typing and hit save!")
-                    else:
-                        # Transpose for readability (creates a vertical key-value list)
-                        display_df = site_db.T
-                        display_df.columns = ["Value"]
-                        st.dataframe(display_df, use_container_width=True)
+                    # Fill NaN with empty string for cleaner UI
+                    display_df = display_df.fillna("")
+                    st.dataframe(display_df, use_container_width=True)
                 except Exception as e:
                     st.warning("Database not found or empty.")
                     
