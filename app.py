@@ -768,8 +768,6 @@ def render_site_explorer(df, notes):
                     # e.g. "(i)" is in "(i)", but we don't want "(i)" to match "(iii)"
                     # since existing format is usually "(i)(ii)", we can just check if numeral in existing_crit
                     # Wait, "(i)" is inside "(ii)" and "(iii)" and "(iv)".
-                    # We should parse existing_crit properly:
-                    import re
                     # extract all matches like (i), (ii), etc
                     found_numerals = re.findall(r'\([ivx]+\)', existing_crit.lower())
                     if numeral.lower() in found_numerals:
