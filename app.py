@@ -810,12 +810,7 @@ def render_site_explorer(df, notes):
             restoration = col1.text_input("Restoration", value=manual_data.get('Restoration', ''))
             condition = col2.selectbox("Condition", ["", "Excellent", "Good", "Moderate", "Poor"], index=["", "Excellent", "Good", "Moderate", "Poor"].index(manual_data.get('Condition', '')) if manual_data.get('Condition', '') in ["", "Excellent", "Good", "Moderate", "Poor"] else 0)
             
-        with st.expander("💎 F. Heritage Stone"):
-            col1, col2 = st.columns(2)
-            ghsr = col1.selectbox("GHSR", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('GHSR', '')) if manual_data.get('GHSR', '') in ["", "Yes", "No"] else 0)
-            heritage_cand = col2.selectbox("Heritage Stone Candidate", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('Heritage Stone Candidate', '')) if manual_data.get('Heritage Stone Candidate', '') in ["", "Yes", "No"] else 0)
-            geo_val = col1.selectbox("Geoheritage Value", ["", "High", "Medium", "Low"], index=["", "High", "Medium", "Low"].index(manual_data.get('Geoheritage Value', '')) if manual_data.get('Geoheritage Value', '') in ["", "High", "Medium", "Low"] else 0)
-            
+
         with st.expander("📚 G. Sources"):
             col1, col2 = st.columns(2)
             unesco_mention = col1.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('UNESCO Mention', '')) if manual_data.get('UNESCO Mention', '') in ["", "Yes", "No"] else 0)
@@ -860,9 +855,6 @@ def render_site_explorer(df, notes):
                 'Replacement Stone': replacement,
                 'Restoration': restoration,
                 'Condition': condition,
-                'GHSR': ghsr,
-                'Heritage Stone Candidate': heritage_cand,
-                'Geoheritage Value': geo_val,
                 'UNESCO Mention': unesco_mention,
                 'Wikipedia Mention': wiki_mention,
                 'Research Papers': papers,

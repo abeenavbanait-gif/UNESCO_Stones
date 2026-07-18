@@ -100,6 +100,8 @@ def save_manual_data(unesco_id, form_data: dict):
         if len(idx) > 0:
             for key, val in form_data.items():
                 if key in df.columns:
+                    if df[key].dtype == 'float64':
+                        df[key] = df[key].astype(object)
                     df.loc[idx, key] = val
             df.to_csv(MANUAL_DATA_PATH, index=False)
             return True
