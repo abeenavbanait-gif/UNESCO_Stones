@@ -109,3 +109,41 @@ def save_manual_data(unesco_id, form_data: dict):
         st.error(f"Save manual data error: {e}")
     return False
 
+UPLOADED_DOCS_DIR = "Imp Data/uploaded_docs"
+
+def save_site_document(unesco_id, doc_name, uploaded_file):
+    """Save an uploaded document to the local database structure for a specific site."""
+    site_dir = os.path.join(UPLOADED_DOCS_DIR, str(unesco_id))
+    os.makedirs(site_dir, exist_ok=True)
+    
+    ext = uploaded_file.name.split('.')[-1] if '.' in uploaded_file.name else 'pdf'
+    safe_name = "".join([c for c in doc_name if c.isalnum() or c in " -_"]).strip()
+    if not safe_name: 
+        safe_name = "document"
+    
+    file_path = os.path.join(site_dir, f"{safe_name}.{ext}")
+    try:
+        with open(file_path, "wb") as f:
+            f.write(uploaded_file.getvalue())
+        return True, file_path
+    except Exception as e:
+        return False, str(e)
+
+def get_site_documents(unesco_id):
+    """Retrieve all uploaded documents for a specific site."""
+    site_dir = os.path.join(UPLOADED_DOCS_DIR, str(unesco_id))
+    if not os.path.exists(site_dir):
+        return []
+    
+    docs = []
+    try:
+        for f in os.listdir(site_dir):
+            if os.path.isfile(os.path.join(site_dir, f)):
+                docs.append({
+                    "name": os.path.splitext(f)[0],
+                    "file": f,
+                    "path": os.path.join(site_dir, f)
+                })
+    except Exception:
+        pass
+    return docs

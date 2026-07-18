@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import re
-from data_manager import load_monument_data, load_notes, save_note, get_global_stats, get_manual_data_for_site, save_manual_data
+from data_manager import load_monument_data, load_notes, save_note, get_global_stats, get_manual_data_for_site, save_manual_data, save_site_document, get_site_documents
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
 from custom_rag_pipeline import ingest_custom_document, ask_custom_question
@@ -497,6 +497,21 @@ def render_site_explorer(df, notes):
     unesco_url = site_data.get('unesco_url', f"https://whc.unesco.org/en/list/{unesco_id}")
     
     # Display the Essential Details Bar
+    saved_docs = get_site_documents(unesco_id)
+    doc_links_html = ""
+    import base64
+    for doc in saved_docs:
+        try:
+            with open(doc['path'], "rb") as f:
+                b64 = base64.b64encode(f.read()).decode()
+            doc_links_html += f'<a href="data:application/octet-stream;base64,{b64}" download="{doc["file"]}" style="margin-right: 15px;">🔗 View {doc["name"]}</a>'
+        except Exception:
+            pass
+            
+    if not doc_links_html:
+        # If no documents uploaded yet, provide an anchor to jump down to the upload section
+        doc_links_html = '<a href="#upload-site-documents" style="margin-right: 15px;">🔗 ICOMOS Document</a>'
+
     st.markdown(f"""
     <div class="details-bar">
         <h1 style="margin-top:0px; margin-bottom:5px;">🏛️ {site_data['site_name']}</h1>
@@ -507,6 +522,7 @@ def render_site_explorer(df, notes):
             <strong>Score:</strong> {site_data.get('score', 'N/A')}
         </p>
         <div>
+            {doc_links_html}
             <a href="{unesco_url}" target="_blank" style="margin-right: 15px;">🔗 View Official UNESCO Dossier</a>
             <a href="{unesco_url}/gallery/" target="_blank" style="margin-right: 15px;">🖼️ View Full UNESCO Gallery</a>
             <a href="{maps_url}" target="_blank">🗺️ Open in Google Maps</a>
@@ -665,6 +681,45 @@ def render_site_explorer(df, notes):
                         st.markdown(f"**Answer:**\n\n{ans}")
                     except Exception as e:
                         st.error(f"Error querying documents: {e}")
+
+    st.markdown("<br><hr>", unsafe_allow_html=True)
+    
+    # ==========================================
+    # SECTION 6.5: UPLOAD SITE DOCUMENTS
+    # ==========================================
+    st.markdown("<div id='upload-site-documents'></div>", unsafe_allow_html=True)
+    st.markdown("## 📁 Upload Site Documents")
+    st.markdown("Save official documents (e.g. ICOMOS Dossier, maps, research papers) directly to this site's database.")
+    
+    with st.expander("Expand to Upload Document", expanded=False):
+        doc_name = st.text_input("Document Name", value="ICOMOS Document")
+        uploaded_doc = st.file_uploader("Upload File (PDF, DOCX, TXT, etc.)")
+        
+        if st.button("💾 Save Document to Database", type="primary"):
+            if not uploaded_doc:
+                st.warning("Please upload a file first.")
+            elif not doc_name:
+                st.warning("Please provide a name for the document.")
+            else:
+                success, msg = save_site_document(unesco_id, doc_name, uploaded_doc)
+                if success:
+                    st.success(f"Successfully saved {doc_name}! It is now available in the top banner.")
+                    st.rerun()
+                else:
+                    st.error(f"Failed to save document: {msg}")
+                    
+    # Show existing documents
+    if saved_docs:
+        st.markdown("**Currently Saved Documents:**")
+        for doc in saved_docs:
+            with open(doc['path'], "rb") as f:
+                st.download_button(
+                    label=f"⬇️ Download {doc['name']}",
+                    data=f.read(),
+                    file_name=doc['file'],
+                    mime="application/octet-stream",
+                    key=f"dl_{doc['file']}"
+                )
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
