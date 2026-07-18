@@ -386,12 +386,12 @@ def view_fullscreen_table(unesco_id):
             'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
             'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
             'Structural Use', 'Decorative Use', 'Masonry Technique',
-            'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
-            'UNESCO Mention', 'Research Papers'
+            'Weathering', 'Replacement Stone', 'Restoration', 'Condition'
         ]
         active_fields = ['Site ID', 'Site Name', 'Country']
         for bf in base_fields:
             active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
+        active_fields.extend(['UNESCO Mention', 'Other references'])
         valid_cols = [c for c in active_fields if c in current_db.columns]
         safe_unesco_id = str(unesco_id).replace('.0', '')
         current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
@@ -909,8 +909,10 @@ def render_site_explorer(df, notes):
         render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
             
     with st.expander("📚 G. Sources"):
-        render_field("UNESCO Mention", "UNESCO Mention", widget_type="selectbox", options=["", "Yes", "No"])
-        render_field("Research Papers", "Research Papers")
+        val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get("UNESCO Mention", "")) if manual_data.get("UNESCO Mention", "") in ["", "Yes", "No"] else 0, key=f"unesco_{unesco_id}")
+        val_other = st.text_input("Other references", value=str(manual_data.get("Other references", "")), key=f"other_ref_{unesco_id}")
+        form_data["UNESCO Mention"] = val_unesco
+        form_data["Other references"] = val_other
             
     save_success = False
     col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 3])
@@ -936,12 +938,12 @@ def render_site_explorer(df, notes):
         'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
         'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
         'Structural Use', 'Decorative Use', 'Masonry Technique',
-        'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
-        'UNESCO Mention', 'Research Papers'
+        'Weathering', 'Replacement Stone', 'Restoration', 'Condition'
     ]
                 active_fields = ['Site ID', 'Site Name', 'Country']
                 for bf in base_fields:
                     active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
+                active_fields.extend(['UNESCO Mention', 'Other references'])
                     
                 valid_cols = [c for c in active_fields if c in current_db.columns]
                     
