@@ -745,7 +745,40 @@ def render_site_explorer(df, notes):
             arch_type = col1.text_input("Architecture Type", value=manual_data.get('Architecture Type', ''))
             const_period = col2.text_input("Construction Period", value=manual_data.get('Construction Period', ''))
             civilization = col1.text_input("Civilization", value=manual_data.get('Civilization', ''))
-            unesco_crit = col2.text_input("UNESCO Criteria", value=manual_data.get('UNESCO Criteria', ''))
+            
+            CRITERIA_OPTIONS = [
+                "(i) to represent a masterpiece of human creative genius;",
+                "(ii) to exhibit an important interchange of human values, over a span of time or within a cultural area of the world, on developments in architecture or technology, monumental arts, town-planning or landscape design;",
+                "(iii) to bear a unique or at least exceptional testimony to a cultural tradition or to a civilization which is living or which has disappeared;",
+                "(iv) to be an outstanding example of a type of building, architectural or technological ensemble or landscape which illustrates (a) significant stage(s) in human history;",
+                "(v) to be an outstanding example of a traditional human settlement, land-use, or sea-use which is representative of a culture (or cultures), or human interaction with the environment especially when it has become vulnerable under the impact of irreversible change;",
+                "(vi) to be directly or tangibly associated with events or living traditions, with ideas, or with beliefs, with artistic and literary works of outstanding universal significance;",
+                "(vii) to contain superlative natural phenomena or areas of exceptional natural beauty and aesthetic importance;",
+                "(viii) to be outstanding examples representing major stages of earth's history, including the record of life, significant on-going geological processes in the development of landforms, or significant geomorphic or physiographic features;",
+                "(ix) to be outstanding examples representing significant on-going ecological and biological processes in the evolution and development of terrestrial, fresh water, coastal and marine ecosystems and communities of plants and animals;",
+                "(x) to contain the most important and significant natural habitats for in-situ conservation of biological diversity, including those containing threatened species of outstanding universal value from the point of view of science or conservation."
+            ]
+            
+            existing_crit = str(manual_data.get('UNESCO Criteria', ''))
+            default_crits = []
+            if existing_crit:
+                for opt in CRITERIA_OPTIONS:
+                    numeral = opt.split(' ')[0] # extracts "(i)", "(ii)", etc.
+                    # check if numeral is in existing_crit, and it's an exact match
+                    # e.g. "(i)" is in "(i)", but we don't want "(i)" to match "(iii)"
+                    # since existing format is usually "(i)(ii)", we can just check if numeral in existing_crit
+                    # Wait, "(i)" is inside "(ii)" and "(iii)" and "(iv)".
+                    # We should parse existing_crit properly:
+                    import re
+                    # extract all matches like (i), (ii), etc
+                    found_numerals = re.findall(r'\([ivx]+\)', existing_crit.lower())
+                    if numeral.lower() in found_numerals:
+                        default_crits.append(opt)
+                        
+            unesco_crit_list = col2.multiselect("UNESCO Criteria", options=CRITERIA_OPTIONS, default=default_crits)
+            # We will save the joined full text strings so you have the statements in your CSV
+            unesco_crit = " | ".join(unesco_crit_list)
+            
             
         with st.expander("🪨 B. Geological Materials"):
             col1, col2 = st.columns(2)
