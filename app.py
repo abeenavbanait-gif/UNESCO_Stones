@@ -384,7 +384,7 @@ def view_fullscreen_table(unesco_id):
             'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
             'Major Stone', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
             'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
-            'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
+            'Quarry', 'Quarry Country', 'Local vs Imported', 'Local vs Imported Remarks', 'Transport Distance',
             'Structural Use', 'Decorative Use', 'Masonry Technique',
             'Weathering', 'Replacement Stone', 'Restoration', 'Condition'
         ]
@@ -904,7 +904,8 @@ def render_site_explorer(df, notes):
     with st.expander("🗺️ C. Provenance"):
         render_field("Quarry", "Quarry")
         render_field("Quarry Country", "Quarry Country")
-        render_field("Local vs Imported", "Local vs Imported", widget_type="selectbox", options=["", "Local", "Imported", "Unknown"])
+        render_field("Local vs Imported", "Local vs Imported")
+        render_field("Local vs Imported Remarks", "Local vs Imported Remarks")
         render_field("Transport Distance", "Transport Distance")
             
     with st.expander("🏗️ D. Architectural Use"):
@@ -946,7 +947,7 @@ def render_site_explorer(df, notes):
         'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
         'Major Stone', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
         'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
-        'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
+        'Quarry', 'Quarry Country', 'Local vs Imported', 'Local vs Imported Remarks', 'Transport Distance',
         'Structural Use', 'Decorative Use', 'Masonry Technique',
         'Weathering', 'Replacement Stone', 'Restoration', 'Condition'
     ]
