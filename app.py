@@ -375,6 +375,37 @@ def render_home_page(df):
         else:
             st.info("No CSV datasets found in the data directory.")
 
+@st.dialog("🖥️ Fullscreen Site Data", width="large")
+def view_fullscreen_table(unesco_id):
+    try:
+        import numpy as np
+        current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
+        active_fields = [
+            'Site ID', 'Site Name', 'Country', 'UNESCO Criteria',
+            'Architecture Type', 'Construction Period', 'Civilization',
+            'Major Stone', 'Secondary Stone', 'Local Stone Name',
+            'Lithology', 'Geological Age', 'Formation', 'Colour',
+            'Texture', 'Minerals', 'Quarry', 'Quarry Country',
+            'Local vs Imported', 'Transport Distance', 'Structural Use',
+            'Decorative Use', 'Masonry Technique', 'Weathering',
+            'Replacement Stone', 'Restoration', 'Condition',
+            'UNESCO Mention', 'Research Papers'
+        ]
+        valid_cols = [c for c in active_fields if c in current_db.columns]
+        safe_unesco_id = str(unesco_id).replace('.0', '')
+        current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
+        site_db = current_db[current_db['safe_id'] == safe_unesco_id][valid_cols].copy()
+        
+        if site_db.empty:
+            st.info("No manual data has been saved for this site yet.")
+        else:
+            display_df = site_db.T
+            display_df.columns = ["Value"]
+            display_df = display_df.fillna("")
+            st.dataframe(display_df, use_container_width=True, height=600)
+    except Exception as e:
+        st.warning("Database not found or empty.")
+
 def render_site_explorer(df, notes):
     # ==========================================
     # SIDEBAR FILTERING
@@ -873,39 +904,46 @@ def render_site_explorer(df, notes):
             
         save_success = False
         
-        col_btn1, col_btn2 = st.columns([1, 4])
+        col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 3])
         with col_btn1:
             submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
-            if submit_btn:
-                form_data = {
-                    'Architecture Type': arch_type,
-                    'Construction Period': const_period,
-                    'Civilization': civilization,
-                    'UNESCO Criteria': unesco_crit,
-                    'Major Stone': major_stone,
-                    'Secondary Stone': secondary_stone,
-                    'Local Stone Name': local_name,
-                    'Lithology': lithology,
-                    'Geological Age': geo_age,
-                    'Formation': formation,
-                    'Colour': colour,
-                    'Texture': texture,
-                    'Minerals': minerals,
-                    'Quarry': quarry,
-                    'Quarry Country': quarry_country,
-                    'Local vs Imported': local_vs_imp,
-                    'Transport Distance': transport_dist,
-                    'Structural Use': struct_use,
-                    'Decorative Use': dec_use,
-                    'Masonry Technique': masonry,
-                    'Weathering': weathering,
-                    'Replacement Stone': replacement,
-                    'Restoration': restoration,
-                    'Condition': condition,
-                    'UNESCO Mention': unesco_mention,
-                    'Research Papers': papers
-                }
-                save_success = save_manual_data(unesco_id, form_data)
+        
+        with col_btn3:
+            fullscreen_btn = st.form_submit_button("🖥️ Fullscreen Table", type="secondary")
+            
+        if submit_btn or fullscreen_btn:
+            form_data = {
+                'Architecture Type': arch_type,
+                'Construction Period': const_period,
+                'Civilization': civilization,
+                'UNESCO Criteria': unesco_crit,
+                'Major Stone': major_stone,
+                'Secondary Stone': secondary_stone,
+                'Local Stone Name': local_name,
+                'Lithology': lithology,
+                'Geological Age': geo_age,
+                'Formation': formation,
+                'Colour': colour,
+                'Texture': texture,
+                'Minerals': minerals,
+                'Quarry': quarry,
+                'Quarry Country': quarry_country,
+                'Local vs Imported': local_vs_imp,
+                'Transport Distance': transport_dist,
+                'Structural Use': struct_use,
+                'Decorative Use': dec_use,
+                'Masonry Technique': masonry,
+                'Weathering': weathering,
+                'Replacement Stone': replacement,
+                'Restoration': restoration,
+                'Condition': condition,
+                'UNESCO Mention': unesco_mention,
+                'Research Papers': papers
+            }
+            save_success = save_manual_data(unesco_id, form_data)
+            
+            if fullscreen_btn:
+                view_fullscreen_table(unesco_id)
                 
         with col_btn2:
             # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
