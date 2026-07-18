@@ -380,17 +380,18 @@ def view_fullscreen_table(unesco_id):
     try:
         import numpy as np
         current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-        active_fields = [
-            'Site ID', 'Site Name', 'Country', 'UNESCO Criteria',
-            'Architecture Type', 'Construction Period', 'Civilization',
-            'Major Stone', 'Secondary Stone', 'Local Stone Name',
-            'Lithology', 'Geological Age', 'Formation', 'Colour',
-            'Texture', 'Minerals', 'Quarry', 'Quarry Country',
-            'Local vs Imported', 'Transport Distance', 'Structural Use',
-            'Decorative Use', 'Masonry Technique', 'Weathering',
-            'Replacement Stone', 'Restoration', 'Condition',
+        base_fields = [
+            'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
+            'Major Stone', 'Secondary Stone', 'Local Stone Name', 'Lithology',
+            'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
+            'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
+            'Structural Use', 'Decorative Use', 'Masonry Technique',
+            'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
             'UNESCO Mention', 'Research Papers'
         ]
+        active_fields = ['Site ID', 'Site Name', 'Country']
+        for bf in base_fields:
+            active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
         valid_cols = [c for c in active_fields if c in current_db.columns]
         safe_unesco_id = str(unesco_id).replace('.0', '')
         current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
@@ -826,11 +827,36 @@ def render_site_explorer(df, notes):
     manual_data = get_manual_data_for_site(unesco_id)
     
     with st.form(key=f"manual_data_form_{unesco_id}"):
+        form_data = {}
+        
+        def render_field(label, field_key, widget_type="text_input", options=None, default=None):
+            col_input, col_ref, col_ext = st.columns([2, 1, 1])
+            
+            if widget_type == "text_input":
+                val = col_input.text_input(label, value=str(manual_data.get(field_key, '')))
+            elif widget_type == "selectbox":
+                idx = options.index(manual_data.get(field_key, '')) if manual_data.get(field_key, '') in options else 0
+                val = col_input.selectbox(label, options, index=idx)
+            elif widget_type == "multiselect":
+                val_list = col_input.multiselect(label, options=options, default=default)
+                val = " | ".join(val_list)
+                
+            ref_val = str(manual_data.get(f"{field_key}_Ref", ""))
+            ref_idx = ["", "Internal (DS/OUV)", "External"].index(ref_val) if ref_val in ["", "Internal (DS/OUV)", "External"] else 0
+            ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], index=ref_idx, key=f"ref_{field_key}_{unesco_id}")
+            
+            ext_val = ""
+            if ref_choice == "External":
+                ext_val = col_ext.text_input("External Citation", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
+                
+            form_data[field_key] = val
+            form_data[f"{field_key}_Ref"] = ref_choice
+            form_data[f"{field_key}_Ext"] = ext_val
+
         with st.expander("🏛️ A. Monument Information", expanded=True):
-            col1, col2 = st.columns(2)
-            arch_type = col1.text_input("Architecture Type", value=manual_data.get('Architecture Type', ''))
-            const_period = col2.text_input("Construction Period", value=manual_data.get('Construction Period', ''))
-            civilization = col1.text_input("Civilization", value=manual_data.get('Civilization', ''))
+            render_field("Architecture Type", "Architecture Type")
+            render_field("Construction Period", "Construction Period")
+            render_field("Civilization", "Civilization")
             
             CRITERIA_OPTIONS = [
                 "(i) to represent a masterpiece of human creative genius;",
@@ -844,145 +870,93 @@ def render_site_explorer(df, notes):
                 "(ix) to be outstanding examples representing significant on-going ecological and biological processes in the evolution and development of terrestrial, fresh water, coastal and marine ecosystems and communities of plants and animals;",
                 "(x) to contain the most important and significant natural habitats for in-situ conservation of biological diversity, including those containing threatened species of outstanding universal value from the point of view of science or conservation."
             ]
-            
             existing_crit = str(manual_data.get('UNESCO Criteria', ''))
             default_crits = []
             if existing_crit:
+                import re as regex
                 for opt in CRITERIA_OPTIONS:
-                    numeral = opt.split(' ')[0] # extracts "(i)", "(ii)", etc.
-                    # check if numeral is in existing_crit, and it's an exact match
-                    # e.g. "(i)" is in "(i)", but we don't want "(i)" to match "(iii)"
-                    # since existing format is usually "(i)(ii)", we can just check if numeral in existing_crit
-                    # Wait, "(i)" is inside "(ii)" and "(iii)" and "(iv)".
-                    # extract all matches like (i), (ii), etc
-                    found_numerals = re.findall(r'\([ivx]+\)', existing_crit.lower())
+                    numeral = opt.split(' ')[0]
+                    found_numerals = regex.findall(r'\([ivx]+\)', existing_crit.lower())
                     if numeral.lower() in found_numerals:
                         default_crits.append(opt)
-                        
-            unesco_crit_list = col2.multiselect("UNESCO Criteria", options=CRITERIA_OPTIONS, default=default_crits)
-            # We will save the joined full text strings so you have the statements in your CSV
-            unesco_crit = " | ".join(unesco_crit_list)
-            
+            render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
             
         with st.expander("🪨 B. Geological Materials"):
-            col1, col2 = st.columns(2)
-            major_stone = col1.text_input("Major Stone", value=manual_data.get('Major Stone', ''))
-            secondary_stone = col2.text_input("Secondary Stone(s)", value=manual_data.get('Secondary Stone', ''))
-            local_name = col1.text_input("Local Stone Name", value=manual_data.get('Local Stone Name', ''))
-            lithology = col2.text_input("Lithology", value=manual_data.get('Lithology', ''))
-            geo_age = col1.text_input("Geological Age", value=manual_data.get('Geological Age', ''))
-            formation = col2.text_input("Formation", value=manual_data.get('Formation', ''))
-            colour = col1.text_input("Colour", value=manual_data.get('Colour', ''))
-            texture = col2.text_input("Texture", value=manual_data.get('Texture', ''))
-            minerals = col1.text_input("Minerals", value=manual_data.get('Minerals', ''))
+            render_field("Major Stone", "Major Stone")
+            render_field("Secondary Stone(s)", "Secondary Stone")
+            render_field("Local Stone Name", "Local Stone Name")
+            render_field("Lithology", "Lithology")
+            render_field("Geological Age", "Geological Age")
+            render_field("Formation", "Formation")
+            render_field("Colour", "Colour")
+            render_field("Texture", "Texture")
+            render_field("Minerals", "Minerals")
             
         with st.expander("🗺️ C. Provenance"):
-            col1, col2 = st.columns(2)
-            quarry = col1.text_input("Quarry", value=manual_data.get('Quarry', ''))
-            quarry_country = col2.text_input("Quarry Country", value=manual_data.get('Quarry Country', ''))
-            local_vs_imp = col1.selectbox("Local vs Imported", ["", "Local", "Imported", "Unknown"], index=["", "Local", "Imported", "Unknown"].index(manual_data.get('Local vs Imported', '')) if manual_data.get('Local vs Imported', '') in ["", "Local", "Imported", "Unknown"] else 0)
-            transport_dist = col2.text_input("Transport Distance", value=manual_data.get('Transport Distance', ''))
+            render_field("Quarry", "Quarry")
+            render_field("Quarry Country", "Quarry Country")
+            render_field("Local vs Imported", "Local vs Imported", widget_type="selectbox", options=["", "Local", "Imported", "Unknown"])
+            render_field("Transport Distance", "Transport Distance")
             
         with st.expander("🏗️ D. Architectural Use"):
-            col1, col2 = st.columns(2)
-            struct_use = col1.text_input("Structural Use", value=manual_data.get('Structural Use', ''))
-            dec_use = col2.text_input("Decorative Use", value=manual_data.get('Decorative Use', ''))
-            masonry = col1.text_input("Masonry Technique", value=manual_data.get('Masonry Technique', ''))
+            render_field("Structural Use", "Structural Use")
+            render_field("Decorative Use", "Decorative Use")
+            render_field("Masonry Technique", "Masonry Technique")
             
         with st.expander("🛠️ E. Conservation"):
-            col1, col2 = st.columns(2)
-            weathering = col1.text_input("Weathering", value=manual_data.get('Weathering', ''))
-            replacement = col2.text_input("Replacement Stone", value=manual_data.get('Replacement Stone', ''))
-            restoration = col1.text_input("Restoration", value=manual_data.get('Restoration', ''))
-            condition = col2.selectbox("Condition", ["", "Excellent", "Good", "Moderate", "Poor"], index=["", "Excellent", "Good", "Moderate", "Poor"].index(manual_data.get('Condition', '')) if manual_data.get('Condition', '') in ["", "Excellent", "Good", "Moderate", "Poor"] else 0)
+            render_field("Weathering", "Weathering")
+            render_field("Replacement Stone", "Replacement Stone")
+            render_field("Restoration", "Restoration")
+            render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
             
-
         with st.expander("📚 G. Sources"):
-            col1, col2 = st.columns(2)
-            unesco_mention = col1.selectbox("UNESCO Mention", ["", "Yes", "No"], index=["", "Yes", "No"].index(manual_data.get('UNESCO Mention', '')) if manual_data.get('UNESCO Mention', '') in ["", "Yes", "No"] else 0)
-            papers = col2.text_input("Research Papers", value=manual_data.get('Research Papers', ''))
+            render_field("UNESCO Mention", "UNESCO Mention", widget_type="selectbox", options=["", "Yes", "No"])
+            render_field("Research Papers", "Research Papers")
             
         save_success = False
-        
         col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 3])
         with col_btn1:
             submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
-        
         with col_btn3:
             fullscreen_btn = st.form_submit_button("🖥️ Fullscreen Table", type="secondary")
             
         if submit_btn or fullscreen_btn:
-            form_data = {
-                'Architecture Type': arch_type,
-                'Construction Period': const_period,
-                'Civilization': civilization,
-                'UNESCO Criteria': unesco_crit,
-                'Major Stone': major_stone,
-                'Secondary Stone': secondary_stone,
-                'Local Stone Name': local_name,
-                'Lithology': lithology,
-                'Geological Age': geo_age,
-                'Formation': formation,
-                'Colour': colour,
-                'Texture': texture,
-                'Minerals': minerals,
-                'Quarry': quarry,
-                'Quarry Country': quarry_country,
-                'Local vs Imported': local_vs_imp,
-                'Transport Distance': transport_dist,
-                'Structural Use': struct_use,
-                'Decorative Use': dec_use,
-                'Masonry Technique': masonry,
-                'Weathering': weathering,
-                'Replacement Stone': replacement,
-                'Restoration': restoration,
-                'Condition': condition,
-                'UNESCO Mention': unesco_mention,
-                'Research Papers': papers
-            }
             save_success = save_manual_data(unesco_id, form_data)
-            
             if fullscreen_btn:
                 view_fullscreen_table(unesco_id)
                 
         with col_btn2:
-            # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
             with st.popover("👀 View Site Data"):
                 try:
                     import numpy as np
                     current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-                    # Explicit list of columns from A to G we want to show
-                    active_fields = [
-                        'Site ID', 'Site Name', 'Country', 'UNESCO Criteria',
-                        'Architecture Type', 'Construction Period', 'Civilization',
-                        'Major Stone', 'Secondary Stone', 'Local Stone Name',
-                        'Lithology', 'Geological Age', 'Formation', 'Colour',
-                        'Texture', 'Minerals', 'Quarry', 'Quarry Country',
-                        'Local vs Imported', 'Transport Distance', 'Structural Use',
-                        'Decorative Use', 'Masonry Technique', 'Weathering',
-                        'Replacement Stone', 'Restoration', 'Condition',
-                        'UNESCO Mention', 'Research Papers'
-                    ]
                     
-                    # Filter for current site and ONLY include active fields
+                    base_fields = [
+            'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
+            'Major Stone', 'Secondary Stone', 'Local Stone Name', 'Lithology',
+            'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
+            'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
+            'Structural Use', 'Decorative Use', 'Masonry Technique',
+            'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
+            'UNESCO Mention', 'Research Papers'
+        ]
+                    active_fields = ['Site ID', 'Site Name', 'Country']
+                    for bf in base_fields:
+                        active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
+                    
                     valid_cols = [c for c in active_fields if c in current_db.columns]
                     
-                    # Safely match IDs (handling '252' vs '252.0')
                     safe_unesco_id = str(unesco_id).replace('.0', '')
                     current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
-                    
                     site_db = current_db[current_db['safe_id'] == safe_unesco_id][valid_cols].copy()
                     
                     if site_db.empty:
                         st.info("No manual data has been saved for this site yet. Start typing and hit save!")
                     else:
-                        # Transpose for readability (creates a vertical key-value list)
                         display_df = site_db.T
-                    display_df.columns = ["Value"]
-                    
-                    # Fill NaN with empty string for cleaner UI
-                    display_df = display_df.fillna("")
-                    st.dataframe(display_df, use_container_width=True)
+                        display_df.columns = ["Value"]
+                        display_df = display_df.fillna("")
+                        st.dataframe(display_df, use_container_width=True)
                 except Exception as e:
                     st.warning("Database not found or empty.")
                     

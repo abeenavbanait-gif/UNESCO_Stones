@@ -101,10 +101,14 @@ def save_manual_data(unesco_id, form_data: dict):
         idx = df[df['safe_id'] == safe_unesco_id].index
         if len(idx) > 0:
             for key, val in form_data.items():
-                if key in df.columns:
-                    if df[key].dtype == 'float64':
-                        df[key] = df[key].astype(object)
-                    df.loc[idx, key] = val
+                # Dynamically add new columns if they don't exist yet (e.g., for new Reference tracking fields)
+                if key not in df.columns:
+                    df[key] = ""
+                    
+                if df[key].dtype == 'float64':
+                    df[key] = df[key].astype(object)
+                df.loc[idx, key] = val
+            df.drop(columns=['safe_id'], errors='ignore', inplace=True)
             df.to_csv(MANUAL_DATA_PATH, index=False)
             return True
     except Exception as e:
