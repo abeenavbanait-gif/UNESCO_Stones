@@ -913,9 +913,22 @@ def render_site_explorer(df, notes):
                 try:
                     import numpy as np
                     current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
+                    # Explicit list of columns from A to G we want to show
+                    active_fields = [
+                        'Site ID', 'Site Name', 'Country', 'UNESCO Criteria',
+                        'Architecture Type', 'Construction Period', 'Civilization',
+                        'Major Stone', 'Secondary Stone', 'Local Stone Name',
+                        'Lithology', 'Geological Age', 'Formation', 'Colour',
+                        'Texture', 'Minerals', 'Quarry', 'Quarry Country',
+                        'Local vs Imported', 'Transport Distance', 'Structural Use',
+                        'Decorative Use', 'Masonry Technique', 'Weathering',
+                        'Replacement Stone', 'Restoration', 'Condition',
+                        'UNESCO Mention', 'Research Papers'
+                    ]
                     
-                    # Filter for the current site
-                    site_db = current_db[current_db['Site ID'].astype(str) == str(unesco_id)].copy()
+                    # Filter for current site and ONLY include active fields
+                    valid_cols = [c for c in active_fields if c in current_db.columns]
+                    site_db = current_db[current_db['Site ID'].astype(str) == str(unesco_id)][valid_cols].copy()
                     
                     # Transpose for readability (creates a vertical key-value list)
                     display_df = site_db.T
