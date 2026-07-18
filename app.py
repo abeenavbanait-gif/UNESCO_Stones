@@ -205,7 +205,7 @@ def render_home_page(df):
     # Data Entry Progress Section
     try:
         manual_df = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-        meta_cols = ['Site ID', 'Site Name', 'Country', 'safe_id']
+        meta_cols = ['Site ID', 'Site Name', 'Country', 'safe_id', 'Index', 'UNESCO Criteria']
         data_cols = [c for c in manual_df.columns if c not in meta_cols]
         
         if len(data_cols) > 0:
