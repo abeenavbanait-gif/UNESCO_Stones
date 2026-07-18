@@ -781,7 +781,7 @@ def render_site_explorer(df, notes):
         with st.expander("🪨 B. Geological Materials"):
             col1, col2 = st.columns(2)
             major_stone = col1.text_input("Major Stone", value=manual_data.get('Major Stone', ''))
-            secondary_stone = col2.text_input("Secondary Stone", value=manual_data.get('Secondary Stone', ''))
+            secondary_stone = col2.text_input("Secondary Stone(s)", value=manual_data.get('Secondary Stone', ''))
             local_name = col1.text_input("Local Stone Name", value=manual_data.get('Local Stone Name', ''))
             lithology = col2.text_input("Lithology", value=manual_data.get('Lithology', ''))
             geo_age = col1.text_input("Geological Age", value=manual_data.get('Geological Age', ''))
