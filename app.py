@@ -829,7 +829,6 @@ def render_site_explorer(df, notes):
         with col_btn2:
             # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
             with st.popover("👀 View Table"):
-                import pandas as pd
                 try:
                     current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
                     st.dataframe(current_db)
