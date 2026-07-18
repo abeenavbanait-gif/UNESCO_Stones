@@ -878,8 +878,17 @@ def render_site_explorer(df, notes):
             # Using a popover acts like a button but doesn't submit the form/erase unsaved work!
             with st.popover("👀 View Table"):
                 try:
+                    import numpy as np
                     current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-                    st.dataframe(current_db)
+                    # Find columns that are not the ID or Name
+                    data_cols = [c for c in current_db.columns if c not in ['Site ID', 'Site Name']]
+                    # Replace empty strings/spaces with NaN and drop rows where ALL data columns are NaN
+                    filtered_db = current_db.replace(r'^\s*$', np.nan, regex=True).dropna(subset=data_cols, how='all')
+                    
+                    if filtered_db.empty:
+                        st.info("No data has been saved yet. Start typing and hit save!")
+                    else:
+                        st.dataframe(filtered_db)
                 except Exception as e:
                     st.warning("Database not found or empty.")
         if submit_btn:
