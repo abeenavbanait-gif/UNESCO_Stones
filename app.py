@@ -826,153 +826,154 @@ def render_site_explorer(df, notes):
     
     manual_data = get_manual_data_for_site(unesco_id)
     
-    with st.form(key=f"manual_data_form_{unesco_id}"):
-        form_data = {}
+    form_data = {}
         
-        def render_field(label, field_key, widget_type="text_input", options=None, default=None):
-            col_input, col_ref, col_ext = st.columns([2, 1, 1])
+    def render_field(label, field_key, widget_type="text_input", options=None, default=None):
+        col_input, col_ref = st.columns([2, 1])
             
-            if widget_type == "text_input":
-                val = col_input.text_input(label, value=str(manual_data.get(field_key, '')))
-            elif widget_type == "selectbox":
-                idx = options.index(manual_data.get(field_key, '')) if manual_data.get(field_key, '') in options else 0
-                val = col_input.selectbox(label, options, index=idx)
-            elif widget_type == "multiselect":
-                val_list = col_input.multiselect(label, options=options, default=default)
-                val = " | ".join(val_list)
+        if widget_type == "text_input":
+            val = col_input.text_input(label, value=str(manual_data.get(field_key, '')), key=f"data_{field_key}_{unesco_id}")
+        elif widget_type == "selectbox":
+            idx = options.index(manual_data.get(field_key, '')) if manual_data.get(field_key, '') in options else 0
+            val = col_input.selectbox(label, options, index=idx, key=f"data_{field_key}_{unesco_id}")
+        elif widget_type == "multiselect":
+            val_list = col_input.multiselect(label, options=options, default=default, key=f"data_{field_key}_{unesco_id}")
+            val = " | ".join(val_list)
                 
-            ref_val = str(manual_data.get(f"{field_key}_Ref", ""))
-            ref_idx = ["", "Internal (DS/OUV)", "External"].index(ref_val) if ref_val in ["", "Internal (DS/OUV)", "External"] else 0
-            ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], index=ref_idx, key=f"ref_{field_key}_{unesco_id}")
+        ref_val = str(manual_data.get(f"{field_key}_Ref", ""))
+        ref_idx = ["", "Internal (DS/OUV)", "External"].index(ref_val) if ref_val in ["", "Internal (DS/OUV)", "External"] else 0
+        ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], index=ref_idx, key=f"ref_{field_key}_{unesco_id}")
             
-            ext_val = col_ext.text_input("Citation / Link", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
+        ext_val = ""
+        if ref_choice == "External":
+            ext_val = col_ref.text_input("Citation / Link", value=str(manual_data.get(f"{field_key}_Ext", "")), key=f"ext_{field_key}_{unesco_id}")
                 
-            form_data[field_key] = val
-            form_data[f"{field_key}_Ref"] = ref_choice
-            form_data[f"{field_key}_Ext"] = ext_val
+        form_data[field_key] = val
+        form_data[f"{field_key}_Ref"] = ref_choice
+        form_data[f"{field_key}_Ext"] = ext_val
 
-        with st.expander("🏛️ A. Monument Information", expanded=True):
-            render_field("Architecture Type", "Architecture Type")
-            render_field("Construction Period", "Construction Period")
-            render_field("Civilization", "Civilization")
+    with st.expander("🏛️ A. Monument Information", expanded=True):
+        render_field("Architecture Type", "Architecture Type")
+        render_field("Construction Period", "Construction Period")
+        render_field("Civilization", "Civilization")
             
-            CRITERIA_OPTIONS = [
-                "(i) to represent a masterpiece of human creative genius;",
-                "(ii) to exhibit an important interchange of human values, over a span of time or within a cultural area of the world, on developments in architecture or technology, monumental arts, town-planning or landscape design;",
-                "(iii) to bear a unique or at least exceptional testimony to a cultural tradition or to a civilization which is living or which has disappeared;",
-                "(iv) to be an outstanding example of a type of building, architectural or technological ensemble or landscape which illustrates (a) significant stage(s) in human history;",
-                "(v) to be an outstanding example of a traditional human settlement, land-use, or sea-use which is representative of a culture (or cultures), or human interaction with the environment especially when it has become vulnerable under the impact of irreversible change;",
-                "(vi) to be directly or tangibly associated with events or living traditions, with ideas, or with beliefs, with artistic and literary works of outstanding universal significance;",
-                "(vii) to contain superlative natural phenomena or areas of exceptional natural beauty and aesthetic importance;",
-                "(viii) to be outstanding examples representing major stages of earth's history, including the record of life, significant on-going geological processes in the development of landforms, or significant geomorphic or physiographic features;",
-                "(ix) to be outstanding examples representing significant on-going ecological and biological processes in the evolution and development of terrestrial, fresh water, coastal and marine ecosystems and communities of plants and animals;",
-                "(x) to contain the most important and significant natural habitats for in-situ conservation of biological diversity, including those containing threatened species of outstanding universal value from the point of view of science or conservation."
-            ]
-            existing_crit = str(manual_data.get('UNESCO Criteria', ''))
-            default_crits = []
-            if existing_crit:
-                import re as regex
-                for opt in CRITERIA_OPTIONS:
-                    numeral = opt.split(' ')[0]
-                    found_numerals = regex.findall(r'\([ivx]+\)', existing_crit.lower())
-                    if numeral.lower() in found_numerals:
-                        default_crits.append(opt)
-            render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
-            
-        with st.expander("🪨 B. Geological Materials"):
-            render_field("Major Stone", "Major Stone")
-            render_field("Secondary Stone(s)", "Secondary Stone")
-            render_field("Local Stone Name", "Local Stone Name")
-            render_field("Lithology", "Lithology")
-            render_field("Geological Age", "Geological Age")
-            render_field("Formation", "Formation")
-            render_field("Colour", "Colour")
-            render_field("Texture", "Texture")
-            render_field("Minerals", "Minerals")
-            
-        with st.expander("🗺️ C. Provenance"):
-            render_field("Quarry", "Quarry")
-            render_field("Quarry Country", "Quarry Country")
-            render_field("Local vs Imported", "Local vs Imported", widget_type="selectbox", options=["", "Local", "Imported", "Unknown"])
-            render_field("Transport Distance", "Transport Distance")
-            
-        with st.expander("🏗️ D. Architectural Use"):
-            render_field("Structural Use", "Structural Use")
-            render_field("Decorative Use", "Decorative Use")
-            render_field("Masonry Technique", "Masonry Technique")
-            
-        with st.expander("🛠️ E. Conservation"):
-            render_field("Weathering", "Weathering")
-            render_field("Replacement Stone", "Replacement Stone")
-            render_field("Restoration", "Restoration")
-            render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
-            
-        with st.expander("📚 G. Sources"):
-            render_field("UNESCO Mention", "UNESCO Mention", widget_type="selectbox", options=["", "Yes", "No"])
-            render_field("Research Papers", "Research Papers")
-            
-        save_success = False
-        col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 3])
-        with col_btn1:
-            submit_btn = st.form_submit_button("💾 Save Data to CSV", type="primary")
-        with col_btn3:
-            fullscreen_btn = st.form_submit_button("🖥️ Fullscreen Table", type="secondary")
-            
-        if submit_btn or fullscreen_btn:
-            save_success = save_manual_data(unesco_id, form_data)
-            if fullscreen_btn:
-                view_fullscreen_table(unesco_id)
-                
-        with col_btn2:
-            with st.popover("👀 View Site Data"):
-                try:
-                    import numpy as np
-                    current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
-                    
-                    base_fields = [
-            'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
-            'Major Stone', 'Secondary Stone', 'Local Stone Name', 'Lithology',
-            'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
-            'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
-            'Structural Use', 'Decorative Use', 'Masonry Technique',
-            'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
-            'UNESCO Mention', 'Research Papers'
+        CRITERIA_OPTIONS = [
+            "(i) to represent a masterpiece of human creative genius;",
+            "(ii) to exhibit an important interchange of human values, over a span of time or within a cultural area of the world, on developments in architecture or technology, monumental arts, town-planning or landscape design;",
+            "(iii) to bear a unique or at least exceptional testimony to a cultural tradition or to a civilization which is living or which has disappeared;",
+            "(iv) to be an outstanding example of a type of building, architectural or technological ensemble or landscape which illustrates (a) significant stage(s) in human history;",
+            "(v) to be an outstanding example of a traditional human settlement, land-use, or sea-use which is representative of a culture (or cultures), or human interaction with the environment especially when it has become vulnerable under the impact of irreversible change;",
+            "(vi) to be directly or tangibly associated with events or living traditions, with ideas, or with beliefs, with artistic and literary works of outstanding universal significance;",
+            "(vii) to contain superlative natural phenomena or areas of exceptional natural beauty and aesthetic importance;",
+            "(viii) to be outstanding examples representing major stages of earth's history, including the record of life, significant on-going geological processes in the development of landforms, or significant geomorphic or physiographic features;",
+            "(ix) to be outstanding examples representing significant on-going ecological and biological processes in the evolution and development of terrestrial, fresh water, coastal and marine ecosystems and communities of plants and animals;",
+            "(x) to contain the most important and significant natural habitats for in-situ conservation of biological diversity, including those containing threatened species of outstanding universal value from the point of view of science or conservation."
         ]
-                    active_fields = ['Site ID', 'Site Name', 'Country']
-                    for bf in base_fields:
-                        active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
+        existing_crit = str(manual_data.get('UNESCO Criteria', ''))
+        default_crits = []
+        if existing_crit:
+            import re as regex
+            for opt in CRITERIA_OPTIONS:
+                numeral = opt.split(' ')[0]
+                found_numerals = regex.findall(r'\([ivx]+\)', existing_crit.lower())
+                if numeral.lower() in found_numerals:
+                    default_crits.append(opt)
+        render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
+            
+    with st.expander("🪨 B. Geological Materials"):
+        render_field("Major Stone", "Major Stone")
+        render_field("Secondary Stone(s)", "Secondary Stone")
+        render_field("Local Stone Name", "Local Stone Name")
+        render_field("Lithology", "Lithology")
+        render_field("Geological Age", "Geological Age")
+        render_field("Formation", "Formation")
+        render_field("Colour", "Colour")
+        render_field("Texture", "Texture")
+        render_field("Minerals", "Minerals")
+            
+    with st.expander("🗺️ C. Provenance"):
+        render_field("Quarry", "Quarry")
+        render_field("Quarry Country", "Quarry Country")
+        render_field("Local vs Imported", "Local vs Imported", widget_type="selectbox", options=["", "Local", "Imported", "Unknown"])
+        render_field("Transport Distance", "Transport Distance")
+            
+    with st.expander("🏗️ D. Architectural Use"):
+        render_field("Structural Use", "Structural Use")
+        render_field("Decorative Use", "Decorative Use")
+        render_field("Masonry Technique", "Masonry Technique")
+            
+    with st.expander("🛠️ E. Conservation"):
+        render_field("Weathering", "Weathering")
+        render_field("Replacement Stone", "Replacement Stone")
+        render_field("Restoration", "Restoration")
+        render_field("Condition", "Condition", widget_type="selectbox", options=["", "Excellent", "Good", "Moderate", "Poor"])
+            
+    with st.expander("📚 G. Sources"):
+        render_field("UNESCO Mention", "UNESCO Mention", widget_type="selectbox", options=["", "Yes", "No"])
+        render_field("Research Papers", "Research Papers")
+            
+    save_success = False
+    col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 3])
+    with col_btn1:
+        submit_btn = st.button("💾 Save Data to CSV", type="primary")
+    with col_btn3:
+        fullscreen_btn = st.button("🖥️ Fullscreen Table", type="secondary")
+            
+    if submit_btn or fullscreen_btn:
+        save_success = save_manual_data(unesco_id, form_data)
+        if fullscreen_btn:
+            view_fullscreen_table(unesco_id)
+                
+    with col_btn2:
+        with st.popover("👀 View Site Data"):
+            try:
+                import numpy as np
+                current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
                     
-                    valid_cols = [c for c in active_fields if c in current_db.columns]
+                base_fields = [
+        'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
+        'Major Stone', 'Secondary Stone', 'Local Stone Name', 'Lithology',
+        'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
+        'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
+        'Structural Use', 'Decorative Use', 'Masonry Technique',
+        'Weathering', 'Replacement Stone', 'Restoration', 'Condition',
+        'UNESCO Mention', 'Research Papers'
+    ]
+                active_fields = ['Site ID', 'Site Name', 'Country']
+                for bf in base_fields:
+                    active_fields.extend([bf, f"{bf}_Ref", f"{bf}_Ext"])
                     
-                    safe_unesco_id = str(unesco_id).replace('.0', '')
-                    current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
-                    site_db = current_db[current_db['safe_id'] == safe_unesco_id][valid_cols].copy()
+                valid_cols = [c for c in active_fields if c in current_db.columns]
                     
-                    if site_db.empty:
-                        st.info("No manual data has been saved for this site yet. Start typing and hit save!")
-                    else:
-                        display_df = site_db.T
-                        display_df.columns = ["Value"]
-                        display_df = display_df.fillna("")
-                        st.dataframe(display_df, use_container_width=True)
-                except Exception as e:
-                    st.warning("Database not found or empty.")
+                safe_unesco_id = str(unesco_id).replace('.0', '')
+                current_db['safe_id'] = current_db['Site ID'].astype(str).str.replace('.0', '', regex=False)
+                site_db = current_db[current_db['safe_id'] == safe_unesco_id][valid_cols].copy()
                     
-    if submit_btn:
+                if site_db.empty:
+                    st.info("No manual data has been saved for this site yet. Start typing and hit save!")
+                else:
+                    display_df = site_db.T
+                    display_df.columns = ["Value"]
+                    display_df = display_df.fillna("")
+                    st.dataframe(display_df, use_container_width=True)
+            except Exception as e:
+                st.warning("Database not found or empty.")
+                    
+    if submit_btn or fullscreen_btn:
         if save_success:
             st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
         else:
             st.error("Failed to save data. Please check the logs.")
-    
+
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
     def format_unesco_headers(text):
         if not text or pd.isna(text): return ""
-        
+            
         # Pre-process weird formatting where colon is pushed to next line, or is missing entirely!
         # Ensure it becomes "Criterion (ii):\n\n"
         text = re.sub(r'(Criterion\s*\([ivx]+\))\s*\\?n*\s*:?\s*\\?n*', r'\1:\n\n', text, flags=re.IGNORECASE)
-        
+            
         # Bold the main headings (handling possible \n strings from raw dataset)
         headings = [
             r'Brief synthesis',
@@ -980,16 +981,16 @@ def render_site_explorer(df, notes):
             r'Authenticity',
             r'Protection and management requirements'
         ]
-        
+            
         for h in headings:
             # Match the heading at the start of a line or surrounded by spaces/newlines. 
             # Handle optional trailing colon.
             # Force a double newline (\n\n) after the heading so it sits on its own line like UNESCO.
             text = re.sub(rf'(?i)(^|\n|\\n|\s)({h})\s*:?\s*(\n|\\n|$)?', r'\1<strong>\2</strong>\n\n', text)
-            
+                
         # Bold the criteria
         text = re.sub(r'(?i)(^|\n|\\n|\s)(Criterion\s*\([ivx]+\):)', r'\1<strong>\2</strong>', text)
-        
+            
         return text
     
     # ==========================================
@@ -1001,7 +1002,7 @@ def render_site_explorer(df, notes):
     if pd.notna(ouv_text) and ouv_text:
         formatted_ouv = format_unesco_headers(ouv_text)
         highlighted_ouv = highlight_text(formatted_ouv, all_stones_list)
-        
+            
         st.markdown(f"""
         <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
             {highlighted_ouv}
@@ -1009,7 +1010,6 @@ def render_site_explorer(df, notes):
         """, unsafe_allow_html=True)
     else:
         st.warning("No OUV Statement available for this site.")
-    
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
     # ==========================================
@@ -1027,21 +1027,7 @@ def render_site_explorer(df, notes):
                     st.success(msg)
                 else:
                     st.error(msg)
-                    
-        st.markdown("---")
-        
-        question = st.text_input("Ask a question about the materials, geology, or construction:")
-        if st.button("Ask AI"):
-            if not api_key:
-                st.error("Please enter your Gemini API Key in the sidebar.")
-            elif not question:
-                st.warning("Please enter a question.")
-            else:
-                with st.spinner("Analyzing dossier..."):
-                    answer = ask_question(unesco_id, question, api_key)
-                    st.markdown(f"**Answer:**\n\n{answer}")
-    
-
+                        
 
 # ==========================================
 # MAIN APP ROUTING
