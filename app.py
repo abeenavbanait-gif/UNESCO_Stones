@@ -242,7 +242,19 @@ def render_home_page(df):
             
             num_visited = len(visited_sites)
             
-            st.markdown(f"### 📊 Data Entry Progress: {num_visited} / {len(manual_df)} Sites Visited")
+            total_sites = 972
+            pct = min((num_visited / total_sites) * 100, 100)
+            
+            html_progress = f'''
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0; margin-right: 20px;">📊 Data Entry Progress: {num_visited} / {total_sites} Sites Visited</h3>
+                <div style="flex-grow: 1; background-color: #e0e0e0; border-radius: 10px; height: 20px; overflow: hidden;">
+                    <div style="width: {pct}%; height: 100%; background-color: #28a745; border-radius: 10px;"></div>
+                </div>
+                <span style="margin-left: 10px; font-weight: bold; color: #555;">{pct:.1f}%</span>
+            </div>
+            '''
+            st.markdown(html_progress, unsafe_allow_html=True)
             if num_visited > 0:
                 display_df = visited_sites[['Site Name', 'Country', 'Completion (%)', 'Fields Filled']].sort_values(by='Completion (%)', ascending=False).reset_index(drop=True)
                 display_df['Completion (%)'] = display_df['Completion (%)'].astype(str) + "%"
