@@ -788,7 +788,7 @@ def render_site_explorer(df, notes):
     st.markdown("Save official documents (e.g. ICOMOS Dossier, maps, research papers) directly to this site's database.")
     
     with st.expander("Expand to Upload Document", expanded=False):
-        doc_name = st.text_input("Document Name", value="ICOMOS Document")
+        doc_name = st.text_input("Document Name", value=f"Advisory Body Evaluation (ICOMOS) {site_data['site_name']}")
         uploaded_doc = st.file_uploader("Upload File (PDF, DOCX, TXT, etc.)")
         
         if st.button("💾 Save Document to Database", type="primary"):
