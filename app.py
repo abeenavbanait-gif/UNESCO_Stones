@@ -1004,23 +1004,30 @@ def render_site_explorer(df, notes):
         val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "UNESCO Mention", f"unesco_{unesco_id}", False))
         val_other = st.text_input("Other references", key=f"other_ref_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "Other references", f"other_ref_{unesco_id}", False))
             
-    st.success("✅ Auto-saving is active in the cloud. Your data is instantly saved as you type.")
-    st.info("⚠️ Because you are on the cloud, download your data to your hard drive frequently!")
+    import os
+    is_cloud = "/mount/src/" in os.path.abspath(__file__)
+    
+    if is_cloud:
+        st.success("☁️ Auto-saving is active in the cloud. Your data is instantly saved as you type.")
+        st.warning("⚠️ Because you are on the cloud, download your data to your hard drive frequently!")
+    else:
+        st.success("✅ Auto-saving is active locally. Your data is instantly saved directly to your hard drive!")
     
     col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 1])
     with col_btn1:
-        try:
-            live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
-            csv_data = live_db.to_csv(index=False).encode('utf-8')
-            st.download_button(
-                label="💾 Download to Hard Drive",
-                data=csv_data,
-                file_name="Live_Manual_Data.csv",
-                mime="text/csv",
-                type="primary"
-            )
-        except Exception:
-            pass
+        if is_cloud:
+            try:
+                live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
+                csv_data = live_db.to_csv(index=False).encode('utf-8')
+                st.download_button(
+                    label="💾 Download to Hard Drive",
+                    data=csv_data,
+                    file_name="Live_Manual_Data.csv",
+                    mime="text/csv",
+                    type="primary"
+                )
+            except Exception:
+                pass
 
     with col_btn3:
         fullscreen_btn = st.button("🖥️ Fullscreen Table", type="secondary")
