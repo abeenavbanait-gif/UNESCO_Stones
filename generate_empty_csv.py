@@ -17,7 +17,7 @@ template_df['Civilization'] = ""
 template_df['UNESCO Criteria'] = df.get('criteria', '')
 
 # B. Geological Materials
-template_df['Major Stone'] = ""
+template_df['Mentioned Major Stone(s)'] = ""
 template_df['Secondary Stone'] = ""
 template_df['Local Stone Name'] = ""
 template_df['Lithology'] = ""

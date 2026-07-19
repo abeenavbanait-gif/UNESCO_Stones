@@ -415,7 +415,7 @@ def view_fullscreen_table(unesco_id):
         current_db = pd.read_csv("Imp Data/UNESCO_Stones_Manual_Data.csv")
         base_fields = [
             'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
-            'Major Stone', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
+            'Mentioned Major Stone(s)', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
             'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
             'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
             'Structural Use', 'Decorative Use', 'Masonry Technique',
@@ -942,7 +942,7 @@ def render_site_explorer(df, notes):
         render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
             
     with st.expander("🪨 B. Geological Materials"):
-        render_field("Mentioned Major Stone(s)", "Major Stone")
+        render_field("Mentioned Major Stone(s)", "Mentioned Major Stone(s)")
         render_field("Rock Class", "Rock Class", widget_type="selectbox", options=["", "Igneous Rock", "Sedimentary Rock", "Metamorphic Rock"])
         render_field("Secondary Stone(s)", "Secondary Stone")
         render_field("Local Stone Name", "Local Stone Name")
@@ -1002,7 +1002,7 @@ def render_site_explorer(df, notes):
                     
                 base_fields = [
         'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
-        'Major Stone', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
+        'Mentioned Major Stone(s)', 'Rock Class', 'Secondary Stone', 'Local Stone Name', 'Lithology',
         'Geological Age', 'Formation', 'Colour', 'Texture', 'Minerals',
         'Quarry', 'Quarry Country', 'Local vs Imported', 'Transport Distance',
         'Structural Use', 'Decorative Use', 'Masonry Technique',
