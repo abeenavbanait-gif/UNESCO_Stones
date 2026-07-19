@@ -92,25 +92,37 @@ def get_manual_data_for_site(unesco_id):
 def save_manual_data(unesco_id, form_data: dict):
     """Save the form inputs back to the CSV."""
     df = load_manual_data()
-    if df.empty:
-        return False
         
     try:
         safe_unesco_id = str(unesco_id).replace('.0', '')
-        df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
-        idx = df[df['safe_id'] == safe_unesco_id].index
-        if len(idx) > 0:
-            for key, val in form_data.items():
-                # Dynamically add new columns if they don't exist yet (e.g., for new Reference tracking fields)
-                if key not in df.columns:
-                    df[key] = ""
-                    
-                if df[key].dtype == 'float64':
-                    df[key] = df[key].astype(object)
-                df.loc[idx, key] = val
+        
+        if df.empty:
+            # Create a new DataFrame if empty
+            new_row = {"Site ID": safe_unesco_id}
+            new_row.update(form_data)
+            df = pd.DataFrame([new_row])
+        else:
+            df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+            idx = df[df['safe_id'] == safe_unesco_id].index
+            if len(idx) > 0:
+                for key, val in form_data.items():
+                    # Dynamically add new columns if they don't exist yet
+                    if key not in df.columns:
+                        df[key] = ""
+                        
+                    if df[key].dtype == 'float64':
+                        df[key] = df[key].astype(object)
+                    df.loc[idx, key] = val
+            else:
+                # Append new row if site not found
+                new_row = {"Site ID": safe_unesco_id}
+                new_row.update(form_data)
+                df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+                
             df.drop(columns=['safe_id'], errors='ignore', inplace=True)
-            df.to_csv(MANUAL_DATA_PATH, index=False)
-            return True
+            
+        df.to_csv(MANUAL_DATA_PATH, index=False)
+        return True
     except Exception as e:
         st.error(f"Save manual data error: {e}")
     return False

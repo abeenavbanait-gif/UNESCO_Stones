@@ -942,7 +942,7 @@ def render_site_explorer(df, notes):
         render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
             
     with st.expander("🪨 B. Geological Materials"):
-        render_field("Major Stone", "Major Stone")
+        render_field("Mentioned Major Stone(s)", "Major Stone")
         render_field("Rock Class", "Rock Class", widget_type="selectbox", options=["", "Igneous Rock", "Sedimentary Rock", "Metamorphic Rock"])
         render_field("Secondary Stone(s)", "Secondary Stone")
         render_field("Local Stone Name", "Local Stone Name")
