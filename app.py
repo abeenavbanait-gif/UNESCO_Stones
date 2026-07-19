@@ -903,7 +903,9 @@ def render_site_explorer(df, notes):
         val = st.session_state[widget_key]
         if is_list:
             val = " | ".join(val)
-        save_live_data_field(unesco_id, site_name, country, field_key, val)
+        success = save_live_data_field(unesco_id, site_name, country, field_key, val)
+        if success:
+            st.toast(f"✅ Saved `{field_key}`")
 
     def render_field(label, field_key, widget_type="text_area", options=None, default=None):
         col_input, col_ref = st.columns([2, 1])
