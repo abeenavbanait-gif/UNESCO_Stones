@@ -1128,6 +1128,9 @@ def render_site_explorer(df, notes):
             {highlighted_ouv}
         </div>
         """, unsafe_allow_html=True)
+        
+        with st.expander("📝 Show Raw OUV Text (Use this if drag-and-drop is failing)"):
+            st.text_area("Raw Text (Easy to highlight and drag)", value=ouv_text, height=300, key=f"raw_ouv_{unesco_id}")
     else:
         st.warning("No OUV Statement available for this site.")
     st.markdown("<br><hr>", unsafe_allow_html=True)
