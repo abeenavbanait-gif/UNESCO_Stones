@@ -160,7 +160,27 @@ def render_home_page(df):
     st.markdown("Welcome to the analytical overview of built heritage and construction materials across UNESCO Cultural Sites.")
     
     st.markdown("---")
+    st.subheader("💾 Export & View Manual Data")
+    st.markdown("Download the full manual data you have entered so far for safekeeping to ensure you never lose your progress on the cloud.")
+    try:
+        import pandas as pd
+        live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
+        csv_data = live_db.to_csv(index=False).encode('utf-8')
+        col1, col2 = st.columns([1, 3])
+        with col1:
+            st.download_button(
+                label="⬇️ Download Live CSV Backup",
+                data=csv_data,
+                file_name="Live_Manual_Data_Backup.csv",
+                mime="text/csv",
+                type="primary"
+            )
+        with st.expander("👀 View Current Data Table (All Filled Sites)"):
+            st.dataframe(live_db, use_container_width=True)
+    except FileNotFoundError:
+        st.info("No manual data has been saved yet. Start filling out the Manual Data Entry Form to see it here!")
     
+    st.markdown("---")
     # Fetch global stats
 
     
