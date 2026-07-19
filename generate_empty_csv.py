@@ -1,7 +1,11 @@
 import pandas as pd
 import os
+import json
 
-df = pd.read_csv("Imp Data/972-sites_cultural_sites_classified.csv")
+# Attempt to load from JSON
+with open("data/unesco_master_list.json", "r") as f:
+    data = json.load(f)
+df = pd.DataFrame(data)
 
 # Create new dataframe
 template_df = pd.DataFrame()
