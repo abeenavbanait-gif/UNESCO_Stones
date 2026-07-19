@@ -163,7 +163,6 @@ def render_home_page(df):
     st.subheader("💾 Export & View Manual Data")
     st.markdown("Download the full manual data you have entered so far for safekeeping to ensure you never lose your progress on the cloud.")
     try:
-        import pandas as pd
         live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
         csv_data = live_db.to_csv(index=False).encode('utf-8')
         col1, col2 = st.columns([1, 3])
@@ -1011,7 +1010,6 @@ def render_site_explorer(df, notes):
     col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 1])
     with col_btn1:
         try:
-            import pandas as pd
             live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
             csv_data = live_db.to_csv(index=False).encode('utf-8')
             st.download_button(
