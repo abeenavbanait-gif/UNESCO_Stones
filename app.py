@@ -905,7 +905,7 @@ def render_site_explorer(df, notes):
             val = " | ".join(val)
         save_live_data_field(unesco_id, site_name, country, field_key, val)
 
-    def render_field(label, field_key, widget_type="text_input", options=None, default=None):
+    def render_field(label, field_key, widget_type="text_area", options=None, default=None):
         col_input, col_ref = st.columns([2, 1])
         
         main_key = f"data_{field_key}_{unesco_id}"
@@ -933,8 +933,8 @@ def render_site_explorer(df, notes):
         s_name = site_data['site_name']
         s_country = site_data['country']
         
-        if widget_type == "text_input":
-            val = col_input.text_input(label, key=main_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, False))
+        if widget_type == "text_area":
+            val = col_input.text_area(label, key=main_key, height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, False))
         elif widget_type == "selectbox":
             val = col_input.selectbox(label, options, key=main_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, False))
         elif widget_type == "multiselect":
