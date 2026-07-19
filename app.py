@@ -1122,8 +1122,9 @@ def render_site_explorer(df, notes):
         formatted_ouv = format_unesco_headers(ouv_text)
         highlighted_ouv = highlight_text(formatted_ouv, all_stones_list)
             
+        st.markdown("""<span style='font-size: 0.9em; color: gray;'>*(Tip: To drag and drop text, first highlight the text, let go of the mouse, then click and drag the highlighted area into the form)*</span>""", unsafe_allow_html=True)
         st.markdown(f"""
-        <div style="background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
+        <div style="user-select: text; -webkit-user-select: text; cursor: text; background-color: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); line-height: 1.8; font-size: 1.1em; border-top: 4px solid #4e4376;">
             {highlighted_ouv}
         </div>
         """, unsafe_allow_html=True)
