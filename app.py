@@ -945,7 +945,7 @@ def render_site_explorer(df, notes):
             
         ext_val = ""
         if ref_choice == "External":
-            ext_val = col_ref.text_input("Citation / Link", key=ext_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, f"{field_key}_Ext", ext_key, False))
+            ext_val = col_ref.text_area("Citation / Link", key=ext_key, height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, f"{field_key}_Ext", ext_key, False))
 
     with st.expander("🏛️ A. Monument Information", expanded=True):
         render_field("Architecture Type", "Architecture Type")
@@ -1014,7 +1014,7 @@ def render_site_explorer(df, notes):
         s_name = site_data['site_name']
         s_country = site_data['country']
         val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "UNESCO Mention", f"unesco_{unesco_id}", False))
-        val_other = st.text_input("Other references", key=f"other_ref_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "Other references", f"other_ref_{unesco_id}", False))
+        val_other = st.text_area("Other references", key=f"other_ref_{unesco_id}", height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, "Other references", f"other_ref_{unesco_id}", False))
             
     import os
     is_cloud = "/mount/src/" in os.path.abspath(__file__)
