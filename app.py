@@ -1005,9 +1005,25 @@ def render_site_explorer(df, notes):
         val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "UNESCO Mention", f"unesco_{unesco_id}", False))
         val_other = st.text_input("Other references", key=f"other_ref_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "Other references", f"other_ref_{unesco_id}", False))
             
-    st.success("✅ Auto-saving is active. Your data is instantly saved as you type.")
+    st.success("✅ Auto-saving is active in the cloud. Your data is instantly saved as you type.")
+    st.info("⚠️ Because you are on the cloud, download your data to your hard drive frequently!")
     
-    col_btn2, col_btn3 = st.columns([1, 1])
+    col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 1])
+    with col_btn1:
+        try:
+            import pandas as pd
+            live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
+            csv_data = live_db.to_csv(index=False).encode('utf-8')
+            st.download_button(
+                label="💾 Download to Hard Drive",
+                data=csv_data,
+                file_name="Live_Manual_Data.csv",
+                mime="text/csv",
+                type="primary"
+            )
+        except Exception:
+            pass
+
     with col_btn3:
         fullscreen_btn = st.button("🖥️ Fullscreen Table", type="secondary")
             
@@ -1049,11 +1065,7 @@ def render_site_explorer(df, notes):
             except Exception as e:
                 st.warning("Database not found or empty.")
                     
-    if submit_btn or fullscreen_btn:
-        if save_success:
-            st.success("Data successfully saved to UNESCO_Stones_Manual_Data.csv!")
-        else:
-            st.error("Failed to save data. Please check the logs.")
+
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
