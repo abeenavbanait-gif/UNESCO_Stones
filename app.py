@@ -324,27 +324,36 @@ def render_home_page(df):
     st.markdown("<br>", unsafe_allow_html=True)
     
     # Charts
+    try:
+        manual_df = pd.read_csv("Imp Data/Live_Manual_Data.csv")
+    except:
+        manual_df = pd.DataFrame()
+        
     col_chart1, col_chart2, col_chart3 = st.columns(3)
     with col_chart1:
         st.markdown("### 📊 Sites by Region")
-        region_counts = df['region'].value_counts().reset_index()
-        region_counts.columns = ['Region', 'Count']
-        fig_pie = px.pie(region_counts, values='Count', names='Region', hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel)
-        fig_pie.update_layout(
-            legend=dict(orientation="h", yanchor="top", y=-0.1, xanchor="center", x=0.5),
-            margin=dict(t=20, b=20, l=20, r=20)
-        )
-        st.plotly_chart(fig_pie, use_container_width=True)
-        
+        if not manual_df.empty and 'Site ID' in manual_df.columns:
+            merged_region = manual_df.merge(df[['unesco_id', 'region']], left_on='Site ID', right_on='unesco_id', how='left')
+            region_counts = merged_region['region'].value_counts().reset_index()
+            region_counts.columns = ['Region', 'Count']
+            fig_pie = px.pie(region_counts, values='Count', names='Region', hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel)
+            fig_pie.update_layout(
+                legend=dict(orientation="h", yanchor="top", y=-0.1, xanchor="center", x=0.5),
+                margin=dict(t=20, b=20, l=20, r=20)
+            )
+            st.plotly_chart(fig_pie, use_container_width=True)
+        else:
+            st.info("No manual data available yet.")
+            
     with col_chart2:
         st.markdown("### 🪨 Rock Class Distribution")
-        # Calculate rock class distribution
         class_counts = {"Igneous": 0, "Metamorphic": 0, "Sedimentary": 0}
-        for val in df['stone_geological_class'].dropna():
-            for rock_class in val.split(';'):
-                rc = rock_class.strip().capitalize()
-                if rc in class_counts:
-                    class_counts[rc] += 1
+        if not manual_df.empty and 'Rock Class' in manual_df.columns:
+            for val in manual_df['Rock Class'].dropna():
+                rc = str(val).strip().capitalize()
+                if "Igneous" in rc: class_counts["Igneous"] += 1
+                elif "Metamorphic" in rc: class_counts["Metamorphic"] += 1
+                elif "Sedimentary" in rc: class_counts["Sedimentary"] += 1
         
         if sum(class_counts.values()) > 0:
             pie_df = pd.DataFrame({
@@ -369,20 +378,32 @@ def render_home_page(df):
             )
             st.plotly_chart(fig_pie_class, use_container_width=True)
         else:
-            st.info("No rock class data available.")
+            st.info("No manual rock class data available yet.")
             
     with col_chart3:
         st.markdown("### 🪨 Top 15 Most Common Stones")
-        # Flatten stone types
         stone_list = []
-        for s in df['stone_types_found'].dropna():
-            stone_list.extend([stn.strip().title() for stn in s.split(';') if stn.strip()])
-        stone_counts = pd.Series(stone_list).value_counts().head(15).reset_index()
-        stone_counts.columns = ['Stone', 'Count']
-        
-        fig_bar = px.bar(stone_counts, x='Count', y='Stone', orientation='h', color='Count', color_continuous_scale='Viridis')
-        fig_bar.update_layout(yaxis={'categoryorder':'total ascending'})
-        st.plotly_chart(fig_bar, use_container_width=True)
+        if not manual_df.empty:
+            if 'Mentioned Major Stone(s)' in manual_df.columns:
+                for s in manual_df['Mentioned Major Stone(s)'].dropna():
+                    stone_list.extend([stn.strip().title() for stn in str(s).split(',') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
+            if 'Secondary Stone' in manual_df.columns:
+                for s in manual_df['Secondary Stone'].dropna():
+                    stone_list.extend([stn.strip().title() for stn in str(s).split(',') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
+                    
+        if stone_list:
+            stone_counts = pd.Series(stone_list).value_counts().head(15).reset_index()
+            stone_counts.columns = ['Stone', 'Count']
+            
+            fig_bar = px.bar(stone_counts, x='Count', y='Stone', orientation='h', color='Count', color_continuous_scale=px.colors.sequential.Blues)
+            fig_bar.update_layout(
+                yaxis={'categoryorder': 'total ascending'},
+                margin=dict(t=20, b=20, l=20, r=20),
+                coloraxis_showscale=False
+            )
+            st.plotly_chart(fig_bar, use_container_width=True)
+        else:
+            st.info("No manual stone data available yet.")
         
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
@@ -968,11 +989,15 @@ def render_site_explorer(df, notes):
         ]
         existing_crit = str(manual_data.get('UNESCO Criteria', ''))
         default_crits = []
-        if existing_crit:
+        
+        if not existing_crit or existing_crit.lower() in ['nan', 'none', '']:
+            existing_crit = site_data.get('criteria', '')
+            
+        if existing_crit and str(existing_crit).lower() not in ['nan', 'none']:
             import re as regex
             for opt in CRITERIA_OPTIONS:
                 numeral = opt.split(' ')[0]
-                found_numerals = regex.findall(r'\([ivx]+\)', existing_crit.lower())
+                found_numerals = regex.findall(r'\([ivx]+\)', str(existing_crit).lower())
                 if numeral.lower() in found_numerals:
                     default_crits.append(opt)
         render_field("UNESCO Criteria", "UNESCO Criteria", widget_type="multiselect", options=CRITERIA_OPTIONS, default=default_crits)
@@ -1134,22 +1159,7 @@ def render_site_explorer(df, notes):
         st.warning("No OUV Statement available for this site.")
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
-    # ==========================================
-    # SECTION 5: CHAT WITH DOSSIER (RAG)
-    # ==========================================
-    st.markdown("## 🤖 Chat with Official Dossier (RAG)")
-    st.markdown("Interact directly with this site's official UNESCO nomination file using AI.")
-    
-    # Use an expander to keep the UI clean
-    with st.expander("Expand to Chat", expanded=False):
-        if st.button("📥 Load Dossier (Downloads & Embeds PDF)"):
-            with st.spinner("Downloading and embedding PDF... This may take a minute."):
-                success, msg = asyncio.run(ingest_dossier(unesco_id))
-                if success:
-                    st.success(msg)
-                else:
-                    st.error(msg)
-                        
+
 
 # ==========================================
 # MAIN APP ROUTING
