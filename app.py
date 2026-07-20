@@ -333,7 +333,10 @@ def render_home_page(df):
     with col_chart1:
         st.markdown("### 📊 Sites by Region")
         if not manual_df.empty and 'Site ID' in manual_df.columns:
-            merged_region = manual_df.merge(df[['unesco_id', 'region']], left_on='Site ID', right_on='unesco_id', how='left')
+            manual_df['_merge_id'] = manual_df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+            df_region = df[['unesco_id', 'region']].copy()
+            df_region['_merge_id'] = df_region['unesco_id'].astype(str).str.replace('.0', '', regex=False)
+            merged_region = manual_df.merge(df_region[['_merge_id', 'region']], on='_merge_id', how='left')
             region_counts = merged_region['region'].value_counts().reset_index()
             region_counts.columns = ['Region', 'Count']
             fig_pie = px.pie(region_counts, values='Count', names='Region', hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel)
