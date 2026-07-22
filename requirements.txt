@@ -16,3 +16,5 @@ plotly
 openpyxl
 wikipedia
 docx2txt
+gspread
+google-auth
