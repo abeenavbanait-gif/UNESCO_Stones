@@ -575,14 +575,14 @@ def render_site_explorer(df, notes):
             st.session_state.current_index = site_options.index(selected)
 
     visited_ids = get_visited_site_ids()
+    site_id_map = dict(zip(filtered_df['site_name'], filtered_df['unesco_id'].astype(str).str.replace('.0', '', regex=False)))
 
     def format_site_option(name):
-        s_rows = filtered_df[filtered_df['site_name'] == name]
-        if not s_rows.empty:
-            s_id = str(s_rows.iloc[0]['unesco_id']).replace('.0', '')
-            if s_id in visited_ids:
-                return f"🟢 {name}"
+        s_id = site_id_map.get(name, '')
+        if s_id in visited_ids:
+            return f"🟢 {name}"
         return f"⚪ {name}"
+
 
     selected_site_name = st.sidebar.selectbox(
         "Select a Site to Study", 
