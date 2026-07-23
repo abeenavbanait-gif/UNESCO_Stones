@@ -951,9 +951,9 @@ def render_site_explorer(df, notes):
         st.markdown("## ✍️ Manual Data Entry Form 🟢 *(Visited & Saved)*")
     else:
         st.markdown("## ✍️ Manual Data Entry Form")
-    st.markdown("Use this form to build out the master database while reviewing the site documents.")
-
+    manual_data = get_live_data_for_site(unesco_id)
     form_field_keys = []
+
 
 
     def render_field(label, field_key, widget_type="text_area", options=None, default=None):
