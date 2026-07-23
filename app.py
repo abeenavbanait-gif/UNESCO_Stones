@@ -148,6 +148,16 @@ def get_unesco_images(unesco_id):
     except Exception:
         return []
 
+import base64
+@st.cache_data(show_spinner=False)
+def get_doc_b64(path):
+    try:
+        with open(path, "rb") as f:
+            return base64.b64encode(f.read()).decode()
+    except Exception:
+        return ""
+
+
 # Load Data
 df = load_monument_data('Imp Data/built_monument_sites.csv')
 notes = load_notes()
@@ -552,29 +562,18 @@ def render_site_explorer(df, notes):
         st.session_state.current_index = 0
     
     def next_site():
-        if st.session_state.current_index < len(site_options) - 1:
-            st.session_state.current_index += 1
-        else:
-            st.session_state.current_index = 0
-        # Force the selectbox to update its value
-        st.session_state.site_selector = site_options[st.session_state.current_index]
-    
+        if site_options:
+            st.session_state.current_index = (st.session_state.current_index + 1) % len(site_options)
+
     def prev_site():
-        if st.session_state.current_index > 0:
-            st.session_state.current_index -= 1
-        else:
-            st.session_state.current_index = len(site_options) - 1
-        # Force the selectbox to update its value
-        st.session_state.site_selector = site_options[st.session_state.current_index]
+        if site_options:
+            st.session_state.current_index = (st.session_state.current_index - 1) % len(site_options)
     
     def on_select_change():
-        selected = st.session_state.get('site_selector')
+        selected = st.session_state.get('site_selector_widget')
         if selected and selected in site_options:
             st.session_state.current_index = site_options.index(selected)
-        else:
-            st.session_state.current_index = 0
 
-    
     visited_ids = get_visited_site_ids()
 
     def format_site_option(name):
@@ -585,14 +584,12 @@ def render_site_explorer(df, notes):
                 return f"🟢 {name}"
         return f"⚪ {name}"
 
-    if "site_selector" not in st.session_state or st.session_state.site_selector not in site_options:
-        st.session_state.site_selector = site_options[st.session_state.current_index]
-
     selected_site_name = st.sidebar.selectbox(
         "Select a Site to Study", 
-        site_options, 
+        options=site_options, 
+        index=st.session_state.current_index,
         format_func=format_site_option,
-        key="site_selector",
+        key="site_selector_widget",
         on_change=on_select_change
     )
 
@@ -642,14 +639,10 @@ def render_site_explorer(df, notes):
     # Display the Essential Details Bar
     saved_docs = get_site_documents(unesco_id)
     doc_links_html = ""
-    import base64
     for doc in saved_docs:
-        try:
-            with open(doc['path'], "rb") as f:
-                b64 = base64.b64encode(f.read()).decode()
+        b64 = get_doc_b64(doc['path'])
+        if b64:
             doc_links_html += f'<a href="data:application/octet-stream;base64,{b64}" download="{doc["file"]}" style="margin-right: 15px;">🔗 View {doc["name"]}</a>'
-        except Exception:
-            pass
             
     if not doc_links_html:
         # If no documents uploaded yet, provide an anchor to jump down to the upload section
