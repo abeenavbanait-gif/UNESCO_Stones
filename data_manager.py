@@ -196,6 +196,27 @@ def save_live_data_field(unesco_id, site_name, country, field_key, field_value):
     df.to_csv(LIVE_DATA_PATH, index=False)
     return True
 
+def get_visited_site_ids():
+    """Return a set of safe site IDs that have at least one user-filled form field."""
+    df = load_live_data()
+    if df.empty or 'Site ID' not in df.columns:
+        return set()
+    meta_cols = ['Site ID', 'Site Name', 'Country', 'safe_id', 'Index', 'UNESCO Criteria']
+    data_cols = [c for c in df.columns if c not in meta_cols]
+    if not data_cols:
+        return set()
+    df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+    calc_df = df[data_cols].copy()
+    calc_df = calc_df.replace([r'^\s*$', 'NaN', 'nan', 'None', 'Unknown'], pd.NA, regex=True)
+    visited_mask = calc_df.notna().sum(axis=1) > 0
+    return set(df[visited_mask]['safe_id'].tolist())
+
+def is_site_visited(unesco_id):
+    """Check if a specific unesco_id has user-filled form data."""
+    safe_unesco_id = str(unesco_id).replace('.0', '')
+    return safe_unesco_id in get_visited_site_ids()
+
+
 UPLOADED_DOCS_DIR = "Imp Data/uploaded_docs"
 
 def save_site_document(unesco_id, doc_name, uploaded_file):
