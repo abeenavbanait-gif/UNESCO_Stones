@@ -206,6 +206,36 @@ def save_live_data_field(unesco_id, site_name, country, field_key, field_value):
     df.to_csv(LIVE_DATA_PATH, index=False)
     return True
 
+def save_all_live_data_fields(unesco_id, site_name, country, form_dict: dict):
+    df = load_live_data().copy()
+    safe_unesco_id = str(unesco_id).replace('.0', '')
+    
+    df['safe_id'] = df['Site ID'].astype(str).str.replace('.0', '', regex=False)
+    idx = df[df['safe_id'] == safe_unesco_id].index
+    
+    if len(idx) > 0:
+        target_idx = idx[-1]
+        for key, val in form_dict.items():
+            if key not in df.columns:
+                df[key] = ""
+            if df[key].dtype == 'float64':
+                df[key] = df[key].astype(object)
+            df.loc[target_idx, key] = val
+    else:
+        new_row = {
+            "Site ID": safe_unesco_id,
+            "Site Name": site_name,
+            "Country": country
+        }
+        new_row.update(form_dict)
+        df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
+        
+    df.drop(columns=['safe_id'], errors='ignore', inplace=True)
+    st.session_state['live_data_df'] = df
+    df.to_csv(LIVE_DATA_PATH, index=False)
+    return True
+
+
 
 def get_visited_site_ids(df=None):
     """Return a set of safe site IDs that have at least one user-filled form field."""

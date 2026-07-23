@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import re
-from data_manager import load_monument_data, load_notes, save_note, get_global_stats, get_live_data_for_site, save_live_data_field, save_site_document, get_site_documents, get_visited_site_ids, is_site_visited
+from data_manager import load_monument_data, load_notes, save_note, get_global_stats, get_live_data_for_site, save_live_data_field, save_all_live_data_fields, save_site_document, get_site_documents, get_visited_site_ids, is_site_visited
 import asyncio
 from rag_pipeline import ingest_dossier, ask_question
 from custom_rag_pipeline import ingest_custom_document, ask_custom_question
@@ -953,20 +953,13 @@ def render_site_explorer(df, notes):
         st.markdown("## ✍️ Manual Data Entry Form")
     st.markdown("Use this form to build out the master database while reviewing the site documents.")
 
+    form_field_keys = []
 
-
-    
-    manual_data = get_live_data_for_site(unesco_id)
-
-    def save_field_callback(unesco_id, site_name, country, field_key, widget_key, is_list=False):
-        val = st.session_state[widget_key]
-        if is_list:
-            val = " | ".join(val)
-        success = save_live_data_field(unesco_id, site_name, country, field_key, val)
-        if success:
-            st.toast(f"✅ Saved `{field_key}`")
 
     def render_field(label, field_key, widget_type="text_area", options=None, default=None):
+        if field_key not in form_field_keys:
+            form_field_keys.append(field_key)
+            
         col_input, col_ref = st.columns([2, 1])
         
         main_key = f"data_{field_key}_{unesco_id}"
@@ -978,7 +971,6 @@ def render_site_explorer(df, notes):
             if widget_type == "multiselect":
                 st.session_state[main_key] = default if default else []
             elif widget_type == "selectbox":
-                # Ensure the DB value is actually in the options, otherwise default to options[0]
                 db_val = str(manual_data.get(field_key, ''))
                 st.session_state[main_key] = db_val if db_val in options else options[0]
             else:
@@ -991,22 +983,19 @@ def render_site_explorer(df, notes):
         if ext_key not in st.session_state:
             st.session_state[ext_key] = str(manual_data.get(f"{field_key}_Ext", ""))
             
-        s_name = site_data['site_name']
-        s_country = site_data['country']
-        
         if widget_type == "text_area":
-            val = col_input.text_area(label, key=main_key, height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, False))
+            val = col_input.text_area(label, key=main_key, height=68)
         elif widget_type == "selectbox":
-            val = col_input.selectbox(label, options, key=main_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, False))
+            val = col_input.selectbox(label, options, key=main_key)
         elif widget_type == "multiselect":
-            val_list = col_input.multiselect(label, options=options, key=main_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, field_key, main_key, True))
+            val_list = col_input.multiselect(label, options=options, key=main_key)
             val = " | ".join(val_list)
                 
-        ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], key=ref_key, on_change=save_field_callback, args=(unesco_id, s_name, s_country, f"{field_key}_Ref", ref_key, False))
+        ref_choice = col_ref.selectbox("Reference", ["", "Internal (DS/OUV)", "External"], key=ref_key)
             
         ext_val = ""
         if ref_choice == "External":
-            ext_val = col_ref.text_area("Citation / Link", key=ext_key, height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, f"{field_key}_Ext", ext_key, False))
+            ext_val = col_ref.text_area("Citation / Link", key=ext_key, height=68)
 
     with st.expander("🏛️ A. Monument Information", expanded=True):
         render_field("Architecture Type", "Architecture Type")
@@ -1076,47 +1065,57 @@ def render_site_explorer(df, notes):
         if f"other_ref_{unesco_id}" not in st.session_state:
             st.session_state[f"other_ref_{unesco_id}"] = str(manual_data.get("Other references", ""))
             
-        s_name = site_data['site_name']
-        s_country = site_data['country']
-        val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}", on_change=save_field_callback, args=(unesco_id, s_name, s_country, "UNESCO Mention", f"unesco_{unesco_id}", False))
-        val_other = st.text_area("Other references", key=f"other_ref_{unesco_id}", height=68, on_change=save_field_callback, args=(unesco_id, s_name, s_country, "Other references", f"other_ref_{unesco_id}", False))
+        val_unesco = st.selectbox("UNESCO Mention", ["", "Yes", "No"], key=f"unesco_{unesco_id}")
+        val_other = st.text_area("Other references", key=f"other_ref_{unesco_id}", height=68)
             
-    import os
-    is_cloud = "/mount/src/" in os.path.abspath(__file__)
+    st.markdown("<br>", unsafe_allow_html=True)
     
-    if is_cloud:
-        st.success("☁️ Auto-saving is active in the cloud. Your data is instantly saved as you type.")
-        st.warning("⚠️ Because you are on the cloud, download your data to your hard drive frequently!")
-    else:
-        st.success("✅ Auto-saving is active locally. Your data is instantly saved directly to your hard drive!")
+    col_save, col_view, col_full = st.columns([2, 1, 1])
     
-    col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 1])
-    with col_btn1:
-        if is_cloud:
-            try:
-                live_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
-                csv_data = live_db.to_csv(index=False).encode('utf-8')
-                st.download_button(
-                    label="💾 Download to Hard Drive",
-                    data=csv_data,
-                    file_name="Live_Manual_Data.csv",
-                    mime="text/csv",
-                    type="primary"
-                )
-            except Exception:
-                pass
+    with col_save:
+        if st.button("💾 Save All Form Data for this Site", type="primary", use_container_width=True):
+            form_data_to_save = {}
+            for fk in form_field_keys:
+                m_key = f"data_{fk}_{unesco_id}"
+                r_key = f"ref_{fk}_{unesco_id}"
+                e_key = f"ext_{fk}_{unesco_id}"
+                
+                if m_key in st.session_state:
+                    val = st.session_state[m_key]
+                    if isinstance(val, list):
+                        val = " | ".join(val)
+                    form_data_to_save[fk] = val
+                if r_key in st.session_state:
+                    form_data_to_save[f"{fk}_Ref"] = st.session_state[r_key]
+                if e_key in st.session_state:
+                    form_data_to_save[f"{fk}_Ext"] = st.session_state[e_key]
+                    
+            u_key = f"unesco_{unesco_id}"
+            o_key = f"other_ref_{unesco_id}"
+            if u_key in st.session_state:
+                form_data_to_save["UNESCO Mention"] = st.session_state[u_key]
+            if o_key in st.session_state:
+                form_data_to_save["Other references"] = st.session_state[o_key]
+                
+            s_name = site_data['site_name']
+            s_country = site_data['country']
+            
+            if save_all_live_data_fields(unesco_id, s_name, s_country, form_data_to_save):
+                st.success(f"✅ All form data for {s_name} saved successfully!")
+                st.rerun()
 
-    with col_btn3:
-        fullscreen_btn = st.button("🖥️ Fullscreen Table", type="secondary")
+    with col_full:
+        fullscreen_btn = st.button("🖥️ Fullscreen Table", type="secondary", use_container_width=True)
             
     if fullscreen_btn:
         view_fullscreen_table(unesco_id)
                 
-    with col_btn2:
-        with st.popover("👀 View Site Data"):
+    with col_view:
+        with st.popover("👀 View Site Data", use_container_width=True):
             try:
                 import numpy as np
-                current_db = pd.read_csv("Imp Data/Live_Manual_Data.csv")
+                current_db = load_live_data()
+
                     
                 base_fields = [
         'Architecture Type', 'Construction Period', 'Civilization', 'UNESCO Criteria',
