@@ -130,48 +130,8 @@ st.markdown("""
         transform: scale(1.05);
         cursor: pointer;
     }
-
-    /* Glowing Green Bulb & Visited Header Styling */
-    @keyframes pulse-green-glow {
-        0% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.8), 0 0 8px #00e676;
-        }
-        70% {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 10px rgba(0, 230, 118, 0), 0 0 16px #00e676;
-        }
-        100% {
-            transform: scale(0.95);
-            box-shadow: 0 0 0 0 rgba(0, 230, 118, 0), 0 0 8px #00e676;
-        }
-    }
-    .glowing-green-bulb {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        background-color: #00e676;
-        border-radius: 50%;
-        margin-right: 8px;
-        vertical-align: middle;
-        animation: pulse-green-glow 1.6s infinite;
-    }
-    .visited-details-bar {
-        background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%) !important;
-        color: white !important;
-        padding: 22px;
-        border-radius: 12px;
-        border-left: 8px solid #00e676 !important;
-        box-shadow: 0 6px 20px rgba(0, 230, 118, 0.35) !important;
-        margin-bottom: 20px;
-    }
-    .visited-details-bar h1, .visited-details-bar h2, .visited-details-bar h3, .visited-details-bar p, .visited-details-bar span, .visited-details-bar a {
-        color: white !important;
-    }
-    .visited-details-bar a {
-        text-decoration: underline;
-    }
 </style>
+
 
 """, unsafe_allow_html=True)
 
@@ -691,18 +651,11 @@ def render_site_explorer(df, notes):
         # If no documents uploaded yet, provide an anchor to jump down to the upload section
         doc_links_html = '<a href="#upload-site-documents" style="margin-right: 15px;">🔗 ICOMOS Document</a>'
 
-    site_is_visited = is_site_visited(unesco_id)
-    bar_class = "visited-details-bar" if site_is_visited else "details-bar"
-    if site_is_visited:
-        badge_html = '<div style="background-color: rgba(0, 230, 118, 0.25); border: 1.5px solid #00e676; padding: 6px 16px; border-radius: 20px; font-size: 0.95em; font-weight: bold; color: #ffffff; display: inline-flex; align-items: center; box-shadow: 0 0 10px rgba(0, 230, 118, 0.4);"><span class="glowing-green-bulb"></span> Visited & Form Saved</div>'
-    else:
-        badge_html = '<div style="background-color: rgba(255, 255, 255, 0.15); border: 1px solid rgba(255, 255, 255, 0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.85em; color: #e0e0e0;">⚪ Not Visited Yet</div>'
+    site_is_visited = is_site_visited(unesco_id, visited_ids)
+    visited_tag = ' <span style="font-size: 0.65em; background-color: #2e7d32; color: #ffffff; padding: 4px 10px; border-radius: 12px; vertical-align: middle; font-weight: bold; margin-left: 10px;">🟢 Visited</span>' if site_is_visited else ''
 
-    header_html = f'''<div class="{bar_class}">
-<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-<h1 style="margin-top:0px; margin-bottom:5px; color: white;">🏛️ {site_data['site_name']}</h1>
-{badge_html}
-</div>
+    header_html = f'''<div class="details-bar">
+<h1 style="margin-top:0px; margin-bottom:5px; color: white;">🏛️ {site_data['site_name']}{visited_tag}</h1>
 <p style="font-size: 1.1em; margin-bottom: 15px; color: white;">
 <strong>UNESCO ID:</strong> {unesco_id} &nbsp;|&nbsp; 
 <strong>Country:</strong> {site_data['country']} &nbsp;|&nbsp; 
@@ -718,6 +671,7 @@ def render_site_explorer(df, notes):
 </div>'''
 
     st.markdown(header_html, unsafe_allow_html=True)
+
 
 
     
@@ -990,31 +944,11 @@ def render_site_explorer(df, notes):
     # ==========================================
     st.markdown("<br><hr>", unsafe_allow_html=True)
     if site_is_visited:
-        sec_x_html = f'''<div style="background-color: #e8f5e9; border-left: 6px solid #2e7d32; padding: 18px 22px; border-radius: 10px; margin-top: 15px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);">
-<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-<h2 style="margin: 0; color: #1b5e20; font-size: 1.6em;">✍️ Manual Data Entry Form</h2>
-<span style="background-color: #2e7d32; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-size: 0.85em; font-weight: bold; display: inline-flex; align-items: center; box-shadow: 0 0 10px rgba(0, 230, 118, 0.6);">
-<span class="glowing-green-bulb"></span> Visited & Form Saved
-</span>
-</div>
-<p style="margin-top: 8px; margin-bottom: 0; color: #2e7d32; font-weight: 500;">
-✅ Data has been recorded for this site. Any changes made below auto-save instantly.
-</p>
-</div>'''
-        st.markdown(sec_x_html, unsafe_allow_html=True)
+        st.markdown("## ✍️ Manual Data Entry Form 🟢 *(Visited & Saved)*")
     else:
-        sec_x_html = f'''<div style="background-color: #ffffff; border-left: 6px solid #4e4376; padding: 18px 22px; border-radius: 10px; margin-top: 15px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-<div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-<h2 style="margin: 0; color: #4e4376; font-size: 1.6em;">✍️ Manual Data Entry Form</h2>
-<span style="background-color: #f8f9fa; color: #6c757d; border: 1px solid #ced4da; padding: 4px 12px; border-radius: 20px; font-size: 0.85em;">
-⚪ Not Visited Yet
-</span>
-</div>
-<p style="margin-top: 8px; margin-bottom: 0; color: #555555;">
-Use this form to build out the master database while reviewing the site documents.
-</p>
-</div>'''
-        st.markdown(sec_x_html, unsafe_allow_html=True)
+        st.markdown("## ✍️ Manual Data Entry Form")
+    st.markdown("Use this form to build out the master database while reviewing the site documents.")
+
 
 
     
