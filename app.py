@@ -175,7 +175,7 @@ def render_home_page(df):
                 type="primary"
             )
         with st.expander("👀 View Current Data Table (All Filled Sites)"):
-            st.dataframe(live_db, use_container_width=True)
+            st.dataframe(live_db.astype(str).replace('nan', ''), use_container_width=True)
     except FileNotFoundError:
         st.info("No manual data has been saved yet. Start filling out the Manual Data Entry Form to see it here!")
     
@@ -258,6 +258,8 @@ def render_home_page(df):
             if num_visited > 0:
                 display_df = visited_sites[['Site Name', 'Country', 'Completion (%)', 'Fields Filled']].sort_values(by='Completion (%)', ascending=False).reset_index(drop=True)
                 display_df['Completion (%)'] = display_df['Completion (%)'].astype(str) + "%"
+                for col in display_df.columns:
+                    display_df[col] = display_df[col].astype(str).replace('nan', '')
                 st.dataframe(display_df, use_container_width=True)
             else:
                 st.info("No data has been filled yet. Head over to the Site Explorer to get started!")
@@ -1107,7 +1109,7 @@ def render_site_explorer(df, notes):
                 else:
                     display_df = site_db.T
                     display_df.columns = ["Value"]
-                    display_df = display_df.fillna("")
+                    display_df["Value"] = display_df["Value"].astype(str).replace('nan', '')
                     st.dataframe(display_df, use_container_width=True)
             except Exception as e:
                 st.warning("Database not found or empty.")
