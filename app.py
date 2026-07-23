@@ -568,8 +568,12 @@ def render_site_explorer(df, notes):
         st.session_state.site_selector = site_options[st.session_state.current_index]
     
     def on_select_change():
-        selected = st.session_state.site_selector
-        st.session_state.current_index = site_options.index(selected)
+        selected = st.session_state.get('site_selector')
+        if selected and selected in site_options:
+            st.session_state.current_index = site_options.index(selected)
+        else:
+            st.session_state.current_index = 0
+
     
     visited_ids = get_visited_site_ids()
 

@@ -8,8 +8,9 @@ NOTES_PATH = "Imp Data/user_notes.json"
 MANUAL_DATA_PATH = "Imp Data/UNESCO_Stones_Manual_Data.csv"
 LIVE_DATA_PATH = "Imp Data/Live_Manual_Data.csv"
 
+@st.cache_data(show_spinner=False)
 def load_monument_data(filepath=DATA_PATH):
-    """Load the master CSV data."""
+    """Load the master CSV data with caching."""
     try:
         df = pd.read_csv(filepath)
         # Ensure unesco_id is string for consistent mapping
@@ -19,8 +20,9 @@ def load_monument_data(filepath=DATA_PATH):
         st.error(f"Failed to load data from {DATA_PATH}: {e}")
         return pd.DataFrame()
 
+@st.cache_data(show_spinner=False)
 def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv'):
-    """Calculate macro statistics dynamically from the master CSV datasets."""
+    """Calculate macro statistics dynamically from the master CSV datasets with caching."""
     stats = {}
     try:
         # Load master CSV database
@@ -130,6 +132,10 @@ def save_manual_data(unesco_id, form_data: dict):
 
 
 def load_live_data():
+    """Load live data with session_state in-memory caching for zero disk latency on reruns."""
+    if 'live_data_df' in st.session_state and isinstance(st.session_state['live_data_df'], pd.DataFrame):
+        return st.session_state['live_data_df']
+        
     if not os.path.exists(LIVE_DATA_PATH):
         # Create empty template
         base_fields = [
@@ -148,8 +154,11 @@ def load_live_data():
         df = pd.DataFrame(columns=cols)
         os.makedirs(os.path.dirname(LIVE_DATA_PATH), exist_ok=True)
         df.to_csv(LIVE_DATA_PATH, index=False)
-        return df
-    return pd.read_csv(LIVE_DATA_PATH)
+    else:
+        df = pd.read_csv(LIVE_DATA_PATH)
+        
+    st.session_state['live_data_df'] = df
+    return df
 
 def get_live_data_for_site(unesco_id):
     df = load_live_data()
@@ -163,7 +172,7 @@ def get_live_data_for_site(unesco_id):
     return {}
 
 def save_live_data_field(unesco_id, site_name, country, field_key, field_value):
-    df = load_live_data()
+    df = load_live_data().copy()
     safe_unesco_id = str(unesco_id).replace('.0', '')
     
     # Check if the site already exists in the CSV
@@ -193,8 +202,10 @@ def save_live_data_field(unesco_id, site_name, country, field_key, field_value):
         df = pd.concat([df, pd.DataFrame([new_row])], ignore_index=True)
         
     df.drop(columns=['safe_id'], errors='ignore', inplace=True)
+    st.session_state['live_data_df'] = df
     df.to_csv(LIVE_DATA_PATH, index=False)
     return True
+
 
 def get_visited_site_ids(df=None):
     """Return a set of safe site IDs that have at least one user-filled form field."""
