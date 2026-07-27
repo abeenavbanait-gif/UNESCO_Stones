@@ -159,7 +159,7 @@ def get_doc_b64(path):
 
 
 # Load Data
-df = load_monument_data('Imp Data/built_monument_sites.csv')
+df = load_monument_data('re-scan/rescanned_built_geological_monuments.csv')
 notes = load_notes()
 
 if df.empty:
@@ -286,11 +286,11 @@ def render_home_page(df):
     
     # Calculate total unique stones
     all_stones = set()
-    for s in df['named_trade_stones'].dropna():
+    for s in df['named_trade_stones_v2'].dropna():
         for stn in s.split(';'):
             if stn.strip(): all_stones.add(stn.strip().lower())
     
-    avg_score = df['score'].mean() if 'score' in df.columns else 0
+    avg_score = df['score_v2'].mean() if 'score_v2' in df.columns else 0
     
     col1.metric("Total Built Monuments", f"{total_sites}")
     col2.metric("Unique Trade Stones", f"{len(all_stones)}")
@@ -306,8 +306,8 @@ def render_home_page(df):
         # Format columns for the hover tooltip
         map_df['Category'] = map_df['category']
         map_df['Architecture'] = map_df['architecture_style_found'].fillna('None Detected').apply(lambda x: x.replace(';', ', ').title())
-        map_df['Stone Mentions'] = map_df['stone_count'].apply(lambda x: 'Yes' if pd.notna(x) and x > 0 else 'No')
-        map_df['Major Rock Type'] = map_df['stone_types_found'].fillna('N/A').apply(lambda x: x.replace(';', ', ').title() if x != 'N/A' else 'None')
+        map_df['Stone Mentions'] = map_df['stone_count_v2'].apply(lambda x: 'Yes' if pd.notna(x) and x > 0 else 'No')
+        map_df['Major Rock Type'] = map_df['stone_types_found_v2'].fillna('N/A').apply(lambda x: x.replace(';', ', ').title() if x != 'N/A' else 'None')
         
         fig_map = px.scatter_mapbox(
             map_df, 
@@ -317,13 +317,13 @@ def render_home_page(df):
             hover_data={
                 "latitude": False,
                 "longitude": False,
-                "score": True,
+                "score_v2": True,
                 "Category": True,
                 "Architecture": True,
                 "Stone Mentions": True,
                 "Major Rock Type": True
             },
-            color="score",
+            color="score_v2",
             color_continuous_scale=px.colors.sequential.YlOrRd,
             size_max=15, 
             zoom=1.5,
@@ -538,8 +538,8 @@ def render_site_explorer(df, notes):
     
     if search_stone:
         filtered_df = filtered_df[
-            filtered_df['stone_types_found'].str.contains(search_stone, case=False, na=False) | 
-            filtered_df['named_trade_stones'].str.contains(search_stone, case=False, na=False)
+            filtered_df['stone_types_found_v2'].str.contains(search_stone, case=False, na=False) | 
+            filtered_df['named_trade_stones_v2'].str.contains(search_stone, case=False, na=False)
         ]
     
     st.sidebar.markdown(f"**{len(filtered_df)} Sites Match Your Filters**")
@@ -657,7 +657,7 @@ def render_site_explorer(df, notes):
 <strong>UNESCO ID:</strong> {unesco_id} &nbsp;|&nbsp; 
 <strong>Country:</strong> {site_data['country']} &nbsp;|&nbsp; 
 <strong>Year:</strong> {site_data.get('year_inscribed', 'N/A')} &nbsp;|&nbsp; 
-<strong>Score:</strong> {site_data.get('score', 'N/A')}
+<strong>Score:</strong> {site_data.get('score_v2', 'N/A')}
 </p>
 <div>
 {doc_links_html}
@@ -682,7 +682,7 @@ def render_site_explorer(df, notes):
         arch = site_data.get('architecture_style_found', '')
         arch_display = ", ".join([s.strip().title() for s in arch.split(';') if s.strip()]) if pd.notna(arch) and arch else "None Detected"
         
-        elem = site_data.get('architectural_elements_found', '')
+        elem = site_data.get('architectural_elements_v2', '')
         elem_display = ", ".join([s.strip().title() for s in elem.split(';') if s.strip()]) if pd.notna(elem) and elem else "None Detected"
     
         st.markdown(f"""
@@ -694,10 +694,10 @@ def render_site_explorer(df, notes):
         """, unsafe_allow_html=True)
     
     with col_stone:
-        stones = site_data.get('stone_types_found', '')
+        stones = site_data.get('stone_types_found_v2', '')
         stones_disp = ", ".join([s.strip().title() for s in stones.split(';') if s.strip()]) if pd.notna(stones) and stones else "None Detected"
         
-        named = site_data.get('named_trade_stones', '')
+        named = site_data.get('named_trade_stones_v2', '')
         named_disp = ", ".join([s.strip().title() for s in named.split(';') if s.strip()]) if pd.notna(named) and named else "None Detected"
     
         st.markdown(f"""
@@ -876,7 +876,7 @@ def render_site_explorer(df, notes):
     
     # Generate list of all extracted terms for highlighting
     all_stones_list = []
-    for col in ['stone_types_found', 'named_trade_stones', 'decorative_minerals_found', 'architectural_elements_found', 'architecture_style_found']:
+    for col in ['stone_types_found_v2', 'named_trade_stones_v2', 'decorative_minerals_v2', 'architectural_elements_v2', 'architecture_style_found']:
         val = site_data.get(col, '')
         if pd.notna(val) and val:
             all_stones_list.extend([s.strip() for s in val.split(';') if s.strip()])
