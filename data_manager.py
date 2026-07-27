@@ -3,7 +3,7 @@ import json
 import os
 import streamlit as st
 
-DATA_PATH = "Imp Data/built_monument_sites.csv"
+DATA_PATH = os.path.join(os.path.dirname(__file__), "re-scan", "rescanned_built_geological_monuments.csv")
 NOTES_PATH = "Imp Data/user_notes.json"
 MANUAL_DATA_PATH = "Imp Data/UNESCO_Stones_Manual_Data.csv"
 LIVE_DATA_PATH = "Imp Data/Live_Manual_Data.csv"

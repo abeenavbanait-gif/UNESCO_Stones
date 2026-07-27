@@ -159,7 +159,7 @@ def get_doc_b64(path):
 
 
 # Load Data
-df = load_monument_data('re-scan/rescanned_built_geological_monuments.csv')
+df = load_monument_data()
 notes = load_notes()
 
 if df.empty:
