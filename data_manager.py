@@ -9,7 +9,7 @@ MANUAL_DATA_PATH = "Imp Data/UNESCO_Stones_Manual_Data.csv"
 LIVE_DATA_PATH = "Imp Data/Live_Manual_Data.csv"
 
 @st.cache_data(show_spinner=False)
-def load_monument_data(filepath=DATA_PATH):
+def load_monument_data(filepath=DATA_PATH, cache_buster=None):
     """Load the master CSV data with caching."""
     try:
         df = pd.read_csv(filepath)
@@ -21,7 +21,7 @@ def load_monument_data(filepath=DATA_PATH):
         return pd.DataFrame()
 
 @st.cache_data(show_spinner=False)
-def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv'):
+def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv', cache_buster=None):
     """Calculate macro statistics dynamically from the master CSV datasets with caching."""
     stats = {}
     try:

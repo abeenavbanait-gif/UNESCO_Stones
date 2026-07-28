@@ -1216,80 +1216,81 @@ def classify_site(row):
 # ║  RUN CLASSIFICATION                                                         ║
 # ╚══════════════════════════════════════════════════════════════════════════════╝
 
-print(f"Classifying {len(df)} cultural sites with enriched stone dictionary...")
-print(f"Dictionary sizes:")
-print(f"  Igneous rocks:       {len(igneous_rocks)} entries")
-print(f"  Sedimentary rocks:   {len(sedimentary_rocks)} entries")
-print(f"  Metamorphic rocks:   {len(metamorphic_rocks)} entries")
-print(f"  Named/Trade stones:  {len(all_named_stones)} entries")
-print(f"  Decorative minerals: {len(decorative_minerals)} entries")
-print(f"  Construction terms:  {len(construction_terms)} entries")
-print(f"  Building materials:  {len(building_materials)} entries")
-print(f"  Architecture terms:  {len(architecture_terms)} entries")
-print(f"  Construction verbs:  {len(construction_verbs)} entries")
-print(f"  Arch. elements:      {len(architectural_elements)} entries")
-total_dict = len(igneous_rocks) + len(sedimentary_rocks) + len(metamorphic_rocks) + len(all_named_stones) + len(decorative_minerals) + len(construction_terms) + len(building_materials) + len(architecture_terms) + len(construction_verbs) + len(architectural_elements)
-print(f"  ─────────────────────────────────")
-print(f"  TOTAL DICTIONARY:    {total_dict} entries")
-print()
+if __name__ == "__main__":
+    print(f"Classifying {len(df)} cultural sites with enriched stone dictionary...")
+    print(f"Dictionary sizes:")
+    print(f"  Igneous rocks:       {len(igneous_rocks)} entries")
+    print(f"  Sedimentary rocks:   {len(sedimentary_rocks)} entries")
+    print(f"  Metamorphic rocks:   {len(metamorphic_rocks)} entries")
+    print(f"  Named/Trade stones:  {len(all_named_stones)} entries")
+    print(f"  Decorative minerals: {len(decorative_minerals)} entries")
+    print(f"  Construction terms:  {len(construction_terms)} entries")
+    print(f"  Building materials:  {len(building_materials)} entries")
+    print(f"  Architecture terms:  {len(architecture_terms)} entries")
+    print(f"  Construction verbs:  {len(construction_verbs)} entries")
+    print(f"  Arch. elements:      {len(architectural_elements)} entries")
+    total_dict = len(igneous_rocks) + len(sedimentary_rocks) + len(metamorphic_rocks) + len(all_named_stones) + len(decorative_minerals) + len(construction_terms) + len(building_materials) + len(architecture_terms) + len(construction_verbs) + len(architectural_elements)
+    print(f"  ─────────────────────────────────")
+    print(f"  TOTAL DICTIONARY:    {total_dict} entries")
+    print()
 
-# Run the classification via tqdm for progress tracking
-tqdm.pandas()
-results = df.progress_apply(classify_site, axis=1)
-df_classified = pd.concat([df, results], axis=1)
+    # Run the classification via tqdm for progress tracking
+    tqdm.pandas()
+    results = df.progress_apply(classify_site, axis=1)
+    df_classified = pd.concat([df, results], axis=1)
 
-# Format the UNESCO URLs automatically!
-if 'unesco_url' in df_classified.columns:
-    df_classified['unesco_url'] = 'https://whc.unesco.org/en/list/' + df_classified['unesco_id'].astype(str)
+    # Format the UNESCO URLs automatically!
+    if 'unesco_url' in df_classified.columns:
+        df_classified['unesco_url'] = 'https://whc.unesco.org/en/list/' + df_classified['unesco_id'].astype(str)
 
-df_classified = df_classified.sort_values('score', ascending=False)
+    df_classified = df_classified.sort_values('score', ascending=False)
 
-# Save full classified dataset
-df_classified.to_csv('Imp Data/cultural_sites_classified.csv', index=False)
+    # Save full classified dataset
+    df_classified.to_csv('Imp Data/cultural_sites_classified.csv', index=False)
 
-# Save only the built monument sites (HIGH and MEDIUM confidence)
-built_monuments = df_classified[df_classified['confidence'].isin(['HIGH', 'MEDIUM'])]
-built_monuments.to_csv('Imp Data/built_monument_sites.csv', index=False)
+    # Save only the built monument sites (HIGH and MEDIUM confidence)
+    built_monuments = df_classified[df_classified['confidence'].isin(['HIGH', 'MEDIUM'])]
+    built_monuments.to_csv('Imp Data/built_monument_sites.csv', index=False)
 
-# Print statistics
-print(f"{'='*60}")
-print(f"CLASSIFICATION RESULTS")
-print(f"{'='*60}")
-print(f"Total Cultural Sites Analyzed: {len(df)}")
-print()
-print(f"HIGH Confidence (Built Monuments):   {len(df_classified[df_classified['confidence']=='HIGH'])}")
-print(f"MEDIUM Confidence:                   {len(df_classified[df_classified['confidence']=='MEDIUM'])}")
-print(f"LOW Confidence:                      {len(df_classified[df_classified['confidence']=='LOW'])}")
-print(f"NONE (Not built structures):         {len(df_classified[df_classified['confidence']=='NONE'])}")
-print()
-print(f"Total Built Monument Sites (HIGH+MEDIUM): {len(built_monuments)}")
-print(f"{'='*60}")
+    # Print statistics
+    print(f"{'='*60}")
+    print(f"CLASSIFICATION RESULTS")
+    print(f"{'='*60}")
+    print(f"Total Cultural Sites Analyzed: {len(df)}")
+    print()
+    print(f"HIGH Confidence (Built Monuments):   {len(df_classified[df_classified['confidence']=='HIGH'])}")
+    print(f"MEDIUM Confidence:                   {len(df_classified[df_classified['confidence']=='MEDIUM'])}")
+    print(f"LOW Confidence:                      {len(df_classified[df_classified['confidence']=='LOW'])}")
+    print(f"NONE (Not built structures):         {len(df_classified[df_classified['confidence']=='NONE'])}")
+    print()
+    print(f"Total Built Monument Sites (HIGH+MEDIUM): {len(built_monuments)}")
+    print(f"{'='*60}")
 
-# Stone-specific stats
-has_stones = df_classified[df_classified['stone_count'] > 0]
-print(f"\n{'='*60}")
-print(f"STONE ANALYSIS")
-print(f"{'='*60}")
-print(f"Sites mentioning at least 1 stone/rock: {len(has_stones)}")
-print(f"Sites with named/trade stones:          {len(df_classified[df_classified['named_trade_stones'].str.len() > 0])}")
-print(f"Sites with decorative minerals:         {len(df_classified[df_classified['decorative_minerals_found'].str.len() > 0])}")
-print(f"Average stones per site (where >0):     {has_stones['stone_count'].mean():.1f}")
-print(f"Max stones mentioned in a single site:  {df_classified['stone_count'].max()}")
+    # Stone-specific stats
+    has_stones = df_classified[df_classified['stone_count'] > 0]
+    print(f"\n{'='*60}")
+    print(f"STONE ANALYSIS")
+    print(f"{'='*60}")
+    print(f"Sites mentioning at least 1 stone/rock: {len(has_stones)}")
+    print(f"Sites with named/trade stones:          {len(df_classified[df_classified['named_trade_stones'].str.len() > 0])}")
+    print(f"Sites with decorative minerals:         {len(df_classified[df_classified['decorative_minerals_found'].str.len() > 0])}")
+    print(f"Average stones per site (where >0):     {has_stones['stone_count'].mean():.1f}")
+    print(f"Max stones mentioned in a single site:  {df_classified['stone_count'].max()}")
 
-# Top 15 stone-richest sites
-print(f"\nTop 15 Stone-Richest Sites:")
-top_stone = df_classified.nlargest(15, 'stone_count')
-for _, r in top_stone.iterrows():
-    print(f"  [{r['stone_count']} stones, score {r['score']}] {r['site_name']}")
-    print(f"    Stones: {r['stone_types_found'][:100]}...")
+    # Top 15 stone-richest sites
+    print(f"\nTop 15 Stone-Richest Sites:")
+    top_stone = df_classified.nlargest(15, 'stone_count')
+    for _, r in top_stone.iterrows():
+        print(f"  [{r['stone_count']} stones, score {r['score']}] {r['site_name']}")
+        print(f"    Stones: {r['stone_types_found'][:100]}...")
 
-print(f"\nTop 10 HIGH confidence sites by score:")
-high = df_classified[df_classified['confidence']=='HIGH'].head(10)
-for _, r in high.iterrows():
-    print(f"  [{r['score']}] {r['site_name']}")
-    print(f"    Categories: {r['matched_categories'][:80]}")
+    print(f"\nTop 10 HIGH confidence sites by score:")
+    high = df_classified[df_classified['confidence']=='HIGH'].head(10)
+    for _, r in high.iterrows():
+        print(f"  [{r['score']}] {r['site_name']}")
+        print(f"    Categories: {r['matched_categories'][:80]}")
 
-print(f"\nSample LOW/NONE sites (to review for missed monuments):")
-low_none = df_classified[df_classified['confidence'].isin(['LOW', 'NONE'])].tail(15)
-for _, r in low_none.iterrows():
-    print(f"  [{r['confidence']}, score {r['score']}] {r['site_name']}")
+    print(f"\nSample LOW/NONE sites (to review for missed monuments):")
+    low_none = df_classified[df_classified['confidence'].isin(['LOW', 'NONE'])].tail(15)
+    for _, r in low_none.iterrows():
+        print(f"  [{r['confidence']}, score {r['score']}] {r['site_name']}")

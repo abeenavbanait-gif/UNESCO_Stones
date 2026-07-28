@@ -159,7 +159,7 @@ def get_doc_b64(path):
 
 
 # Load Data
-df = load_monument_data()
+df = load_monument_data(cache_buster=2)
 notes = load_notes()
 
 if df.empty:
@@ -168,6 +168,7 @@ if df.empty:
 
 
 def render_home_page(df):
+    g_stats = get_global_stats(cache_buster=2)
     st.title("🌍 Global Heritage Stones Dashboard")
     st.markdown("Welcome to the analytical overview of built heritage and construction materials across UNESCO Cultural Sites.")
     
@@ -196,7 +197,7 @@ def render_home_page(df):
 
     
     # Global Overview Breakdown
-    g_stats = get_global_stats('Imp Data/unesco_whs_master_database.csv')
+    g_stats = get_global_stats('Imp Data/unesco_whs_master_database.csv', cache_buster=2)
     
     st.markdown(f"""
     <div style="background-color: #f1f8ff; padding: 20px; border-radius: 8px; border-left: 4px solid #0366d6; margin-bottom: 20px;">
@@ -1205,7 +1206,7 @@ def render_site_explorer(df, notes):
 # ==========================================
 # MAIN APP ROUTING
 # ==========================================
-df = load_monument_data()
+df = load_monument_data(cache_buster=2)
 notes = load_notes()
 
 if df.empty:
