@@ -253,8 +253,8 @@ def render_home_page(df):
             visited_sites['Completion (%)'] = ((visited_sites['Fields Filled'] / visited_sites['Total Fields']) * 100).round(1)
             
             num_visited = len(visited_sites)
-            
-            total_sites = 972
+            # Calculate % completion
+            total_sites = len(manual_df)
             pct = min((num_visited / total_sites) * 100, 100)
             
             html_progress = f'''
