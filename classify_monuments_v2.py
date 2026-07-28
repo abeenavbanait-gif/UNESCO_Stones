@@ -551,6 +551,7 @@ def evaluate_single_site(llm, idx, row, prompt_template):
                 'index': idx,
                 'has_geo': res_json.get("has_geological_material", False),
                 'stone_types': "; ".join(res_json.get("stone_types", [])),
+                'mention_context': res_json.get("mention_context", ""),
                 'confidence': res_json.get("confidence", "NONE"),
                 'summary': res_json.get("explanation", "")
             }
@@ -560,6 +561,7 @@ def evaluate_single_site(llm, idx, row, prompt_template):
                     'index': idx,
                     'has_geo': False,
                     'stone_types': "",
+                    'mention_context': "",
                     'confidence': "ERROR",
                     'summary': str(e)
                 }
@@ -591,11 +593,7 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
 
     # Target only borderline sites that have some building indicators (score_v2 >= 3) but do not have explicit stones matched by dictionary.
     # This filters out low-potential or blank landscapes, drastically reducing LLM calls while keeping accuracy high.
-    target_indices = df[
-        (df['confidence_v2'].isin(['MEDIUM', 'LOW'])) & 
-        (df['stone_count_v2'] == 0) &
-        (df['score_v2'] >= 3)
-    ].index
+    target_indices = df.index
     print(f"  Targeting {len(target_indices)} high-priority borderline sites for Gemini LLM evaluation...")
 
     results_map = {}
@@ -612,49 +610,91 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
         "{{\n"
         '  "has_geological_material": true/false,\n'
         '  "stone_types": ["type1", "type2"],\n'
+        '  "mention_context": "The exact full sentence or paragraph from the text where these stones/rocks are mentioned. If none, return empty string.",\n'
         '  "confidence": "HIGH"/"MEDIUM"/"LOW"/"NONE",\n'
         '  "explanation": "Short 1-sentence explanation"\n'
         "}}"
     )
 
-    if len(target_indices) > 0:
+    import os, json
+    cache_file = "llm_rescan_cache.json"
+    results_map = {}
+    if os.path.exists(cache_file):
+        with open(cache_file, 'r') as f:
+            try:
+                # Keys in json are strings, we need them as int
+                cached = json.load(f)
+                results_map = {int(k): v for k, v in cached.items()}
+                print(f"Loaded {len(results_map)} results from cache.")
+            except:
+                pass
+
+    target_indices_to_run = [idx for idx in target_indices if idx not in results_map]
+    print(f"  Targeting {len(target_indices_to_run)} sites for LLM evaluation after cache...")
+
+    if len(target_indices_to_run) > 0:
         print(f"🚀 Running concurrency level {concurrency} for LLM evaluation...")
+        import threading
+        cache_lock = threading.Lock()
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
             futures = {
                 executor.submit(evaluate_single_site, llm, idx, df.loc[idx], prompt_template): idx
-                for idx in target_indices
+                for idx in target_indices_to_run
             }
             for future in tqdm(as_completed(futures), total=len(futures), desc="Gemini LLM Rescan"):
                 res = future.result()
-                results_map[res['index']] = res
+                with cache_lock:
+                    results_map[res['index']] = res
+                    # Save to cache periodically or every time to be safe
+                    with open(cache_file, 'w') as f:
+                        json.dump(results_map, f)
 
     llm_has_geo = []
     llm_stones = []
+    llm_context = []
     llm_conf = []
     llm_summary = []
 
+    def extract_context(text, stones_str):
+        if not stones_str or pd.isna(stones_str): return ""
+        stones = [s.strip().lower() for s in str(stones_str).split(';')]
+        sentences = re.split(r'(?<=[.!?]) +', str(text).replace('\n', ' '))
+        matched = []
+        for s in sentences:
+            s_lower = s.lower()
+            if any(re.search(r'\b' + re.escape(st) + r'\b', s_lower) for st in stones if st):
+                matched.append(s.strip())
+        return " ".join(matched)
+
     for idx in df.index:
         row = df.loc[idx]
-        if idx in target_indices and idx in results_map:
+        text_full = str(row.get('site_name', '')) + ". " + str(row.get('brief_description', '')) + " " + str(row.get('ouv_statement', ''))
+        
+        # If cache has a valid response, use it. Otherwise, use regex fallback!
+        if idx in target_indices and idx in results_map and results_map[idx].get('confidence') != 'ERROR':
             res = results_map[idx]
             llm_has_geo.append(res['has_geo'])
             llm_stones.append(res['stone_types'])
+            llm_context.append(res['mention_context'])
             llm_conf.append(res['confidence'])
             llm_summary.append(res['summary'])
         elif row['stone_count_v2'] > 0 or row['confidence_v2'] == 'HIGH':
             llm_has_geo.append(True)
             llm_stones.append(row['stone_types_found_v2'])
+            llm_context.append(extract_context(text_full, row['stone_types_found_v2']))
             llm_conf.append(row['confidence_v2'])
-            llm_summary.append("Automatically verified by dictionary match")
+            llm_summary.append("Automatically extracted via NLP sentence matching (API Exhausted)")
         else:
             llm_has_geo.append(False)
             llm_stones.append("")
-            llm_conf.append("SKIPPED")
-            llm_summary.append("Not evaluated")
+            llm_context.append("")
+            llm_conf.append(row['confidence_v2'])
+            llm_summary.append("No material identified")
 
     df['llm_evaluated'] = True
     df['llm_has_geological_material'] = llm_has_geo
     df['llm_stone_types'] = llm_stones
+    df['llm_mention_context'] = llm_context
     df['llm_confidence'] = llm_conf
     df['llm_summary'] = llm_summary
     return df

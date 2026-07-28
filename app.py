@@ -876,7 +876,7 @@ def render_site_explorer(df, notes):
     
     # Generate list of all extracted terms for highlighting
     all_stones_list = []
-    for col in ['stone_types_found_v2', 'named_trade_stones_v2', 'decorative_minerals_v2', 'architectural_elements_v2', 'architecture_style_found']:
+    for col in ['stone_types_found_v2', 'named_trade_stones_v2', 'decorative_minerals_v2', 'architectural_elements_v2', 'architecture_style_found', 'llm_stone_types']:
         val = site_data.get(col, '')
         if pd.notna(val) and val:
             all_stones_list.extend([s.strip() for s in val.split(';') if s.strip()])
@@ -1187,6 +1187,17 @@ def render_site_explorer(df, notes):
         """, unsafe_allow_html=True)
     else:
         st.warning("No OUV Statement available for this site.")
+        
+    llm_context = site_data.get('llm_mention_context', '')
+    if pd.notna(llm_context) and llm_context:
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.info("🤖 **AI Extracted Context:** The following exact sentence/paragraph was extracted by the AI as referencing building stones.")
+        st.markdown(f"""
+        <div style="background-color: #fdf6e3; padding: 15px; border-left: 4px solid #f39c12; border-radius: 8px; font-style: italic;">
+            "{highlight_text(llm_context, all_stones_list)}"
+        </div>
+        """, unsafe_allow_html=True)
+        
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
 
