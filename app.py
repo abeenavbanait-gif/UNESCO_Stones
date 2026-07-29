@@ -356,14 +356,16 @@ def render_home_page(df):
         
     col_chart1, col_chart2, col_chart3 = st.columns(3)
     with col_chart1:
-        st.markdown("### 📊 Sites by Region")
-        if not manual_df.empty and 'Site ID' in manual_df.columns:
-            manual_df['_merge_id'] = manual_df['Site ID'].astype(str).str.replace('.0', '', regex=False)
-            df_region = df[['unesco_id', 'region']].copy()
-            df_region['_merge_id'] = df_region['unesco_id'].astype(str).str.replace('.0', '', regex=False)
-            merged_region = manual_df.merge(df_region[['_merge_id', 'region']], on='_merge_id', how='left')
-            region_counts = merged_region['region'].value_counts().reset_index()
+        st.markdown("### 📊 Sites by Region (AI Analyzed)")
+        if not df.empty and 'region' in df.columns:
+            # Explode regions that are comma separated
+            regions_expanded = df['region'].dropna().str.split(',').explode().str.strip()
+            region_counts = regions_expanded.value_counts().reset_index()
             region_counts.columns = ['Region', 'Count']
+            
+            # Remove any empty strings just in case
+            region_counts = region_counts[region_counts['Region'] != '']
+            
             fig_pie = px.pie(region_counts, values='Count', names='Region', hole=0.4, color_discrete_sequence=px.colors.qualitative.Pastel)
             fig_pie.update_layout(
                 legend=dict(orientation="h", yanchor="top", y=-0.1, xanchor="center", x=0.5),
@@ -371,10 +373,10 @@ def render_home_page(df):
             )
             st.plotly_chart(fig_pie, use_container_width=True)
         else:
-            st.info("No manual data available yet.")
+            st.info("No region data available.")
             
     with col_chart2:
-        st.markdown("### 🪨 Rock Class Distribution")
+        st.markdown("### 🪨 Rock Class (Manual Data)")
         class_counts = {"Igneous": 0, "Metamorphic": 0, "Sedimentary": 0}
         if not manual_df.empty and 'Rock Class' in manual_df.columns:
             for val in manual_df['Rock Class'].dropna():
@@ -409,15 +411,15 @@ def render_home_page(df):
             st.info("No manual rock class data available yet.")
             
     with col_chart3:
-        st.markdown("### 🪨 Top 15 Most Common Stones")
+        st.markdown("### 🪨 Top 15 Most Common Stones (AI)")
         stone_list = []
-        if not manual_df.empty:
-            if 'Mentioned Major Stone(s)' in manual_df.columns:
-                for s in manual_df['Mentioned Major Stone(s)'].dropna():
-                    stone_list.extend([stn.strip().title() for stn in str(s).split(',') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
-            if 'Secondary Stone' in manual_df.columns:
-                for s in manual_df['Secondary Stone'].dropna():
-                    stone_list.extend([stn.strip().title() for stn in str(s).split(',') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
+        if not df.empty:
+            if 'stone_types_found_v2' in df.columns:
+                for s in df['stone_types_found_v2'].dropna():
+                    stone_list.extend([stn.strip().title() for stn in str(s).split(';') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
+            if 'named_trade_stones_v2' in df.columns:
+                for s in df['named_trade_stones_v2'].dropna():
+                    stone_list.extend([stn.strip().title() for stn in str(s).split(';') if stn.strip() and stn.strip().lower() not in ['nan', 'none']])
                     
         if stone_list:
             stone_counts = pd.Series(stone_list).value_counts().head(15).reset_index()
@@ -431,7 +433,7 @@ def render_home_page(df):
             )
             st.plotly_chart(fig_bar, use_container_width=True)
         else:
-            st.info("No manual stone data available yet.")
+            st.info("No extracted stone data available yet.")
         
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
