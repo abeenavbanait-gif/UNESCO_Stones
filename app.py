@@ -346,6 +346,11 @@ def render_home_page(df):
     else:
         st.info("No coordinate data available to display the map.")
         
+    missing_coords_df = df[df['latitude'].isna() | df['longitude'].isna()]
+    if not missing_coords_df.empty:
+        st.warning(f"⚠️ **Note:** The following {len(missing_coords_df)} sites are missing coordinate data and do not appear on the map:")
+        st.markdown(f"<p style='color: #666; font-size: 0.9em; margin-top: -10px;'>{', '.join(missing_coords_df['site_name'].tolist())}</p>", unsafe_allow_html=True)
+        
     st.markdown("<br>", unsafe_allow_html=True)
     
     # Charts
