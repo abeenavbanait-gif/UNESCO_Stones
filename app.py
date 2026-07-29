@@ -247,8 +247,10 @@ def render_home_page(df):
             
             filled_counts = calc_df.notna().sum(axis=1)
             visited_mask = filled_counts > 0
+            unvisited_mask = filled_counts == 0
             
             visited_sites = manual_df[visited_mask].copy()
+            unvisited_sites = manual_df[unvisited_mask].copy()
             visited_sites['Fields Filled'] = filled_counts[visited_mask]
             visited_sites['Total Fields'] = len(data_cols)
             visited_sites['Completion (%)'] = ((visited_sites['Fields Filled'] / visited_sites['Total Fields']) * 100).round(1)
@@ -276,14 +278,23 @@ def render_home_page(df):
                 st.dataframe(display_df, use_container_width=True)
             else:
                 st.info("No data has been filled yet. Head over to the Site Explorer to get started!")
+                
+            if not unvisited_sites.empty:
+                with st.expander(f"📋 View {len(unvisited_sites)} Unvisited Sites"):
+                    display_unv = unvisited_sites[['Site Name', 'Country', 'UNESCO Criteria']].copy().reset_index(drop=True)
+                    st.dataframe(display_unv, use_container_width=True)
             
             st.markdown("---")
     except Exception as e:
         st.warning(f"Could not load data entry statistics: {e}")
         
     # High-level metrics
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
     total_sites = len(df)
+    
+    # Calculate stone mentions
+    sites_with_stones = len(df[df['stone_count_v2'] > 0]) if 'stone_count_v2' in df.columns else 0
+    total_mentions = df['stone_count_v2'].sum() if 'stone_count_v2' in df.columns else 0
     
     # Calculate total unique stones
     all_stones = set()
@@ -291,12 +302,11 @@ def render_home_page(df):
         for stn in s.split(';'):
             if stn.strip(): all_stones.add(stn.strip().lower())
     
-    avg_score = df['score_v2'].mean() if 'score_v2' in df.columns else 0
-    
     col1.metric("Total Built Monuments", f"{total_sites}")
-    col2.metric("Unique Trade Stones", f"{len(all_stones)}")
-    col3.metric("Avg Classification Score", f"{avg_score:.1f}/100")
-    col4.metric("Regions Spanned", f"{df['region'].nunique()}")
+    col2.metric("Sites w/ Stone Mentions", f"{sites_with_stones}")
+    col3.metric("Total Stone Mentions", f"{int(total_mentions)}")
+    col4.metric("Unique Trade Stones", f"{len(all_stones)}")
+    col5.metric("Regions Spanned", f"{df['region'].nunique()}")
     
     st.markdown("<br>", unsafe_allow_html=True)
     
