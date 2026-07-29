@@ -34,7 +34,10 @@ def get_global_stats(filepath='Imp Data/unesco_whs_master_database.csv', cache_b
         
         # Calculate missing OUV statements for cultural sites
         cultural_df = master_df[master_df['category'] == 'Cultural']
-        missing_ouv = cultural_df['ouv_statement'].isna().sum() + (cultural_df['ouv_statement'] == '').sum()
+        if 'ouv_statement' in cultural_df.columns:
+            missing_ouv = cultural_df['ouv_statement'].isna().sum() + (cultural_df['ouv_statement'] == '').sum()
+        else:
+            missing_ouv = 0
         stats['missing_ouv'] = int(missing_ouv)
     except Exception as e:
         print(f"Error loading dynamic global stats: {e}")
