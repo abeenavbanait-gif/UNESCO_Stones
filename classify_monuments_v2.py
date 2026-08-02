@@ -357,6 +357,42 @@ exclusion_keywords = [
     'textile', 'weaving', 'agricultural', 'pastoral', 'nomadic',
 ]
 
+# Load dynamic terms from NRI Glossary
+try:
+    df_terms = pd.read_csv('/Users/rahul_banait/Desktop/Heritage Stones/ops 3.0/nri-GlossaryTable.csv', encoding='windows-1252')
+    raw_terms = df_terms['TERMS'].dropna().tolist()
+except Exception as e:
+    print(f"Warning: Could not load NRI Glossary: {e}")
+    raw_terms = []
+
+manual_ignores = {'intermediate', 'base', 'trace', 'system', 'period', 'group', 'formation', 'member', 'bed', 'zone', 'type', 'area', 'region', 'rock', 'stone', 'water', 'land', 'lake', 'river', 'sea', 'ocean', 'island', 'mountain', 'hill', 'valley', 'cave', 'sand', 'soil', 'earth', 'world', 'time', 'life', 'animal', 'plant', 'human', 'man', 'woman', 'child', 'day', 'night', 'year', 'month', 'week', 'hour', 'minute', 'second', 'way', 'part', 'number', 'point', 'line', 'surface', 'side', 'front', 'back', 'top', 'bottom', 'left', 'right', 'center', 'middle', 'size', 'shape', 'color', 'form', 'large', 'small', 'high', 'low', 'basic', 'extension', 'key', 'monument', 'series', 'stage', 'block', 'core', 'fabric', 'bank', 'channel', 'contact', 'homogeneous', 'structure', 'edifice', 'lime', 'stock', 'sheet', 'feature', 'site', 'age', 'theory', 'sequence', 'trend', 'local', 'major', 'minor'}
+
+earth_science_terms = set([
+    'geomorphological', 'geomorphology', 'stratigraphic', 'stratigraphy',
+    'paleontological', 'palaeontological', 'paleontology', 'palaeontology',
+    'topography', 'topographical', 'tectonic', 'plate tectonics', 'fault line', 'seismic',
+    'karst', 'karstic', 'lithology', 'lithological', 'sedimentology', 'sedimentary basin',
+    'volcanism', 'volcanic activity', 'caldera', 'crater', 'glaciation', 'glacial', 'moraine', 'fjord',
+    'fluvial', 'alluvial', 'estuary'
+])
+
+for term in raw_terms:
+    t = re.sub(r'\(.*?\)', '', str(term))
+    t = re.sub(r'[^a-zA-Z -]', '', t).strip().lower()
+    
+    if len(t) < 3: continue
+    if t in manual_ignores: continue
+    # Only filter single words by stopword to not lose compound terms
+    if ' ' not in t:
+        try:
+            if nlp.vocab[t].is_stop: continue
+        except NameError:
+            pass # nlp might not be in scope if running parts of the file isolated
+            
+    earth_science_terms.add(t)
+
+earth_science_terms = list(earth_science_terms)
+
 all_geological_stones = list(set(igneous_rocks + sedimentary_rocks + metamorphic_rocks))
 
 _REGEX_CACHE = {}
@@ -490,6 +526,11 @@ def classify_site_row(row, lemmatized_text, site_name_lemmatized):
         score += 2
         matched_categories.append('OUV_ArchElements_6+')
 
+    earth_science_matches = find_matches(lemmatized_text, earth_science_terms)
+    if len(earth_science_matches) >= 1:
+        score += 2
+        matched_categories.append('Earth_Science')
+
     # ── LAYER 4: Exclusion keyword check ──
     exclusion_hit = False
     for ex_kw in exclusion_keywords:
@@ -522,6 +563,7 @@ def classify_site_row(row, lemmatized_text, site_name_lemmatized):
         'decorative_minerals_v2': '; '.join(sorted(deco_matches)),
         'construction_terms_v2': '; '.join(sorted(constr_matches)),
         'architectural_elements_v2': '; '.join(sorted(elem_matches)),
+        'earth_science_terms_v2': '; '.join(sorted(earth_science_matches)),
         'matched_title_terms_v2': '; '.join(sorted(set(matched_title_terms))),
         'matched_categories_v2': '; '.join(matched_categories),
     }
@@ -582,9 +624,10 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
     try:
         from langchain_google_genai import ChatGoogleGenerativeAI
         llm = ChatGoogleGenerativeAI(
-            model="gemini-3.5-flash",
+            model="gemini-1.5-flash",
             google_api_key=gemini_api_key,
-            temperature=0.0
+            temperature=0.0,
+            max_retries=1
         )
     except Exception as e:
         print(f"⚠️ Error initializing Gemini 3.5 Flash: {e}")
@@ -622,14 +665,14 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
     if os.path.exists(cache_file):
         with open(cache_file, 'r') as f:
             try:
-                # Keys in json are strings, we need them as int
+                # Keys in json are strings, we need them as str or int depending on unesco_id type. Let's just keep as string.
                 cached = json.load(f)
-                results_map = {int(k): v for k, v in cached.items()}
+                results_map = {str(k): v for k, v in cached.items()}
                 print(f"Loaded {len(results_map)} results from cache.")
             except:
                 pass
 
-    target_indices_to_run = [idx for idx in target_indices if idx not in results_map]
+    target_indices_to_run = [idx for idx in target_indices if str(df.loc[idx, 'unesco_id']) not in results_map]
     print(f"  Targeting {len(target_indices_to_run)} sites for LLM evaluation after cache...")
 
     if len(target_indices_to_run) > 0:
@@ -638,7 +681,7 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
         cache_lock = threading.Lock()
         with ThreadPoolExecutor(max_workers=concurrency) as executor:
             futures = {
-                executor.submit(evaluate_single_site, llm, idx, df.loc[idx], prompt_template): idx
+                executor.submit(evaluate_single_site, llm, df.loc[idx, 'unesco_id'], df.loc[idx], prompt_template): df.loc[idx, 'unesco_id']
                 for idx in target_indices_to_run
             }
             for future in tqdm(as_completed(futures), total=len(futures), desc="Gemini LLM Rescan"):
@@ -668,11 +711,12 @@ def run_gemini_llm_rescan(df, gemini_api_key, concurrency=15):
 
     for idx in df.index:
         row = df.loc[idx]
+        uid = str(row.get('unesco_id'))
         text_full = str(row.get('site_name', '')) + ". " + str(row.get('brief_description', '')) + " " + str(row.get('ouv_statement', ''))
         
         # If cache has a valid response, use it. Otherwise, use regex fallback!
-        if idx in target_indices and idx in results_map and results_map[idx].get('confidence') != 'ERROR':
-            res = results_map[idx]
+        if idx in target_indices and uid in results_map and results_map[uid].get('confidence') != 'ERROR':
+            res = results_map[uid]
             llm_has_geo.append(res['has_geo'])
             llm_stones.append(res['stone_types'])
             llm_context.append(res['mention_context'])

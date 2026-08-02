@@ -1,0 +1,192 @@
+Rock_Name,Mentions_Count,Geological_Class,Color_Code
+Limestone (Common),69,Sedimentary,#2b6cb0
+Sandstone (Common),49,Sedimentary,#3182ce
+Marble (Common),45,Metamorphic,#38a169
+Granite (Plutonic),29,Igneous,#dd6b20
+Fired Brick / Terracotta,25,Earthen & Processed,#805ad5
+Coral Ragstone,21,Sedimentary,#2b6cb0
+Slate (Metamorphic),14,Metamorphic,#2f855a
+Volcanic Tuff / Vitric Tuff,13,Igneous,#e2e8f0
+Basalt (Deccan / Volcanic),10,Igneous,#c05621
+Volcanic Rock / Lava,9,Igneous,#dd6b20
+Laterite (Iron-rich Soil Stone),9,Earthen & Processed,#805ad5
+Flint (Chert),8,Sedimentary,#4299e1
+Adobe / Mud-Brick,7,Earthen & Processed,#805ad5
+Chalk,5,Sedimentary,#4299e1
+Soapstone / Talc-Schist,4,Metamorphic,#48bb78
+Carnelian Gemstone Inlay,3,Earthen & Processed,#d69e2e
+Steatite (Soapstone),3,Metamorphic,#48bb78
+Andesite,3,Igneous,#c05621
+Stone,3,Other / Vernacular,#718096
+Welsh Bluestone (Dolerite/Rhyolite),3,Metamorphic,#48bb78
+Gypsum / Stucco Plaster,3,Earthen & Processed,#9f7aea
+Sillar (Dacitic Ignimbrite Tuff),2,Igneous,#ed8936
+Pietra Forte (Florentine Sandstone),2,Earthen & Processed,#b794f4
+Pietra Serena (Florentine Greywacke),2,Earthen & Processed,#b794f4
+Travertine (Chemical Carbonate),2,Earthen & Processed,#9f7aea
+Agate Gemstone Inlay,2,Earthen & Processed,#d69e2e
+Timber,2,Other / Vernacular,#718096
+Fireclay,2,Sedimentary,#63b3ed
+Iron Ore / Mineral,2,Earthen & Processed,#d69e2e
+Loess Deposits,2,Sedimentary,#63b3ed
+Plaster,2,Other / Vernacular,#718096
+Obsidian,2,Other / Vernacular,#718096
+Yellow Volcanic Tufa,1,Igneous,#ed8936
+Piperno Volcanic Stone,1,Igneous,#ed8936
+Tufa,1,Other / Vernacular,#718096
+Yellow Malad Stone,1,Other / Vernacular,#718096
+Istrian Stone (Pietra D'Istria,1,Other / Vernacular,#718096
+Ancient Roman Stones,1,Other / Vernacular,#718096
+And Cherts,1,Other / Vernacular,#718096
+Cob,1,Other / Vernacular,#718096
+Wood (Toron Frameworks,1,Other / Vernacular,#718096
+Rhyolite,1,Other / Vernacular,#718096
+Ancient Chinese,1,Other / Vernacular,#718096
+Imperial China (Confucian Culture,1,Other / Vernacular,#718096
+Earth,1,Other / Vernacular,#718096
+Euville Stone,1,Other / Vernacular,#718096
+Flagstone,1,Other / Vernacular,#718096
+Large Stone Blocks (Lower Two Levels,1,Other / Vernacular,#718096
+Small Stone Rubble,1,Other / Vernacular,#718096
+Abutting Flagstones (Upper Canal,1,Other / Vernacular,#718096
+Quincha (Traditional Mud & Organic Lattice,1,Other / Vernacular,#718096
+Chloritic Schist,1,Other / Vernacular,#718096
+Schist,1,Other / Vernacular,#718096
+Stone (Enclosed In Stone,1,Other / Vernacular,#718096
+Geological Material Is Explicitly Mentioned,1,Other / Vernacular,#718096
+White-Stone,1,Other / Vernacular,#718096
+Alabaster (Retable Of The High Altar By Damià Forment,1,Other / Vernacular,#718096
+1529,1,Other / Vernacular,#718096
+Freestone,1,Other / Vernacular,#718096
+Bahareque (Mud,1,Other / Vernacular,#718096
+Bamboo,1,Other / Vernacular,#718096
+Tapia (Rammed Earth,1,Other / Vernacular,#718096
+Minor,1,Other / Vernacular,#718096
+Volcanic Ash,1,Other / Vernacular,#718096
+Lapilli,1,Other / Vernacular,#718096
+Obsidian (Mentioned In Ouv: Stairway Figures Inlaid With Obsidian,1,Other / Vernacular,#718096
+Gneiss,1,Other / Vernacular,#718096
+Clinker,1,Other / Vernacular,#718096
+Tiles,1,Other / Vernacular,#718096
+Visigothic,1,Other / Vernacular,#718096
+Moorish (Islamic,1,Other / Vernacular,#718096
+Medieval Portuguese,1,Other / Vernacular,#718096
+European Romantic,1,Other / Vernacular,#718096
+British,1,Other / Vernacular,#718096
+Victorian,1,Other / Vernacular,#718096
+Amber,1,Other / Vernacular,#718096
+Rammed Earthen Floors,1,Other / Vernacular,#718096
+Earthen Materials Such As Earth,1,Other / Vernacular,#718096
+Cow Dung,1,Other / Vernacular,#718096
+Straw,1,Other / Vernacular,#718096
+Wood,1,Other / Vernacular,#718096
+Natural Pigments,1,Other / Vernacular,#718096
+Cement,1,Other / Vernacular,#718096
+And Tar Are Mentioned,1,Other / Vernacular,#718096
+But No Major Natural Building Stone Is Explicitly Detailed,1,Other / Vernacular,#718096
+Coal,1,Other / Vernacular,#718096
+Coal (Industrial,1,Other / Vernacular,#718096
+Strategic Resource,1,Other / Vernacular,#718096
+Mud Plaster With Straw Tempering,1,Other / Vernacular,#718096
+But Metallic Zinc Ore Mention Expected,1,Other / Vernacular,#718096
+Coal (Note: Coal Is A Sedimentary Rock,1,Other / Vernacular,#718096
+Fossil Fuel Cited Under General Stones,1,Other / Vernacular,#718096
+Peat Bog,1,Other / Vernacular,#718096
+Volcanic Ash (Note: Main Building Materials Are Earth,1,Other / Vernacular,#718096
+Clay,1,Other / Vernacular,#718096
+Rammed Earth,1,Other / Vernacular,#718096
+And Wattle & Daub,1,Other / Vernacular,#718096
+Stone Of Volcanic Origin,1,Other / Vernacular,#718096
+But Possible,1,Other / Vernacular,#718096
+Clay Mixture,1,Other / Vernacular,#718096
+Unbaked,1,Other / Vernacular,#718096
+Stone (Unspecified) For Specific Uses,1,Other / Vernacular,#718096
+Rock Salt,1,Other / Vernacular,#718096
+Concrete,1,Other / Vernacular,#718096
+Coal Mentioned But Not As Building Stone,1,Other / Vernacular,#718096
+Conglomerate (Auriferous Conglomerate,1,Other / Vernacular,#718096
+Stone Spheres,1,Other / Vernacular,#718096
+Gold And Silver Deposits,1,Other / Vernacular,#718096
+Placer Deposits,1,Other / Vernacular,#718096
+Ore Veins,1,Other / Vernacular,#718096
+Skiiped,1,Other / Vernacular,#718096
+Breccia,1,Other / Vernacular,#718096
+Rock (Specifically Mentioned As Cave Walls,1,Other / Vernacular,#718096
+Rock Shelters,1,Other / Vernacular,#718096
+And Stable Rock Strata,1,Other / Vernacular,#718096
+Shale,1,Other / Vernacular,#718096
+Bedrock,1,Other / Vernacular,#718096
+Rock Massifs,1,Other / Vernacular,#718096
+Silver Ore,1,Other / Vernacular,#718096
+"Only General Terms Like ""Rock"" And ""Masonry"" Are Used",1,Other / Vernacular,#718096
+Nyumba Za Mawe Material,1,Other / Vernacular,#718096
+Pietra D'Istria,1,Other / Vernacular,#718096
+Huts,1,Other / Vernacular,#718096
+And Floors,1,Other / Vernacular,#718096
+Delhi Quartzite (Used In Core,1,Other / Vernacular,#718096
+Silicified Sandstone (Sarsen),1,Sedimentary,#3182ce
+Luzon,1,Other / Vernacular,#718096
+De Capaza,1,Other / Vernacular,#718096
+"White Stone (""White-Stone Architecture",1,Other / Vernacular,#718096
+"Structures""",1,Other / Vernacular,#718096
+Gobertange Stone,1,Other / Vernacular,#718096
+Bruxellian,1,Other / Vernacular,#718096
+Assisi Type Of Stone,1,Other / Vernacular,#718096
+White-Stone (Beliy Kamen,1,Other / Vernacular,#718096
+Pedra Sabão,1,Other / Vernacular,#718096
+Bath Stone,1,Other / Vernacular,#718096
+Dala (Sacred Stones,1,Other / Vernacular,#718096
+Yellow Stone,1,Other / Vernacular,#718096
+Pukao (Red Stone Headdresses - Implied Context).,1,Other / Vernacular,#718096
+Local (Traditional Materials Maintained And Replastered By Tribal Members,1,Other / Vernacular,#718096
+Volcanic Glass (Obsidian,1,Other / Vernacular,#718096
+River Boulders,1,Other / Vernacular,#718096
+Marmo Di Corylo,1,Other / Vernacular,#718096
+Rosso Di Cotto,1,Other / Vernacular,#718096
+Pavonazzetto,1,Other / Vernacular,#718096
+Porfido Rosso (Red Porphyry,1,Other / Vernacular,#718096
+Black Stone,1,Other / Vernacular,#718096
+Porphyry,1,Other / Vernacular,#718096
+Granitic Sand And Clay Mixture (Daga,1,Other / Vernacular,#718096
+Lime Mortar,1,Other / Vernacular,#718096
+Borders,1,Other / Vernacular,#718096
+Stucco (Jet Noted In Automated Classification,1,Other / Vernacular,#718096
+Semi-Precious Stones (Pietra Dura,1,Other / Vernacular,#718096
+Inlay,1,Other / Vernacular,#718096
+Glass Mosaics,1,Other / Vernacular,#718096
+Gilt,1,Other / Vernacular,#718096
+Alabaster (Muqarnas Stalactites,1,Other / Vernacular,#718096
+Mounds Like Silbury Hill,1,Other / Vernacular,#718096
+Quartz Veins,1,Other / Vernacular,#718096
+Packing Stones,1,Other / Vernacular,#718096
+Lime (Mortar,1,Other / Vernacular,#718096
+Millstone,1,Other / Vernacular,#718096
+Scoria,1,Other / Vernacular,#718096
+Peat (Mentioned In Geological,1,Other / Vernacular,#718096
+Terrain Context As Peat Bogs,1,Other / Vernacular,#718096
+Dolerite,1,Other / Vernacular,#718096
+Diamond,1,Other / Vernacular,#718096
+Chert,1,Other / Vernacular,#718096
+Workshops,1,Other / Vernacular,#718096
+Jade (Mentioned In Context Of Trade Route Control,1,Other / Vernacular,#718096
+Bitumen,1,Other / Vernacular,#718096
+Coal (Coal Tar,1,Other / Vernacular,#718096
+Mud,1,Other / Vernacular,#718096
+Glass,1,Other / Vernacular,#718096
+Cast Iron,1,Other / Vernacular,#718096
+Thatch,1,Other / Vernacular,#718096
+Precast Concrete,1,Other / Vernacular,#718096
+Reinforced Concrete,1,Other / Vernacular,#718096
+Pebbles,1,Other / Vernacular,#718096
+Sacred Stones (Dala) Placed Beneath The Red Fig Tree,1,Other / Vernacular,#718096
+Earth And Stone (Mixed Masonry,1,Other / Vernacular,#718096
+Red Stone (Used For Moai Headdresses,1,Other / Vernacular,#718096
+Pukao,1,Other / Vernacular,#718096
+Toki,1,Other / Vernacular,#718096
+Beach Pebbles (Rounded,1,Other / Vernacular,#718096
+Used For Ramp Paving).,1,Other / Vernacular,#718096
+Mosaic Interior Decorative Elements (Materials Decayed,1,Other / Vernacular,#718096
+Removed).,1,Other / Vernacular,#718096
+Burnt Clay Masonry,1,Other / Vernacular,#718096
+Red Ochre Clay (Pigment,1,Other / Vernacular,#718096
+Mineral Pigments,1,Other / Vernacular,#718096

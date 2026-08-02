@@ -1,0 +1,749 @@
+unesco_id,site_name,country,region,year_inscribed,category,latitude,longitude,is_endangered,is_transnational,iso_code,unesco_url,brief_description,ouv_statement,date_fetched,date_of_inscription,criteria,property_size,buffer_zone_size,dossier,confidence,score,stone_count,stone_types_found,stone_geological_class,named_trade_stones,decorative_minerals_found,building_materials_found,construction_terms_found,architectural_elements_found,architecture_style_found,construction_verbs_found,matched_categories,matched_name_keywords,suggested_stones,confidence_v2,score_v2,stone_count_v2,stone_types_found_v2,stone_geological_class_v2,named_trade_stones_v2,decorative_minerals_v2,construction_terms_v2,architectural_elements_v2,matched_title_terms_v2,matched_categories_v2,llm_evaluated,llm_has_geological_material,llm_stone_types,llm_confidence,llm_summary
+1250,Central University City Campus of the <i>Universidad Nacional Autónoma de México</i> (UNAM),Mexico,Latin America and the Caribbean,2007.0,Cultural,19.3322222222,-99.1880555555,FALSE,FALSE,mx,https://whc.unesco.org/en/list/1250,"Central University City Campus of the Universidad Nacional Autónoma de México (UNAM)
+
+The ensemble of buildings, sports facilities and open spaces of the Central University City Campus of the Universidad Nacional Autónoma de México (UNAM), was built from 1949 to 1952 by more than 60 architects, engineers and artists who were involved in the project. As a result, the campus constitutes a unique example of 20th-century modernism integrating urbanism, architecture, engineering, landscape design and fine arts with references to local traditions, especially to Mexico’s pre-Hispanic past. The ensemble embodies social and cultural values of universal significance and is one of the most significant icons of modernity in Latin America.
+
+Description is available under license CC-BY-SA IGO 3.0","The Central University City Campus of UNAM bears testimony to the modernization of post-revolutionary Mexico in the framework of universal ideals and values related to access to education, improvement of quality of life, integral intellectual and physical education and integration between urbanism, architecture and fine arts. It is a collective work, where more than sixty architects, engineers and artists worked together to create the spaces and facilities apt to contribute to the progress of humankind through education.
+
+The urbanism and architecture of the Central University City Campus of UNAM constitute an outstanding example of the application of the principles of 20th Century modernism merged with features stemming from pre-Hispanic Mexican tradition. The ensemble became one of the most significant icons of modern urbanism and architecture in Latin America, recognized at universal level.
+
+Criterion (i): The Central University City Campus of UNAM constitutes a unique example in the 20th century where more than sixty professionals worked together, in the framework of a master plan, to create an urban architectural ensemble that bears testimony to social and cultural values of universal significance.
+
+Criterion (ii): The most important trends of architectural thinking from the 20th century converge in the Central University City Campus of UNAM: modern architecture, historicist regionalism, and plastic integration; the last two of Mexican origin.
+
+Criterion (iv): The Central University City Campus of UNAM is one of the few models around the world where the principles proposed by Modern Architecture and Urbanism were totally applied; the ultimate purpose of which was to offer man a notable improvement in the quality of life.
+
+Since all the fundamental physical components of the original ensemble remain and no major changes have been introduced, the property satisfies the required conditions of integrity and authenticity. The campus conserves unaltered its essential physical components: urban design, buildings, open spaces, circulation system and parking areas, landscape design and works of art. . Functions have not changed over time. The existing physical components therefore express the historic, cultural and social values of the ensemble, and its authenticity of design, materials, substance, workmanship and functions.
+
+At the national level, the Central University City Campus of UNAM was listed as a National Artistic Monument in July 2005, in the framework of the Federal Law on Archaeological, Artistic and Historic Monuments and Zones. At the local level, the UNAM Campus and the Olympic stadium are defined as heritage conservation zones in the framework of the District Programme for Urban Development (1997) of Coyoacán Delegation, one of the administrative units of Mexico City. Since the University is an autonomous organization, it has its own offices in charge of maintenance and conservation of the campus. Among them, the Governing Plan for University City (1993) rules the future growth of the University facilities, uses of land and maintenance of the campus. The Integral Plan for the University City (2005) constitutes the current management plan for the campus. The physical components are in a good state of conservation, and the process of ageing is controlled by means of plans of maintenance and preservation of both free and constructed spaces. The Office for Special Projects of UNAM developed and implements the Integral Plan for the University City (September 2005). With the aim of implementing and monitoring the Plan, the University will create the University City Management Programme (PROMACU).",2026-07-14,2007.0,(i)(ii)(iv),176.5 ha,"1,254.5 ha",1250,HIGH,11,0,,,,,,,,architectural; architecture; building; design; monument; plan,constructed,Criterion_iv; Criterion_i; Criterion_ii; Name_Civic_Infrastructure; OUV_ArchTerms,city,,MEDIUM,6,0,,,,,,,,Criterion_iv; Criterion_i; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 8.285341869s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '8s'}]}}"
+556,Engelsberg Ironworks,Sweden,Europe and North America,1993.0,Cultural,59.97,16.01,FALSE,FALSE,se,https://whc.unesco.org/en/list/556,"Engelsberg Ironworks
+
+Sweden's production of superior grades of iron made it a leader in this field in the 17th and 18th centuries. This site is the best-preserved and most complete example of this type of Swedish ironworks.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+Engelsberg Ironworks, situated in the mining area of Norberg in central Sweden, is an outstanding example of an influential European industrial complex of the 17th to 19th centuries. It is the best preserved and most complete example of a Swedish iron-working estate (
+
+järnbruk
+
+) of the type which produced superior grades of iron. This made Sweden an economic leader in this field for two centuries and significantly contributed to the country’s prosperity during that period. Important examples of the technological equipment of this era as well as associated administrative and residential buildings are preserved within the property.
+
+Local inhabitants began mining ore and smelting in the 12th century as a supplement to agricultural activities. The introduction of the waterwheel for powering the blast furnace, bellows, and forge to refine iron ore led to the rapid development of the Swedish iron industry. The first iron forge at Engelsberg was in operation during the last years of the 16th century; substantial operations were in place by the mid-17th century. In 1681, a nobleman built a blast furnace at Engelsberg in order to produce pig iron. The present blast furnace, built in 1778-1779 along with an ore crusher and a large charcoal store, incorporated a number of then-contemporary technological innovations. The introduction of a new blowing engine in 1836 resulted in a significant increase in production. A gas-fired ore-roasting kiln was added in 1848. The forge, which was rebuilt in the later 18th century, was re-equipped with French hearths in the 1850s. Axel Ax:son Johnson bought the Engelsberg ironworks in 1916, but found the older works increasingly uneconomical, and closed it down in 1919.
+
+Most of the technological, administrative, and residential buildings at Engelsberg Ironworks have been conserved in their original condition. The 18th-century smelting house, together with its associated installations from later periods, still remains intact. Collectively, they provide a very complete picture of the technological equipment of a traditional Swedish
+
+järnbruk
+
+. The complex also contains a range of administrative and residential buildings for managers and workers, as well as for those who worked on the associated farm. These include the main building (erected about 1750), office building, inspector’s house, smiths’ cottages, coach-house, stables, brewery, master gardener’s house (1790), and a monumental barn of slag stone (1872). Over 50 buildings of various ages and functions have been preserved here, making Engelsberg one of the most important iron-making complexes from this era in the world.
+
+Criterion
+
+(iv)
+
+:
+
+Engelsberg is an outstanding example of an influential European industrial complex of the 17th-19th centuries, with important technological remains and the associated administrative and residential buildings intact.
+
+Integrity
+
+Within the boundaries of the 9.596ha property are located all the elements necessary to express the Outstanding Universal Value of Engelsberg Ironworks, including technological, administrative, and residential buildings. Its boundaries adequately ensure the complete representation of the features and processes that convey the property’s significance. There is no buffer zone for the property. The property does not suffer unduly from adverse effects of development and/or neglect.
+
+According to the detailed comprehensive plan for Ängelsberg Municipality, developmental pressure constitutes a constant potential risk to the integrity of this property. Due to structural changes affecting traditional industries and the closing of factories, the population of Ängelsberg Municipality decreased significantly during the 20th century, from 700 to 150 inhabitants. The Swedish authorities believe that this trend may also affect the management of the property: if not addressed, there may be a negative impact on the level of service facilities, especially for tourists. The authorities likewise believe a low increase in visitors to be of vital importance for maintaining the Outstanding Universal Value of the property. They also consider it vitally important that private ownership of the property not be restricted.
+
+Authenticity
+
+Engelsberg Ironworks is authentic in its location and setting, forms and designs, and materials and substances. Despite having ceased operations in 1919, most of the technological, administrative, and residential buildings have been conserved in their original condition, and the restoration works have been of the highest quality in terms of techniques and materials.
+
+Protection and management requirements
+
+The attributes that sustain the Outstanding Universal Value of Engelsberg Ironworks are protected under the comprehensive, interlocking Swedish legislation for cultural and environmental protection. The property enjoys strong legal protection under the
+
+Cultural Heritage Act
+
+(1988) as a national monument (1974). Swedish law effectively forbids developers from compromising the environmental values of Engelsberg. The entire area of Engelsberg Ironworks is explicitly included in the Area of National Interest for Strömsholm Canal established under the federal
+
+Environmental Code
+
+.
+
+The relevant regional authority for Engelsberg Ironworks is the Västmanland County Administrative Board. Overall national supervision of all cultural properties is exercised by the Swedish National Heritage Board. Building permits are granted by Fagersta Municipality. Engelsberg Ironworks is owned and maintained by a private company, Nordstjernan AB. A Management Council is responsible for the inspection of the buildings, ensuring that maintenance measures are undertaken by experts and, when necessary, by external specialists. The goal of the Management Council is the continued protection and development of this World Heritage property. It maintains contact with relevant authorities, and ensures that Engelsberg Ironworks is protected and accessible. The management plan, prepared in 2005, is continuously updated, and the houses are kept and restored accordingly. Engelsberg Ironworks is open and accessible to the public at specific times.
+
+Sustaining the Outstanding Universal Value of the property over time will require managing, to the degree possible, the ongoing developmental pressure and the population decline related to structural changes affecting traditional industries and the closing of factories.",2026-07-14,1993.0,(iv),9.6 ha,,556rev,HIGH,12,0,,,,,iron; pig iron,,,building; design; monument; monumental; plan; traditional,built; erected; ironwork; mining; rebuilt; restored,Criterion_iv; Name_Industrial_Engineering; OUV_Materials; OUV_ArchTerms; OUV_ConstructionVerbs,ironworks,,MEDIUM,5,0,,,,,,,,Criterion_iv; OUV_Materials,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 28.2484501s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+1449,Tomioka Silk Mill and Related Sites,Japan,Asia and the Pacific,2014.0,Cultural,36.2552777778,138.8877777778,FALSE,FALSE,jp,https://whc.unesco.org/en/list/1449,"Tomioka Silk Mill and Related Sites
+
+This property is a historic sericulture and silk mill complex established in the late 19th and early 20th century in the Gunma prefecture, north-west of Tokyo. It consists of four sites that correspond to the different stages in the production of raw silk: a large raw silk reeling plant whose machinery and industrial expertise were imported from France; an experimental farm for production of cocoons; a school for the dissemination of sericulture knowledge; and a cold-storage facility for silkworm eggs. The site illustrates Japan’s desire to rapidly access the best mass production techniques, and became a decisive element in the renewal of sericulture and the Japanese silk industry in the last quarter of the 19th century. Tomioka Silk Mill and its related sites became the centre of innovation for the production of raw silk and marked Japan’s entry into the modern, industrialized era, making it the world’s leading exporter of raw silk, notably to Europe and the United States.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Tomioka Silk Mill dates from the early Meiji period. With its related sites including two sericulture schools and an egg storage site, it illustrates the desire of Japan, a traditional silk producer, to rapidly access the best mass production techniques. The Japanese government imported French machinery and industrial expertise to create an integrated system in Gunma Prefecture. It included egg production, silkworm farming and the construction of a large mechanised raw silk reeling and spinning plant. In turn, the Tomioka model complex and its related sites became a decisive component in the renewal of sericulture and the Japanese silk industry, in the last quarter of the 19th century, and a key element in Japan’s entry into the modern industrialised world.
+
+Criterion (ii):
+
+The Tomioka mill illustrates the early and entirely successful transfer of French industrial sericultural techniques to Japan. This technological transfer took place in the context of a long regional tradition of silkworm farming, which it profoundly renewed. In turn, Tomioka became a centre for technical improvements and a model that enshrined Japan’s role in the global raw silk market at the beginning of the 20th century, and which bears witness to the early advent of a shared international culture of sericulture.
+
+Criterion (iv):
+
+Tomioka and its related sites form an outstanding example of an integrated ensemble for the mass production of raw silk. The extent of the plant, from its initial design, and the deliberate adoption of the best Western techniques illustrate a decisive period for the spread of industrial methods to Japan and the Far East. Its large, late 19th century buildings provide an eminent example of the emergence of a style of industrial architecture specific to Japan, combining foreign and local elements.
+
+Integrity
+
+The integrity of the serial property’s composition is good, illustrating the idea of a productive complex for an intermediate textile product: raw silk. The structural and functional integrity of each of the components is more uneven and at times difficult for the visitor to understand, notably the Takayama-sha sericulture school and Arafune cold storage. The landscape integrity, as it relates to the buffer zones, requires particular attention.
+
+Authenticity
+
+The authenticity of the components presented is generally satisfactory in terms of its various dimensions of structure, form and materials. The perceived authenticity is remarkable at the Tomioka mill, which has retained its complete textile machinery. The restoration activities at the Arafune site must remain within a strictly controlled framework in terms of its authenticity, which must remain archaeological in nature.
+
+Protection and management requirements
+
+Each of the four sites comprising the serial property is protected by Japan’s Law for the Protection of Cultural Properties. The main buildings are also protected as cultural properties of national importance. Under the application of this law, each of the sites is covered by a conservation and management plan already in place under the aegis of the cities and municipalities, including in the case of the privately owned Tajima Yahei (S2). Continuing this protection policy, the buffer zones correspond with a desire to control the urban and natural environments using measures that are, in theory, stringent. The management system relies on the competent services of the municipalities, the Commission for Cultural Affairs of the Gunma Prefecture and a series of scientific institutions involved in the regional silk heritage, and volunteer associations. The Coordination Committee, established in spring 2012, is an overarching body responsible for coordinating the actual operation.",2026-07-14,2014.0,(ii)(iv),7.2 ha,414.6 ha,1449,MEDIUM,9,0,,,,,,,,architecture; building; construction; design; plan; structure; traditional,,Criterion_iv; Criterion_ii; Name_Civic_Infrastructure; OUV_ArchTerms,mill,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 49.205017418s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '49s'}]}}"
+624,Town of Bamberg,Germany,Europe and North America,1993.0,Cultural,49.89166667,10.88888889,FALSE,FALSE,de,https://whc.unesco.org/en/list/624,"Town of Bamberg
+
+From the 10th century onwards, this town became an important link with the Slav peoples, especially those of Poland and Pomerania. During its period of greatest prosperity, from the 12th century onwards, the architecture of Bamberg strongly influenced northern Germany and Hungary. In the late 18th century it was the centre of the Enlightenment in southern Germany, with eminent philosophers and writers such as Hegel and Hoffmann living there.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+Bamberg is located in southern Germany in the north of Bavaria. It is a good example of a central European town with a basically early medieval plan and many surviving ecclesiastical and secular buildings of the medieval period. When Henry II, Duke of Bavaria, became King of Germany in 1007 he made Bamberg the seat of a bishopric, intended to become a 'second Rome'. Of particular interest is the way in which the present town illustrates the link between agriculture (market gardens and vineyards) and the urban distribution centre.
+
+From the 10th century onwards, Bamberg became an important link with the Slav peoples, especially those of Poland and Pomerania. During its period of greatest prosperity, from the 12th century onwards, the architecture of this town strongly influenced northern Germany and Hungary. In the late 18th century Bamberg was the centre of the Enlightenment in southern Germany, with eminent philosophers and writers such as Georg Wilhelm Friedrich Hegel and E.T.A. Hoffmann living there.
+
+Criterion (ii):
+
+The layout and architecture of medieval and baroque Bamberg exerted a strong influence on urban form and evolution in the lands of central Europe from the 11th century onwards.
+
+Criterion (iv):
+
+Bamberg is an outstanding and representative example of an early medieval town in central Europe, both in its plan and its surviving ecclesiastical and secular buildings.
+
+Integrity
+
+The medieval layout of the city with its three settlement areas is still well preserved. The property therefore contains all elements necessary for the Outstanding Universal Value. There are no adverse impacts of development and/or neglect.
+
+Authenticity
+
+The street layouts of the three historic core areas retain their medieval features. The many historic buildings in these areas are authentic. Since the 1950s Bamberg has undergone a continuous programme of restoration of its historic properties and areas. This programme proceeded by a series of small projects (the “Bamberg model”) rather than by large and ambitious schemes resulting in the uniformly high level of conservation of Bamberg.
+
+Protection and management requirements
+
+The laws and regulations of the Federal Republic of Germany and the Free State of Bavaria guarantee the consistent protection of the Town of Bamberg. The legal basis for the whole of the World Heritage property and the Buffer Zone is manifested in the Bavarian Preservation of Monuments Act. The national Town and Country Planning Code is considered for intra-urban construction projects. The boundaries of the Town Ensemble, the World Heritage property and the Buffer Zone are officially included in the land use plan. Within the Town Ensemble numerous single listed monuments and landscape protection areas are to be found. Additionally, the large-scale Town Ensemble designation protects the integrity of the World Heritage property. Historic properties have been conserved in accordance with accepted conservation practices within the regional programme “the Bamberg model” for preservation.
+
+The City of Bamberg is the responsible institution for the management of the property. For this specific task the so-called Centre of World Heritage Bamberg has been established. The Centre coordinates the protection and preservation of the physical substance and intangible heritage which is linked to the built structure. A study of visual axes will be the basis for an enlargement of the Buffer Zone. Once finalized and approved, a sustainable Management Plan will be in place.",2026-07-14,1993.0,(ii)(iv),142 ha,444 ha,624,MEDIUM,9,0,,,,,,,,architecture; baroque; building; construction; layout; monument; plan; structure,built,Criterion_iv; Criterion_ii; Name_Civic_Infrastructure; OUV_ArchTerms,town,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 26.685138413s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '26s'}]}}"
+873,"Provins, Town of Medieval Fairs",France,Europe and North America,2001.0,Cultural,48.55972222,3.298888889,FALSE,FALSE,fr,https://whc.unesco.org/en/list/873,"Provins, Town of Medieval Fairs
+
+The fortified medieval town of Provins is situated in the former territory of the powerful Counts of Champagne. It bears witness to early developments in the organization of international trading fairs and the wool industry. The urban structure of Provins, which was built specifically to host the fairs and related activities, has been well preserved.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+Located in Île-de-France in the Seine-et-Marne department, the historic walled city of Provins is an outstanding and authentic example of a medieval fair town in Champagne, a region that was an important centre of exchange, and which witnessed, together with the rise of trading fairs in the 11th century, the beginning of significant international trade in Europe.
+
+Of international scope, these trade fairs which targeted merchants and traders required the protection of long-distance freight transport between Europe and the East, encouraging the development of activities such as banking and foreign exchange, as well as productive activities (tanning, dyeing, cloth trade). The urban layout and the medieval dwellings that remain in Provins are an outstanding example of an architectural ensemble built specially to fulfill these functions. This complex includes merchant houses, vaulted cellars and warehouses, outdoor spaces for trade, and religious ensembles. The city is also known for its well-preserved defense system, which was built for the protection of the fairs.
+
+Criterion (ii):
+
+At the beginning of the 2nd millennium, Provins was one of several towns in the territory of the Counts of Champagne that became the venues for great annual trading fairs linking northern Europe with the Mediterranean world.
+
+Criterion (iv):
+
+Provins preserves to a high degree the architecture and urban layout that characterize these great medieval fair towns.
+
+Integrity
+
+Although Provins suffered some destruction during the Hundred Years War in the 14th and 15th centuries, as well as during the French Revolution, it was quite minimal. The urban plan of the medieval town is well preserved, as are a large part of the historic buildings, canals and the water management system. Some 150 historic houses have preserved their medieval vaulted cellars, intended for the storage of goods. Despite minor changes since the 17th century, the city has preserved its integrity and that of the places associated with the various functions of the fairs. The relationship of the upper town with the plains of Plateau Briard is also intact. The new buildings in the lower town respect the volumes of the ensemble and integrate nicely with the historic buildings.
+
+Authenticity
+
+Due to its economic decline, but also to the persistence of its urban functions, the medieval fairs town of Provins remains relatively intact to this day. Open spaces, cellars, public and religious buildings and fortifications have preserved the medieval character of the fairgrounds.
+
+Protection and management requirements
+
+The city of Provins is subject to a set of protection measures taken under the Heritage Code and the Environmental Code, which ensure effective protection of the property. In addition to the protection of many buildings under the Historic Monuments Act and the protection of sites outside the ramparts for listed sites, it is part of a remarkable heritage site in which development is strictly controlled.
+
+The components of the property belong to regional and communal authorities, individuals and institutions. The Ministry of Culture is responsible for the good implementation of the various types of legal protection. The private owners are responsible for the maintenance of the protected properties, all works being placed under the supervision of an architect of the Bâtiments de France.
+
+In association with other institutional partners, the city is also implementing a series of programmes focusing on the monuments or particular themes, such as cultural tourism, commercial signage control and the regulation of vehicle access.
+
+The buffer zone, which includes part of the plain of Brie, completes this protection by adding a rural element. The outstanding heritage site by-law that applies to this area is designed to prevent deforestation and prohibits all types of construction, with the exception of certain public interest facilities that are contained in a concise list, together with their precise location. Any modification of the premises is subject to the authorization of the architect of the Bâtiments de France. The rest of the buffer zone is managed by the urban planning document which allows, on the one hand, to identify the heritage elements to be preserved and, on the other hand, to regulate this zone according to the identified issues. The management plan for the property is under preparation.",2026-07-14,2001.0,(ii)(iv),108 ha,"1,365 ha",873rev,HIGH,11,0,,,,,,,,architectural; architecture; building; construction; layout; monument; plan,built; designed; vaulted; walled,Criterion_iv; Criterion_ii; Name_Civic_Infrastructure; OUV_ArchTerms; OUV_ConstructionVerbs,town,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 48.378901406s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-3.5-flash', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '48s'}]}}"
+1486,Rjukan-Notodden Industrial Heritage Site,Norway,Europe and North America,2015.0,Cultural,59.8786111111,8.5936111111,FALSE,FALSE,no,https://whc.unesco.org/en/list/1486,"Rjukan-Notodden Industrial Heritage Site
+
+Located in a dramatic landscape of mountains, waterfalls and river valleys, the site comprises hydroelectric power plants, transmission lines, factories, transport systems and towns. The complex was established by the Norsk-Hydro Company to manufacture artificial fertilizer from nitrogen in the air. It was built to meet the Western world’s growing demand for agricultural production in the early 20th century. The company towns of Rjukan and Notodden show workers’ accommodation and social institutions linked by rail and ferry to ports where the fertilizer was loaded. The Rjukan-Notodden site manifests an exceptional combination of industrial assets and themes associated to the natural landscape. It stands out as an example of a new global industry in the early 20th century.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+Located in a dramatic landscape of mountains, waterfalls and river valleys, the Rjukan-Notodden Industrial Heritage Site comprises a cluster of pioneering hydro-electric power plants, transmission lines, factories, transport systems and towns. The complex was established by the Norsk-Hydro company which brought together results of science and research from Europe and North America to produce hydroelectricity and manufacture artificial fertilizer from nitrogen in the air in response to the Western world’s demand for increased agricultural production in the early 20th century. Rjukan and Notodden company towns incorporated social innovations in workforce provision influenced by international planning ideas which together with innovative transport solutions enabled supply of a new, globally significant product for the world-wide market.
+
+Criterion (ii):
+
+Rjukan-Notodden Industrial Heritage Site manifests an exceptional combination of industrial themes and assets tied to the landscape, which exhibit an important exchange on technological development in the early 20th century.
+
+Criterion (iv):
+
+The technological ensemble of Rjukan-Notodden comprising dams, tunnels, pipes, power plants, power lines, factory areas and equipment, the company towns, railway lines and ferry service, located in a landscape where the natural topography enabled hydroelectricity to be generated in the necessary large amounts stands out as an example of new global industry in the early 20th century.
+
+Integrity
+
+In general all important remaining physical structures and objects that are testimony to the industrial pioneering period of the production of artificial fertilizer for agriculture in Norway in the early 20th century are within the boundaries of the area which is of adequate size to ensure the complete representation of the features and processes which convey the property's significance. The physical fabric of the property and its significant features are generally in a good condition. The property is not suffering from adverse effects and neglect.
+
+Authenticity
+
+The property incorporates buildings, structures and remains which convey credibly and truthfully its Outstanding Universal Value as a pioneering industrial enterprise for the production of artificial fertilizer in the early 20th century.
+
+Protection and management requirements
+
+The property is protected under the Cultural Heritage Act 1978, amended 2009 and the Planning & Building Act 2009, amended 2012. All specified items will be protected by the Cultural Heritage Act or specific heritage provisions of the Planning & Building Act by June 2015. The buffer zone is protected under the Cultural Heritage Act and zoning controls pursuant to the Planning & Building Act.
+
+A ‘Declaration of Intent’ has been signed by the State Party and relevant county council and municipalities undertaking to protect the Outstanding Universal Value and the buffer zone. A provisional World Heritage Council comprising representatives from the Directorate for Cultural Heritage, the county authority, municipalities and the Norwegian Industrial Workers Museum has been set up to deliver a management structure for the property. A World Heritage Coordinator with responsibility for the whole area will be appointed. The Management Plan 2014-2019 includes an Action Plan with goals and actions for conservation, strengthening of Outstanding Universal Value, competence building and research, information & presentation, and visitor management and will include a risk preparedness strategy.",2026-07-14,2015.0,(ii)(iv),"4,959.5 ha","33,967.6 ha",1486,MEDIUM,6,0,,,,,,,,building; plan; structure,,Criterion_iv; Criterion_ii; OUV_ArchTerms,,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 49.517703798s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '49s'}]}}"
+1239,Berlin Modernism Housing Estates,Germany,Europe and North America,2008.0,Cultural,52.4483333333,13.45,FALSE,FALSE,de,https://whc.unesco.org/en/list/1239,"Berlin Modernism Housing Estates
+
+Berlin Modernism Housing Estates. The property consists of six housing estates that testify to innovative housing policies from 1910 to 1933, especially during the Weimar Republic, when the city of Berlin was particularly progressive socially, politically and culturally. The property is an outstanding example of the building reform movement that contributed to improving housing and living conditions for people with low incomes through novel approaches to town planning, architecture and garden design. The estates also provide exceptional examples of new urban and architectural typologies, featuring fresh design solutions, as well as technical and aesthetic innovations. Bruno Taut, Martin Wagner and Walter Gropius were among the leading architects of these projects which exercised considerable influence on the development of housing around the world.
+
+Description is available under license CC-BY-SA IGO 3.0","The set of housing estates in the Berlin Modern Style provides outstanding testimony to the implementation of housing policies during the period 1910 – 1933 and especially during the Weimar Republic, when the city of Berlin was characterized by its political, social, cultural and technical progressiveness. The housing estates reflect, with the highest degree of quality, the combination of urbanism, architecture, garden design and aesthetic research typical of early 20th century modernism, as well as the application of new hygienic and social standards. Some of the most prominent leading architects of German modernism were involved in the design and construction of the properties; they developed innovative urban, building and flat typologies, technical solutions and aesthetic achievements.
+
+Criterion (ii):
+
+The six Berlin housing estates provide an outstanding expression of a broad housing reform movement that made a decisive contribution to improving housing and living conditions in Berlin. Their quality of urban, architectural and garden design, as well as the housing standards developed during the period, served as guidelines for social housing constructed since then, both in and outside Germany.
+
+Criterion (iv):
+
+The six Berlin housing estates are exceptional examples of new urban and architectural typologies, designed in the search for improved social living conditions. Fresh design solutions and technical and aesthetic innovations were incorporated by the leading modern architects who participated in their design and construction.
+
+The six properties were selected out of the ensemble of housing estates of the period existing in the city, on the basis of their historical, architectural, artistic and social significance and the fact that, due to their location, they suffered little damage during World War II. Even though minor reconstruction and interior changes were carried out in the post war period, restoration works within the framework of the protection law of 1975 and their current state of conservation achieve a high standard of integrity and authenticity.
+
+Adequate protection is ensured by the legislation in place, especially by the Berlin Law on the Preservation of Historic Places and Monuments (1995). The properties, buildings and open spaces, are in a good state of conservation. The management system, including policies, structures and plans, proves to be adequate and includes all concerned stakeholders.",2026-07-14,2008.0,(ii)(iv),88.1 ha,258.5 ha,1239,HIGH,11,0,,,,,,,,architectural; architecture; building; construction; design; monument; plan; structure,constructed; designed,Criterion_iv; Criterion_ii; Name_Palatial; OUV_ArchTerms; OUV_ConstructionVerbs,estate,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 28.514562893s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '28s'}]}}"
+10,Lower Valley of the Awash,Ethiopia,Africa,1980.0,Cultural,11.10006,40.57939,FALSE,FALSE,et,https://whc.unesco.org/en/list/10,"Lower Valley of the Awash
+
+The Awash valley contains one of the most important groupings of palaeontological sites on the African continent. The remains found at the site, the oldest of which date back at least 4 million years, provide evidence of human evolution which has modified our conception of the history of humankind. The most spectacular discovery came in 1974, when 52 fragments of a skeleton enabled the famous Lucy to be reconstructed.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Lower Awash Valley paleo-anthropological site is located 300 km northeast of Addis Ababa, in the west of the Afar Depression. It covers an area of around 150 km
+
+2
+
+.
+
+The Awash Valley contains one of the most important groupings of paleontological sites on the African continent. The remains found at the property, the oldest of which date back over 4 million years, provide evidence of human evolution, which has modified our conception of the history of humankind. The most spectacular discovery came in 1974, when 52 fragments of a skeleton enabled the famous Lucy to be reconstructed.
+
+Excavations by an international team of palaeontologists and pre-historians began in 1973, and continued annually until 1976, and ended in 1980. In that time, they found a large quantity of fossilised hominid and animal bones in a remarkable state of preservation, the most ancient of which were at least four million years old. In 1974, the valley produced the most complete set of remains of a hominid skeleton, Australopithecus afarensis, nicknamed ‘Lucy’, dating back 3.2 million years. Afarensis has since been proved to be the ancestral origin for both the Genus Australopithecus and Homo-sapiens.
+
+A recovered female skeleton nicknamed ‘Ardi’ is 4.4 million years old, some 1.2 million years older than the skeleton of Australopithecus afarensis ‘Lucy’.
+
+There is a wealth of paleo-anthropological and pre-historic tools still awaiting discovery and scientific study and these are seen as constituting an exceptionally important cultural heritage resource.
+
+Criterion (ii):
+
+The evidence of hominid and animal fossil remains discovered in the Lower Awash Valley testify to developments in human evolution that have modified views of the history of mankind as a whole.
+
+Criterion (iii):
+
+The excavated paleo-anthropological remains from the Lower Awash Valley dating back almost 4 million years are of exceptional antiquity.
+
+Criterion (iv):
+
+The human vestiges that have been excavated dating back over 3 million years provide an exceptional record that contributes to an understanding of human development.
+
+Integrity
+
+The boundaries of the sites have yet to be defined. The most extensive remains assigned were found in Hadar, one of the localities within the Lower Awash Valley, but the rest of the valley is seen to have the potential to contribute to further paleontological and historical evidence.
+
+Furthermore, the Middle Awash Valley has been the focus of intensive research since 1981 and it is the entire valley that is now seen to constitute one of the most important paleontological and pre-historical sites in the world. The boundaries of the property need to be defined to encompass all the attributes related to known and potential archaeological evidence. A buffer zone needs to be provided for the property.
+
+In spite of its remote location in the Afar Depression, the property is reportedly the target of individual tourists hunting fossil souvenirs and is thus highly vulnerable.
+
+Authenticity
+
+The material authenticity is explicit in the finds themselves. However, due to the nature of the site, it is necessary to hold the unearthed finds in the National Museum. The authenticity of the immediate settings of the finds remains largely intact as a result of its desert location, but is vulnerable to fossil hunters. In order to manifest the complete storey of the finds from this valley, it is necessary to go beyond the current boundaries. Better information on the property is still needed.
+
+Protection and management requirements
+
+An open site, it is naturally protected by the difficult terrain and by the local Afar population. No special legal framework is provided to protect the Lower Awash Valley, except the general law, Proclamation No. 209/2000. This also established the Authority for Research and Conservation of Cultural Heritage as the institution in charge.
+
+The site has no local management, and is overseen from the Afar Regional Office in Asayta, 160 km away.
+
+A museum has been a long-standing aim of the local authorities. One of the principal American research institutions was prepared to build it in 2004, but how it was to be staffed was not resolved.
+
+Through the Africa 2009 programme, some expertise in training, in conservation and management was provided at a regional level. Pastoral nomads live around the property, and it has been considered that protection might be improved by involving nomadic tribal chiefs in an oversight of the large area.
+
+There is an urgent need to re-assess and define the boundaries so as to encompass all the attributes of Outstanding Universal Value, to define a buffer zone, to put in place local protection, perhaps through the local communities, and to prepare an overall management plan that sets out how protection, management and interpretation will be met in the medium and long term.",2026-07-14,1980.0,(ii)(iii)(iv),,,10,LOW,4,0,,,,,bone,,,plan,reconstructed,Criterion_iv; Criterion_ii,,,MEDIUM,4,0,,,,,,,,Criterion_iv; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 12.770823121s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '12s'}]}}"
+1533,Venetian Works of Defence between the 16th and 17th Centuries: <em>Stato da Terra</em> – Western <em>Stato da Mar</em>,"Croatia,Italy,Montenegro",Europe and North America,2017.0,Cultural,45.7033333333,9.6636111111,FALSE,TRUE,"hr,it,me",https://whc.unesco.org/en/list/1533,"Venetian Works of Defence between the 16th and 17th Centuries: Stato da Terra – Western Stato da Mar
+
+This property consists of 6 components of defence works in Italy, Croatia and Montenegro, spanning more than 1,000 km between the Lombard region of Italy and the eastern Adriatic Coast. The fortifications throughout the Stato da Terra protected the Republic of Venice from other European powers to the northwest and those of the Stato da Mar protected the sea routes and ports in the Adriatic Sea to the Levant. They were necessary to support the expansion and authority of the Serenissima. The introduction of gunpowder led to significant shifts in military techniques and architecture that are reflected in the design of so-called alla moderna / bastioned, fortifications, which were to spread throughout Europe.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief Synthesis
+
+The Venetian Works of Defence between the 16th and 17th centuries:
+
+Stato da Terra
+
+– western
+
+Stato da Mar
+
+consists of six components located in Italy, Croatia and Montenegro and spanning more than 1000 km between the Lombard region of Italy and the eastern Adriatic Coast. Together, they represent the defensive works of the
+
+Serenissima
+
+between the 16th and 17th centuries, the most significant period of the longer history of the Venetian Republic; and demonstrate the designs, adaptations and operations of
+
+alla moderna
+
+defences, which were to feature throughout Europe.
+
+The introduction of gunpowder led to significant shifts in military techniques and architecture that are reflected in the design of fortifications – termed
+
+alla moderna
+
+. The organisation and defences of the
+
+Stato da Terra
+
+(protecting the Republic from other European powers to the northwest) and the
+
+Stato da Mar
+
+(protecting the sea routes and ports in the Adriatic Sea to the Levant) were needed to sustain the expansion and power of the Republic of Venice.
+
+The expansive territory of the
+
+Serenessima
+
+was indisputably the near-exclusive setting of the genesis of the
+
+alla moderna
+
+or bastioned system during the Renaissance; and the extensive and innovative defensive networks established by the Republic of Venice are of exceptional historical, architectural and technological significance. The attributes of the Outstanding Universal Value include earthworks and structures of fortification and defence from the Venetian Republic in the 16th and 17th centuries. Strongly contributory to these are the landscape settings, and which strengthen the visual qualities of the six components, as well as urban and defensive structures from both earlier (Medieval) and more recent periods of history (such as the Napoleonic and Ottoman period modifications and additions) that allow the serial components to be truthfully presented and the tactical coherence of each military site in its final state to be recognised.
+
+Criterion (iii):
+
+The Venetian Works of Defence provide an exceptional testimony of the
+
+alla moderna
+
+military culture, which evolved within the Republic of Venice in the 16th and 17th centuries, involving vast territories and interactions. Together the components demonstrate a defensive network or system for the
+
+Stato da Terra
+
+and the western
+
+Stato da Mar
+
+centred in the Adriatic Sea or Golfo di Venezia, which had civil, military, urban dimensions that extended further, traversing the Mediterranean region to the Levant.
+
+Criterion (iv):
+
+The Venetian Works of Defence present the characteristics of the
+
+alla moderna
+
+fortified system (bastioned system) built by the Republic of Venice following changes that were introduced following the increased use of firearms. Together the six components demonstrate in an exceptional way the characteristics of the
+
+alla moderna
+
+system including its technical and logistic abilities, modern fighting strategies and new architectural requirements within the
+
+Stato da Terra
+
+and the western portions of the
+
+Stato da Mar
+
+.
+
+Integrity
+
+Together, the six components of Venetian Works of Defence within
+
+Stato da Terra
+
+and the western portions of the
+
+Stato da Mar
+
+exhibit the needed attributes of Outstanding Universal Value of this transnational heritage, including their typological variety, visual integrity and state of conservation. This serial property leaves open the potential for a future nomination of examples that can represent in an exceptional and complementary way, the applications of the
+
+alla moderna
+
+technologies through the extent of the Venetian Republic in this period of history in the eastern or Levante
+
+Stato da Mar.
+
+The state of conservation of the individual components is generally good, although their integrity is variable, and in some cases vulnerable, due to past and present development and tourism pressures. Although some further expansions could be made to the buffer zones (particularly for the components in Zadar and Kotor), the boundaries of the six components are appropriate.
+
+Authenticity
+
+The Venetian Works of Defence within
+
+Stato da Terra
+
+and the western portions of the
+
+Stato da Mar
+
+and the phenomenon of
+
+alla moderna
+
+military architecture have been extensively studied, supported by extensive archival materials, documents, architectural drawings, maps and models. Because of their purposes and locations, many changes have occurred to the selected components, including damage through different periods of conflict from the Napoleonic, Austrian and Ottoman periods and the 20th century.
+
+Protection and management requirements
+
+Legal protection of the components of the Venetian Works of Defence within the
+
+Stato da Terra
+
+and the western portions of the
+
+Stato da Mar
+
+has been established at national and regional/local levels in each of the three States Parties. The frameworks for legal protection include cultural heritage and environmental protection laws. In Italy, the three components are protected by the ‘Cultural and Landscape Heritage Code’ (2004) which establishes the national regulation framework for conservation works, including the protection of significant landscape elements; and each is further protected by regional and municipal Territorial Plans and local protection measures that regulate urban transformations. In Croatia, the two components are protected by the ‘Act on the Protection and Preservation of Cultural Property’, and inscription in the Register of Cultural properties; as well as local protection measures that regulate urban transformations. In Montenegro, the selected component is protected by the ‘Law on the Protection of Cultural Property’ and subordinate ordinances; and the ‘Law on Spatial Planning and Construction’ and local protection measures that regulate urban transformations.
+
+Management of the transnational serial property is organised at transnational, national and local levels of responsibility and activity. A transnational Memorandum of Understanding (December 2015) provides coordination between the three States Parties and establishes the International Coordination Team responsible for coordination, implementation and regular updating of the Transnational Management Plan. Shared heritage management objectives, a framework for heritage impact assessment, and a summary of current projects are provided by the Transnational Management Plan. Risk Preparedness is established by the States Parties for the risks of relevant natural disasters, including earthquakes, forest fires and sea level rise. Due to the complex pressures and high levels of tourism at some of the components of this serial property, site-level Conservation and Management Plans are needed, including visitor management plans and tourism carrying capacity studies.
+
+The International Coordination Team is supported by National Coordination Groups in each country, made up of relevant national and local authorities. The financial resources and the sources of expertise and training for the conservation of the components of this serial property have been outlined. An overarching system of monitoring has been established, but could be expanded by the work of the International Coordinating Team, particularly in relation to visitor pressures.",2026-07-14,2017.0,(iii)(iv),378.37 ha,"1,749.62 ha",1533,HIGH,10,0,,,,,,,,architectural; architecture; construction; design; ottoman; plan; renaissance; structure,built; extended; fortified,Criterion_iv; Name_Military; OUV_ArchTerms; OUV_ConstructionVerbs,defence,,LOW,3,0,,,,,,,,Criterion_iv,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 4.55077627s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '4s'}]}}"
+751,Verla Groundwood and Board Mill,Finland,Europe and North America,1996.0,Cultural,61.06194,26.64083,FALSE,FALSE,fi,https://whc.unesco.org/en/list/751,"Verla Groundwood and Board Mill
+
+The Verla groundwood and board mill and its associated residential area is an outstanding, remarkably well-preserved example of the small-scale rural industrial settlements associated with pulp, paper and board production that flourished in northern Europe and North America in the 19th and early 20th centuries. Only a handful of such settlements survive to the present day.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+Verla Groundwood and Board Mill, located in the northern part of the Kymi River Valley in southeast Finland, consists of the Mill, the associated residential area and the power plants. The mill buildings and the workers' houses mostly date from the 1890s and from the beginning of the 20th century. The property is a very well preserved example of a forest industry settlement of the late 19th century. Similar communities were established in coniferous forest zones in northern Europe and in North America, where wood as a raw material and water as a source of energy were easily at hand.
+
+The first groundwood mill in Verla was founded in 1872 and the board mill began operations ten years later. The existing buildings, which are architecturally harmonious, date back to the turn of the 20th century. The mill itself ceased to operate in 1964, and all the machines and items related to production were left in the mill as they were when the production ceased. The buildings and the machines were carefully conserved and turned into a museum, and the Verla Mill Museum was officially opened in 1972.
+
+The property itself consists of approximately 50 buildings in an area of 23 ha. The Verlankoski Rapids separate the production area from the residential area. On the rapids, there are three water power plants from three different decades, the newest one dating from the 1990s. The mill owner’s residence and a park from the late 19th century dominate the village. The sheer rock face above the rapids bears a prehistoric rock painting, representing fishing and hunting.
+
+Criterion (iv):
+
+The Verla Groundwood and Board Mill and its associated habitation are an outstanding and remarkably well preserved example of the small-scale rural industrial settlement associated with pulp, paper, and board production that flourished in northern Europe and North America in the 19th and early 20th centuries, of which only a handful survives to the present day.
+
+Integrity
+
+The Verla Groundwood and Board Mill with its machinery, the Verlankoski Rapids and power plants, the associated residential area and installations form a visually and functionally intact complex. The property includes all the built elements associated with production, habitation and leisure in the mill village, as well as the rapids, the surrounding forests, and the prehistoric rock painting.
+
+Authenticity
+
+The Verla Groundwood and Board Mill and its associated buildings, equipment, installations and landscape have remained almost intact. The fact that the machinery needed for the production of groundwood pulp and board has remained at its original place adds to the authenticity. The buildings and the installations have preserved their characteristic features with regard to the materials, construction methods and architecture. Furthermore, the authenticity of Verla is reinforced by the well-preserved wooded landscape.
+
+Protection and management requirements
+
+Verla is protected according to national legislation. UPM-Kymmene Corporation, the principal landowner, is responsible for the administration of the site and for the Management Board of Verla, which includes the authorities and owners of the site. The Board controls and instructs the operations involving restoration and maintenance according to the Management Plan.
+
+The groundwood and board mill is surrounded by a forested area, which is located in the buffer zone of the property. Landscape and environment values are taken into consideration when forestry work is done.
+
+The flow of water in the power plant canal, adjacent to the board mill, has threatened the conservation and safety of the mill building, as water from the canal was leaking into the mill. To solve this problem, a new power plant canal, which separates the water from the building, was opened in January 2014.
+
+Verla Groundwood and Board Mill is located in a rural area and is closed during the winter. Due to its remote location, fire and other accidents are considered potential threats to the property. Because of this, the most central parts of the property are protected by automatic fire alarms and fire extinguishing systems.",2026-07-14,1996.0,(iv),22.778 ha,88.03 ha,751,HIGH,10,0,,,,,wood,,,architecture; building; construction; plan,built; reinforced,Criterion_iv; Name_Civic_Infrastructure; OUV_ArchTerms; OUV_ConstructionVerbs,mill,,LOW,3,0,,,,,,,,Criterion_iv,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 16.878254399s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '16s'}]}}"
+1735,Faya Palaeolandscape,United Arab Emirates,Arab States,2025.0,Cultural,25.0828055556,55.8065833333,FALSE,FALSE,ae,https://whc.unesco.org/en/list/1735,"Faya Palaeolandscape
+
+Located between the Persian Gulf and Arabian Sea, the property preserves evidence of human occupation from the Middle Palaeolithic and Neolithic periods (210,000–6,000 years ago). Archaeological layers reveal how hunter-gatherers and pastoralists adapted to extreme climates, alternating between arid and rainy periods every 20,000 years. Beyond subsistence activities, early human groups utilized the site's geomorphological features for resource extraction. With diverse water sources and raw materials, Faya provides valuable insights into human resilience in hyper-arid environments.
+
+Description is available under license CC-BY-SA IGO 3.0",,2026-07-14,2025.0,(iii)(iv),"29,085 ha","65,841 ha",1735,LOW,3,0,,,,,,,,,,Criterion_iv,,,LOW,3,0,,,,,,,,Criterion_iv,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 24.448945741s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '24s'}]}}"
+1298,Stoclet House,Belgium,Europe and North America,2009.0,Cultural,50.835,4.4161111111,FALSE,FALSE,be,https://whc.unesco.org/en/list/1298,"Stoclet House
+
+When banker and art collector Adolphe Stoclet commissioned this house from one of the leading architects of the Vienna Secession movement, Josef Hoffmann, in 1905, he imposed neither aesthetic nor financial restrictions on the project. The house and garden were completed in 1911 and their austere geometry marked a turning point in Art Nouveau, foreshadowing Art Deco and the Modern Movement in architecture. Stoclet House is one of the most accomplished and homogenous buildings of the Vienna Secession, and features works by Koloman Moser and Gustav Klimt, embodying the aspiration of creating a ‘total work of art' (Gesamtkunstwerk). Bearing testimony to artistic renewal in European architecture, the house retains a high level of integrity, both externally and internally as it retains most of its original fixtures and furnishings.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Stoclet House is an outstanding testimony to the creative genius of the Wiener Werkstätte. It was designed and built in Brussels from 1905 to 1911 by one of the founders of the movement, the Austrian architect Josef Hoffmann, of whose work it is the masterpiece. The Vienna Secession movement bears witness to a profound conceptual and stylistic renewal of Art Nouveau. Ever since its creation the Stoclet House has been and remains one of the most consummate and emblematic realisations of this artistic movement, characterising the aesthetic research and renewal of architecture and decoration in the west at the start of the 20th century.
+
+The Stoclet House decoration was the work of a very large number of artists from the Wiener Werkstätte, including Koloman Moser, Gustav Klimt, Frantz Metzner, Richard Luksch, and Michael Powolny. They worked under the guidance of Hoffmann to achieve a Gesamtkunstwerk (‘total work of art’), which is expressed simultaneously in every dimension – interior and exterior architecture, decoration, furniture, functional objects, and the gardens and their flower beds. From its creation the House inspired many architects in Belgium and other countries. It heralded Art Deco and the Modern Movement in architecture. It bears witness to the influence of the Vienna Secession, and the dissemination of its ideas in Europe at the start of the 20th century. It bears witness to a monument of outstanding aesthetic quality and richness, intended as an ideal expression of the arts. A veritable icon of the birth of modernism and its quest for values, its state of preservation and conservation are remarkable.
+
+Criterion (i):
+
+Created under the supervision of the architect and interior designer Josef Hoffmann, the Stoclet House is a masterpiece of the creative genius of the Vienna Secession through its aesthetic and conceptual programme of Gesamtkunstwerk, through its architectural vocabulary, through its originality, and through the exceptional quality of its decoration, of its furniture, of its works of art and of its garden. It is a remarkably well conserved symbol of constructive and aesthetic modernity in the west at the start of the 20th century.
+
+Criterion (ii):
+
+Drawing on the values of the Vienna Secession and its many artists, including Koloman Moser and Gustav Klimt, the Stoclet House was recognised from the beginning as one of the most representative and refined works of this school. Created in Brussels, a key location for Art Nouveau, it exercised a considerable influence on modernism in architecture and on the birth of Art Deco.
+
+Integrity and authenticity
+
+The Stoclet House has great integrity in its external architecture, its interior architecture and decoration, its furniture, and its garden. All the elements necessary for the expression of this value are included in the nominated property. It has not undergone any major alterations. The buildings around the House and its urban environment have undergone few modifications. The only new building of any size in its vicinity has been designed in a way which allows for its presence in terms of the landscape integrity of the nominated property. The Stoclet House and all its elements are authentic.
+
+Management and protection requirements
+
+The management of conservation meets the most demanding criteria and international standards. The detailed programming of the works that have already been carried out would benefit from being extended to include work in the interior and in the garden.",2026-07-14,2009.0,(i)(ii),0.86 ha,25 ha,1298,HIGH,10,0,,,,,,,,architectural; architecture; art deco; art nouveau; building; modern movement; monument,built; designed; extended,Criterion_i; Criterion_ii; Name_Residential_Urban; OUV_ArchTerms; OUV_ConstructionVerbs,house,,LOW,3,0,,,,,,,,Criterion_i; Criterion_ii,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 53.57228684s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '53s'}]}}"
+866,Prehistoric Rock Art Sites in the Côa Valley and Siega Verde,"Portugal,Spain",Europe and North America,1998.0,Cultural,40.6975,-6.6611111111,FALSE,TRUE,"es,pt",https://whc.unesco.org/en/list/866,"Prehistoric Rock Art Sites in the Côa Valley and Siega Verde
+
+The two Prehistoric Rock Art Sites in the Côa Valley (Portugal) and Siega Verde (Spain) are located on the banks of the rivers Agueda and Côa, tributaries of the river Douro, documenting continuous human occupation from the end of the Paleolithic Age. Hundreds of panels with thousands of animal figures (5,000 in Foz Côa and around 440 in Siega Verde) were carved over several millennia, representing the most remarkable open-air ensemble of Paleolithic art on the Iberian Peninsula.
+
+Côa Valley and Siega Verde provide the best illustration of the iconographic themes and organization of Paleolithic rock art, using the same modes of expression in caves and in the open air, thus contributing to a greater understanding of this artistic phenomenon. Together they form a unique site of the prehistoric era, rich in material evidence of Upper Paleolithic occupation.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The property includes the two Prehistoric Rock Art Sites in the Côa Valley (Portugal) and Siega Verde (Spain), consisting of rocky cliffs carved by fluvial erosion and embedded in an isolated rural landscape in which hundreds of panels with thousands of animal figures (5,000 in Foz Côa, around 440 in Siega Verde) have been engraved over several millennia. The rock-art sites of Foz Côa and Siega Verde represent the most remarkable open-air ensemble of Palaeolithic art on the Iberian Peninsula within the same geographical region. Foz Côa and Siega Verde provide the best illustration of the iconographic themes and organization of Palaeolithic rock art, which adopted the same modes in caves and in the open air, thus contributing to a greater understanding of this artistic phenomenon. Together they form a unique place of the prehistoric era, rich in material evidence of Upper Palaeolithic occupation.
+
+Criterion (i):
+
+The rock engravings in Foz Côa and Siega Verde, dating from the Upper Palaeolithic to the final Magdalenian/ Epipalaeolithic (22.000 – 8.000 BCE), represent a unique example of the first manifestations of human symbolic creation and of the beginnings of cultural development which reciprocally shed light upon one another and constitute an unrivalled source for understanding Palaeolithic art.
+
+Criterion (iii):
+
+The rock art of Foz Côa and Siega Verde, when considered together, throws an exceptionally illuminating light on the social, economic, and spiritual life of our early ancestors.
+
+Integrity and authenticity
+
+The integrity of the property is expressed primarily by the homogeneity and continuity in development within the spatial limits of the engraved rock surfaces as well as by the adoption of the typical patterns of prehistoric paintings inside caves, thus confirming the argument for the integrity of this outdoor ensemble.
+
+The authenticity of the property is demonstrated by stylistic and comparative considerations, which also include the examination of artistic themes and organization of rock engravings in caves. The only doubts relate to the interpretation of certain animal figures (e.g. woolly rhinoceros, bison, megaceros deer, reindeer, and felines).
+
+Protection and management requirements
+
+Siega Verde is protected under various national laws for heritage protection and planning and has been declared a BIC (Bien de interés cultural – property of cultural interest). Protection has been implemented since the BIC designation. Management is delegated to the local action group ADECOCIR (Association for the Development of the Region in Ciudad Rodrigo). The ADECOCIR manager is responsible for the overall management and maintenance of Siega Verde, while security is provided by the Junta de Castilla y León, which is also responsible for the maintenance of equipment. The Junta de Castilla y León has developed joint programmes with the Portuguese institution of IGESPAR (Istituto de Gestão do Património Arquitectónico e Arqueológico – Institute for the Management of the Architectural and Archaeological Heritage), which is responsible for the Côa Valley site, with the object of studying and presenting Siega Verde and Côa Valley together.",2026-07-14,1998.0,(i)(iii),,,866bis,LOW,1,0,,,,,,,,architectural,carved; engraved,Criterion_i; OUV_ConstructionVerbs,,,HIGH,3,0,,,,,,,rock,Criterion_i; Title_Stone_Keyword,TRUE,TRUE,,HIGH,Automatically verified by dictionary match
+1306,Australian Convict Sites,Australia,Asia and the Pacific,2010.0,Cultural,-33.3783333333,150.9944444444,FALSE,FALSE,au,https://whc.unesco.org/en/list/1306,"Australian Convict Sites
+
+The property includes a selection of eleven penal sites, among the thousands established by the British Empire on Australian soil in the 18th and 19th centuries. The sites are spread across Australia, from Fremantle in Western Australia to Kingston and Arthur's Vale on Norfolk Island in the east; and from areas around Sydney in New South Wales in the north, to sites located in Tasmania in the south. Around 166,000 men, women and children were sent to Australia over 80 years between 1787 and 1868, condemned by British justice to transportation to the convict colonies. Each of the sites had a specific purpose, in terms both of punitive imprisonment and of rehabilitation through forced labour to help build the colony. The Australian Convict Sites presents the best surviving examples of large-scale convict transportation and the colonial expansion of European powers through the presence and labour of convicts.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The property consists of eleven complementary sites. It constitutes an outstanding and large-scale example of the forced migration of convicts, who were condemned to transportation to distant colonies of the British Empire; the same method was also used by other colonial states.
+
+The sites illustrate the different types of convict settlement organized to serve the colonial development project by means of buildings, ports, infrastructure, the extraction of resources, etc. They illustrate the living conditions of the convicts, who were condemned to transportation far from their homes, deprived of freedom, and subjected to forced labour.
+
+This transportation and associated forced labour was implemented on a large scale, both for criminals and for people convicted for relatively minor offences, as well as for expressing certain opinions or being political opponents. The penalty of transportation to Australia also applied to women and children from the age of nine. The convict stations are testimony to a legal form of punishment that dominated in the 18th and 19th centuries in the large European colonial states, at the same time as and after the abolition of slavery.
+
+The property shows the various forms that the convict settlements took, closely reflecting the discussions and beliefs about the punishment of crime in 18th and 19th century Europe, both in terms of its exemplarity and the harshness of the punishment used as a deterrent, and of the aim of social rehabilitation through labour and discipline. They influenced the emergence of a penal model in Europe and America.
+
+Within the colonial system established in Australia, the convict settlements simultaneously led to the Aboriginal population being forced back into the less fertile hinterland, and to the creation of a significant source of population of European origin.
+
+Criterion (iv):
+
+The Australian convict sites constitute an outstanding example of the way in which conventional forced labour and national prison systems were transformed, in major European nations in the 18th and 19th centuries, into a system of deportation and forced labour forming part of the British Empire’s vast colonial project. They illustrate the variety of the creation of penal colonies to serve the many material needs created by the development of a new territory. They bear witness to a penitentiary system which had many objectives, ranging from severe punishment used as a deterrent to forced labour for men, women and children, and the rehabilitation of the convicts through labour and discipline.
+
+Criterion (vi):
+
+The transportation of criminals, delinquents, and political prisoners to colonial lands by the great nation states between the 18th and 20th centuries is an important aspect of human history, especially with regard to its penal, political and colonial dimensions. The Australian convict settlements provide a particularly complete example of this history and the associated symbolic values derived from discussions in modern and contemporary European society. They illustrate an active phase in the occupation of colonial lands to the detriment of the Aboriginal peoples, and the process of creating a colonial population of European origin through the dialectic of punishment and transportation followed by forced labour and social rehabilitation to the eventual social integration of convicts as settlers.
+
+Integrity and authenticity
+
+The structural and landscape integrity of the property varies depending on the site, and on the type of evidence considered. It has been affected by local history, at times marked by reuse or lengthy periods of abandonment. The integrity varies between well preserved groups and others where it might be described as fragmentary. Apart from certain visual perspectives in urban settings, the level of the property’s integrity is well controlled by the site management plans.
+
+Despite the inevitable complexity of a nomination made up of a series of eleven separate sites with more than 200 elements that convey the value of the property, the authenticity of the vast majority of them is good.
+
+Protection and management requirements
+
+All the sites forming the property are inscribed on the National Heritage List. They are also protected by the Environment Protection and Biodiversity Conservation Act 1999.
+
+There is no direct major threat to the sites forming the serial property.
+
+The general protection and management of the property are satisfactory. Conservation is articulated around a positive dynamic driven by the application of the conservation plans at each of the sites. The Brickendon and Woolmers Estate domains are an exception, and require ongoing assistance, both in terms of protection and conservation.
+
+The management systems of the sites forming the property are appropriate, and they are adequately coordinated by the Strategic Management Framework for the property and its Steering Committee. For the sites involving the participation of private stakeholders for visitor reception, improved interpretation is however necessary; that includes the common objectives outlined in the Strategic Management Framework. It is also important to consider visitor reception facilities and their development in a way which respects the landscape conservation of the sites.",2026-07-14,2010.0,(iv)(vi),"1,502.51 ha","3,887.63 ha",1306,MEDIUM,5,0,,,,,,,,building; colonial; plan,inscribed,Criterion_iv; OUV_ArchTerms,,,LOW,3,0,,,,,,,,Criterion_iv,TRUE,FALSE,,ERROR,"Error calling model 'gemini-3.5-flash' (RESOURCE_EXHAUSTED): 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-3.5-flash\nPlease retry in 39.624129357s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-3.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '39s'}]}}"
+43,Madara Rider,Bulgaria,Europe and North America,1979.0,Cultural,43.277375,27.118894,FALSE,FALSE,bg,https://whc.unesco.org/en/list/43,"Madara Rider
+
+The Madara Rider, representing the figure of a knight triumphing over a lion, is carved into a 100-m-high cliff near the village of Madara in north-east Bulgaria. Madara was the principal sacred place of the First Bulgarian Empire before Bulgaria’s conversion to Christianity in the 9th century. The inscriptions beside the sculpture tell of events that occurred between AD 705 and 801.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Madara Rider is a unique relief, an exceptional work of art, created during the first years of the formation of the Bulgarian State, at the beginning of the 8th century. It is the only relief of its kind, having no parallel in Europe. It has survived in its authentic state, with no alternation in the past or the present.
+
+It is outstanding not only as a work of Bulgarian sculpture, with its characteristically realist tendencies, but also as a piece of historical source material dating from the earliest years of the establishment of the Bulgarian state. The inscriptions around the relief are, in fact, a chronicle of important events concerning the reigns of very famous Khans: Tervel, Kormisos and Omurtag.
+
+Criterion (i):
+
+The Madara Rider is an exceptional work of art dating from the beginning of the 8th century. It is the only relief of its kind, having no parallel in Europe.
+
+Criterion (iii):
+
+The Madara Rider is outstanding not only as a work of the realist Bulgarian sculpture but also as a piece of historical source material from the earliest years of the Bulgarian state, since the inscriptions around the relief chronicle events in the reigns of famous Khans.
+
+Integrity
+
+The rock relief of the Madara Horseman encompass within its boundaries sufficient elements for its presentation. It lies within an archaeological reserve that includes other archaeological monuments, up to 2000 years old. The defined boundaries, and the protection zone, ensure the conservation of the property's surrounding.
+
+Due to the uncertain stability of the supporting rock, the relief has a serious and enduring conservation problem, although changes in the integrity of the property are not significant. A combination of wind erosion, and surface water run-off from heavy rain and melting snow, together with biological coatings, is causing the rock to erode. The property has been subject to numerous archaeological, geodesic, geological, hydrological, static, seismograph, physical chemistry and, lately, microbiological research investigations. These exceptional research efforts have been incorporated into a database, the results of which have defined the parameters for immediate conservation interventions. In 2007 an international project, seeking solutions for the conservation of the relief, was concluded and an evaluation of proposed interventions is pending.
+
+Authenticity
+
+The form and design, location and setting, materials and substance, and spirit and feeling of the Madara Horseman relief have retained their authenticity.
+
+Protection and management requirements
+
+Management is implemented by virtue of:
+
+- Cultural Heritage Law (Official Gazette No.19 of 2009) and subdelegated legislation. This law regulates the research, studying, protection and promotion of the immovable cultural heritage in Bulgaria, and the development of Conservation and Management plans for its inscribed World Heritage List of immovable cultural properties.
+
+In addition, secondary legislation, issued by the Government in 1981 (Ordinance No. 22 on Protection of the Historical and Archaeological Reserves of Pliska, Preslav and Madara, promulgated in the Official Gazette No. 14 of 1981) also applies.
+
+In order to ensure the conservation of the relief, there is a need to implement the proposed interventions drawn by the 2007 International project.",2026-07-14,1979.0,(i)(iii),1.2 ha,534.34 ha,43bis,LOW,4,0,,,,,,,,design; monument; plan,inscribed,Criterion_i; OUV_ArchTerms,,,LOW,2,0,,,,,,,,Criterion_i,TRUE,FALSE,,SKIPPED,Not evaluated
+1242,Parthian Fortresses of Nisa,Turkmenistan,Asia and the Pacific,2007.0,Cultural,37.9997222222,58.1986111111,FALSE,FALSE,tm,https://whc.unesco.org/en/list/1242,"Parthian Fortresses of Nisa
+
+The Parthian Fortresses of Nisa consist of two tells of Old and New Nisa, indicating the site of one of the earliest and most important cities of the Parthian Empire, a major power from the mid 3rd century BC to the 3rd century AD. They conserve the unexcavated remains of an ancient civilization which skilfully combined its own traditional cultural elements with those of the Hellenistic and Roman west. Archaeological excavations in two parts of the site have revealed richly decorated architecture, illustrative of domestic, state and religious functions. Situated at the crossroads of important commercial and strategic axes, this powerful empire formed a barrier to Roman expansion while serving as an important communication and trading centre between east and west, north and south.
+
+Description is available under license CC-BY-SA IGO 3.0",,2026-07-14,2007.0,(ii)(iii),77.905 ha,400.3 ha,1242,HIGH,11,0,,,,,,capital,capital; cathedral; church; fortress; minaret; monastery; palace; tower,architectural; building; modern movement,walled,Criterion_ii; Name_Fortification; OUV_ArchElements; OUV_ArchElements_6+; OUV_ArchTerms,fortress,,LOW,1,0,,,,,,,,Criterion_ii,TRUE,FALSE,,SKIPPED,Not evaluated
+1545,ǂKhomani Cultural Landscape,South Africa,Africa,2017.0,Cultural,-25.6876111111,20.3745833333,FALSE,FALSE,za,https://whc.unesco.org/en/list/1545,"ǂKhomani Cultural Landscape
+
+The ǂKhomani Cultural Landscape is located at the border with Botswana and Namibia in the northern part of the country, coinciding with the Kalahari Gemsbok National Park (KGNP). The large expanse of sand contains evidence of human occupation from the Stone Age to the present and is associated with the culture of the formerly nomadic ǂKhomani San people and the strategies that allowed them to adapt to harsh desert conditions. They developed a specific ethnobotanical knowledge, cultural practices and a worldview related to the geographical features of their environment. The ǂKhomani Cultural Landscape bears testimony to the way of life that prevailed in the region and shaped the site over thousands of years.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The ǂKhomani Cultural Landscape is located at the border with Botswana and Namibia in the northern part of the country. The property comprises a vast area that coincides with the Kalahari Gemsbok National Park (KGNP). The large expanse of sand dunes forms a landscape which contains tangible evidence of human occupation from the Stone Age to the present and is associated with the culture of the ǂKhomani and related San people. The landscape includes landmarks of the history, migration, livelihoods, memory and resources of the ǂKhomani and related San people and other communities, past and present, and attests to their adaptive responses and interaction to survive in a desert environment. The ǂKhomani and related San people are formerly nomadic populations and among the last indigenous communities in South Africa. They developed subsistence strategies to cope with the extreme conditions of the environment and developed a specific ethnobotanical and veld knowledge as well as cultural practices and a worldview where geographical features embody symbolic links between humans, wildlife and the land.
+
+The ǂKhomani are actively reclaiming their knowledge, practices and traditions, bringing back to life a rich associative landscape, thanks also to the survival of the last speakers of the !Ui-Taa languages in the ǂKhomani community. The ǂKhomani Cultural Landscape reflects the ethos of the ǂKhomani and related San people of living softly on the land and seeing themselves as part of nature, in a landscape where there is a respectful relationship between humans, plants and animals, links them to this land in a unique way that epitomises sustainability.
+
+Criterion (v):
+
+The ǂKhomani Cultural Landscape is uniquely expressive of the hunting and gathering way of life practised by the ancestors of all modern human beings; so are the simple, yet highly sophisticated technologies which they used to exploit scarce resources such as water, find plant foods in an extremely hostile environment, and deal with natural phenomena such as drought and predators.
+
+Criterion (vi):
+
+The ǂKhomani Cultural Landscape reflects and is associated with the ethnobotanical knowledge and memories embedded in the !Ui-Taa languages still spoken by a few people in the ǂKhomani community, illustrating a virtually extinct way of life and beliefs.
+
+Integrity
+
+As an associated landscape, the ǂKhomani Cultural Landscape is a vast area on the South African side of the Kgalagadi Transfrontier Park (KTP), which is large enough to accommodate a reasonably complete representation of the landscape values, features and processes which convey the special way in which the people were linked with the land. It is also sufficiently large to accommodate the tangible elements of landscape and culture, such as the wide and open dunes, examples of Bushman architecture and the ‘lightness’ of being in the desert. The archaeological sites in the dunes remain largely intact and the names of important places have been recorded and mapped. More vulnerable are the languages spoken by the ‡Khomani, which are being promoted through joint activities between the community and supportive Non-Governmental Organisations (NGOs). In the areas outside the property there are a number of settlements and sites that play a role in the cultural memory of the ǂKhomani and its diaspora.
+
+Residential development, commercial farming and the state-run National Park have changed the cultural landscape over the past century, resulting in severe disruptions of the living traditions of the ǂKhomani San and related families. However, links to the landscape persist and are being re-established since the land claim success. The South African San Institute (SASI) and other institutions have been working with the ǂKhomani to record knowledge systems, language, and oral history through stories. The Imbewu bush camp is situated deep in the dunes of the !Ae!Hai Kalahari Heritage Park which lies in the southern part of the KGNP. The Imbewu camp belongs to the ǂKhomani-Mier community. Here the tradition of ‘veldskool’ (meaning ‘field or bush school’) is regularly practised, affording young people from the community the opportunity to learn from the elders about the plants, animals, and ecological interrelationships as well as the spiritual world.
+
+The property’s Outstanding Universal Value is enhanced through its association with the wider territory over which the ǂKhomani families migrated on a seasonal basis, and shared with the !Kung in the south of Botswana.
+
+Authenticity
+
+The ǂKhomani Cultural Landscape reflects the cultural links that a core group of ǂKhomani San people retained with their land. These associations are expressed by tangible and intangible attributes, the former mainly represented by archaeological testimonies, the latter including the ethnobotanical and ‘veld’ knowledge, and the persistence of linguistic memory, supported now by NGOs and academics who are documenting language and culture in accessible ways. The ǂKhomani have regained symbolic and cultural rights to that land, including resource use and traditional hunting rights in a large part of the park. This helps to ensure that the ǂKhomani’s cultural renaissance and ensures that it would not become a “museum culture”. An important element of this is the wider ecological and ultimately even social connectivity made possible by the KTP, including the revival of old social networks to communities in Botswana. The ǂKhomani will not revert to a “genuine” transhumant hunter-gatherer existence. Yet, the continued existence of Bush craft and tracking skills, the persistence of cultural practices like dancing, healing, singing and storytelling contribute to maintain the association with the property as well as the indefinable spirit of “Boesman wees” (‘being a Bushman’). Authenticity is further enhanced through the wider context of the ǂKhomani Cultural Landscape as part of the broader |Xam and ǂKhomani Heartland Cultural Landscape.
+
+Protection and management requirements
+
+The ǂKhomani Cultural Landscape falls wholly inside the Kalahari Gemsbok National Park (KGNP), of which it forms the overriding cultural component and it is also included in the Kgalagadi Transfrontier Park (KTP). Both Parks provide formal statutory protection status as protected areas. The relevant environmental protection laws are the National Environmental Management Act, 1998 (NEMA); National Environmental Management: Protected Areas Act n. 57/2003 (NEMPAA) and National Environmental Management: Biodiversity Act. All archaeological sites within the property are protected under the National Heritage Resource Act n. 25/1999 (NHRA).
+
+On the Botswana side, the property is bordered entirely by the Gemsbok National Park, which also forms the Botswana component of the KTP. Beyond the borders of the KGNP on the South African side there is communal land of the Mier community and private farms. It is envisaged that any development therein would require consultation to avoid negative impact on the Outstanding Universal Value (OUV) of the property.
+
+Further protection is granted by the planning system which is regulated by an array of laws and instruments. Local and district municipalities prepare an Integrated Development Plan (IDP) – a strategic planning instrument which guides and informs all planning, budgeting, management and decision-making in a municipality and is reviewed annually (Municipal System Act (2000)). The 2016/17 IDP for the ZF Mgcawu District Municipality is in place. The Spatial Planning and Land Use Management Act, 2013 (SPLUMA) provides for the national, provincial and local spheres of government to prepare Spatial Development Frameworks (SDFs) with a 5-year lifecycle - to represent the spatial development vision and to guide planning and development decisions across all sectors of government.
+
+The overarching management framework of the Park provides a well-entrenched set of legal mechanisms relating to heritage, conservation and environmental protection that applies to all National Parks in South Africa. Reviewing mechanisms of the Management instruments of the KGNP allow for updating and integrating provisions and measures to ensure effective safeguard of both tangible and intangible heritage in compliance with the 2003 UNESCO Convention for the Safeguarding of Intangible Cultural Heritage to which South Africa is a signatory. The protection of cultural heritage is further dealt with in the Integrated Development Plan of the KTP and the !Ae!Hai Kalahari Heritage Park management plans (hereafter simply referred as the ‘Heritage Park’), which falls wholly inside the KGNP. The KGNP, acting in collaboration with the Joint Management Board of the Heritage Park and a number of NGOs, provides the necessary institutional capacity needed for the protection of the property. The sustenance in the long term of the cultural associations of the ǂKhomani San with the property and of their culture relies on improved capacity of the local communities, e.g. through the ǂKhomani San Communal Property Association (CPA), to increase their involvement in all aspects of management, conservation and safeguarding of the property and on ensuring that benefits produced by the World Heritage property improve the social and economic development of the ǂKhomani as a community, in accordance with the Johannesburg Declaration on World Heritage in Africa and Sustainable Development of 2002, and the UNESCO Action Plan 2012-2017 for the Africa Region. The property management is guided by various management plans: the management plans of the Heritage Park and the KGNP will guide appropriate tourism development within the property. To ensure effective protection and sustenance of the OUV of the property, the management plan of the KGNP shall include adequate provisions for the protection of the OUV and the integrity and authenticity of the property and prevent any potential negative impacts by development, including tourism. The use of Environmental Impact Assessment (EIA) processes, as well as stringent Heritage Impact Assessment (HIA) criteria, under South African law, shall ensure that development, including tourism related facilities and amenities within, and adjacent to, the property, will not have negative impacts on the OUV of the property.",2026-07-14,,(v)(vi),,,,NONE,0,0,,,,,,,,architecture; indigenous; plan; renaissance; traditional,,OUV_ArchTerms,,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
+1654,Petroglyphs of Lake Onega and the White Sea,Russian Federation,Europe and North America,2021.0,Cultural,61.7299,36.0126388889,FALSE,FALSE,ru,https://whc.unesco.org/en/list/1654,"Petroglyphs of Lake Onega and the White Sea
+
+The site contains 4,500 petroglyphs carved in the rocks during the Neolithic period dated about 6-7 thousand years ago and located in the Republic of Karelia in the Russian Federation. It is one of the largest such sites in Europe with petroglyphs that document Neolithic culture in Fennoscandia. The serial property encompasses 33 rock art panels in two component parts 300km apart: 22 petroglyph groups at Lake Onega in the District of Pudozhsky featuring a total of over 1,200 figures and 3,411 figures in 11 groups by the White Sea in the District of Belomorsky. The rock art figures at Lake Onega mostly represents birds, animals, half human and half animal figures as well as geometric shapes that may be symbols of the moon and the sun. The petroglyphs of the White Sea are mostly composed of carvings depicting hunting and sailing scenes including their related equipment as well as animal and human footprints. They show significant artistic qualities and testify to the creativity of the Stone Age. The petroglyphs are associated with sites including settlements and burial grounds.
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Petroglyphs of Lake Onega and the White Sea are situated in the north-west of Russia in the Republic of Karelia and contain two component parts located 300 km from each other. The petroglyphs of Lake Onega are in the south-eastern part of the Republic of Karelia and those of the White Sea are in the north-eastern part.
+
+The petroglyphs of Lake Onega and the White Sea represent one of the largest independent centres of Neolithic rock art in Europe, dating to between circa 4,500 BCE to 3,500 BCE. The property comprises a total of over 4,500 petroglyphs concentrated in 33 sites within two component parts, including a total of 22 sites at Lake Onega and 11 located at the White Sea. The petroglyphs are also associated with more than 100 archaeological sites including settlements, camp sites and one burial ground dated as contemporary with the rock art.
+
+The rock art at Lake Onega represents animals (birds, forest animals), humans and anthropomorphs interpreted as demons, as well as geometric (solar and lunar) signs while the petroglyphs of the White Sea are mostly composed of carvings like depicted boats, sea and forest hunting scenes including their related equipment as well as animal and human footprints.
+
+The emergence of the petroglyphs dates back to the Neolithic era — along with associated archaeological sites, including settlements and burial ground, witnessing the culture of hunter-fisher-gatherers in the North of Europe. The petroglyphs attest to the beliefs and lifestyle of the hunter-fisher-gatherers over a period of 600-800 years, speak of the advanced development of this culture that used these rock art centres as meeting places and show significant artistic qualities and creativity of the Stone Age artists.
+
+There are clear similarities between the rock art of Lake Onega and the White Sea especially in the rock carving technique, rock art compositions, in the scenes depicted and their style, as well as in the sites chosen for carving horizontal motifs on the rock panels. They were produced by the population of the same Neolithic culture; excavated archaeological material proves that part of the Pit-Comb Ware population of Lake Onega gradually migrated to the White Sea by water routes.
+
+The Petroglyphs of Lake Onega and the White Sea contain representations of waterfowl including mainly realistic and fantastic swans that are unique in the rock art of Northern Fennoscandia and in Europe and were identified as one of the earliest illustrations of the rock carvings in the region.
+
+Criterion (iii):
+
+The Petroglyphs of Lake Onega and the White Sea and the related archaeological sites are an exceptional testimony of the lifestyle and beliefs of the Pit-Comb Ware culture population in the Neolithic, providing a unique source of data and representing a coherent image of the Neolithic culture period in the northeastern part of Fennoscandia.
+
+Integrity
+
+Petroglyphs of Lake Onega and the White Sea include preserved representations of Neolithic rock art almost in their natural landscape. The component parts and their buffer zones are of an adequate size to guarantee a comprehensive illustration of the Outstanding Universal Value. Common or close themes in both components of the property demonstrate mutual influence as well as chronological closeness and complementarity in illustrating the northern Neolithic period in an exceptional manner. Cultural layers from the Mesolithic period up to Middle Ages are preserved in the vicinity of the petroglyphs.
+
+The boundaries of the property have been established according to the legal framework in place in the Russian Federation and interdisciplinary research and include archaeological sites that contribute to the Outstanding Universal Value of the property.
+
+The rock art carvings are well-preserved, and, at Lake Onega, their setting has survived almost untouched, which is crucial for the understanding and appreciation of the property. The buffer zones include archaeological heritage and sites associated with the rock art area within the property, which contribute to the understanding of the Outstanding Universal Value of the property.
+
+Authenticity
+
+The authenticity of the Petroglyphs of Lake Onega and the White Sea relies on the exceptional character of the petroglyphs testifying to the lifestyle and beliefs of the Neolithic cultures present in Northern Europe.
+
+On one hand, Lake Onega landscape has neither been affected by major changes nor by human activities since the Neolithic period. The preserved surroundings of the rock art sites at Lake Onega facilitate an understanding of the prehistoric setting and context of the rock art, particularly its location at the lake shoreline, and the connection it makes with different elements of the landscape. On the other hand, the landscape of the rock carvings at the White Sea has been partly altered due to land uplift, the White Sea Canal, two hydroelectric stations, and connected dams.
+
+Protection and management requirements
+
+The first level of protection is the territory of the property (Federal Law No. 73-FZ and Regional Law No. ZRK-883): the Russian legislation establishes for each component part. Its territory ensures conservation of the property. Two types of actions are allowed: conservation of the property components and scientific research. Federal Law No. 73-FZ represents the main legal instrument governing the process of preservation of historical and cultural heritage in the Russian Federation. At the regional level, the Law of the Republic of Karelia dated 06.06.2005 (ZRK-883) regulates the conservation, development, promotion, and state protection of the cultural heritage sites of the peoples of the Russian Federation in the Republic of Karelia.
+
+The second level of protection is the property protection zone (orders issued by the Chairman of the Government of the Republic of Karelia No. 518-r of 05.09.1996 and 163.03-r of 25.03.1998). These zones protect both rock art sites and all other associated archaeological sites as well as the surrounding landscape. The third level of protection is the regional protected area, i.e., the Muromsky Landscape Reserve. The final level of protection is applied to lands of historical and cultural value: all economic activities may be prohibited therein as well as on lands with the property and archaeological sites that are the subject of research and conservation, in accordance with the Land Code of the Russian Federation.
+
+The boundaries of the protected zones at Lake Onega and the White Sea outlining the natural and cultural heritage related to the petroglyphs were delimited and approved in the 1990s. The additional protection is provided by establishing two sites of Federal Value for the components of the World Heritage property covering the property and buffer zone areas. The overall protection system is designed to ensure the effective protection of qualities of the surrounding landscape and of the archaeological sites located therein, which is essential for the long-term preservation of the authenticity and integrity of the property.
+
+The Department for the Cultural Heritage Protection of the Republic of Karelia has established the State Rock Art Centre of the Republic of Karelia for the management of the property in the territories of the component parts.
+
+The existence of a single authority for the management of petroglyphs of Lake Onega and the White Sea is crucial to ensure the coordinated management of two component parts of the property. The Rock Art Centre of the Republic of Karelia has been established in Petrozavodsk in order to preserve, study and popularize both components of the World Heritage property.
+
+A conservation plan of the property and a program of integrated monitoring of rock art sites were developed by employees of this institution and academic scientists and approved by the Coordinating Council for the Management of the World Heritage Site that ensures the preservation and monitoring of the attributes of the property. The Coordinating Council and the Department of Cultural Heritage Protection of the Republic of Karelia are responsible for coordinating work with communities, the private sector, experts and scientists, federal, regional and local authorities.",2026-07-14,2021.0,(iii),,,1654,NONE,0,0,,,,,,,,plan,designed,,,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
+1255,Twyfelfontein or /Ui-//aes,Namibia,Africa,2007.0,Cultural,-20.597,14.376,FALSE,FALSE,na,https://whc.unesco.org/en/list/1255,"Twyfelfontein or /Ui-//aes
+
+Twyfelfontein or /Ui-//aes has one of the largest concentrations of [...] petroglyphs, i.e. rock engravings in Africa. Most of these well-preserved engravings represent rhinoceros, . The site also includes six painteelephant, ostrich and giraffe, as well as drawings of human and animal footprintsd rock shelters with motifs of human figures in red ochre. The objects excavated from two sections, date from the Late Stone Age. The site forms a coherent, extensive and high-quality record of ritual practices relating to hunter-gatherer communities in this part of southern Africa over at least 2,000 years, and eloquently illustrates the links between the ritual and economic practices of hunter-gatherers.
+
+Description is available under license CC-BY-SA IGO 3.0","The rock art forms a coherent, extensive and high quality record of ritual practices relating to hunter-gather communities in this part of southern Africa over at least two millennia and, eloquently reflects the links between ritual and economic practices of hunter-gatherers in terms of the value of reliable water sources in nurturing communities on a seasonal basis.
+
+Criterion (iii): The rock art engravings and paintings in Twyfelfontein form a coherent, extensive and high quality record of ritual practices relating to hunter-gather communities in this part of southern Africa over at least two millennia.
+
+Criterion (v): The rock art reflects links between ritual and economic practices in the apparent sacred association of the land adjacent to an aquifer as a reflection of its role in nurturing hunter-gather communities over many millennia.
+
+The integrity of the property is generally intact. The Twyfelfontein Country Lodge was permitted by the Conservancy in 1999/2000 within the Seremonienplatz rock engraving site in the buffer zone. This has severely compromised the integrity of the rock engravings in this area.
+
+All the rock engravings and rock paintings within the core area are without doubt the authentic work of San hunter-gatherers who lived in the region long before the influx of Damara herders and European colonists. The setting of the Twyfelfontein rock art is also authentic as other than one small engraved panel which was removed to the National Museum in Windhoek in the early part of the 20
+
+th
+
+century, no panels have been moved or re-arranged.
+
+The core area was designated a national monument in 1948 and is now protected by the National Heritage Act 2004. A buffer zone has been established and proclaimed. The overall state of conservation of the property has improved over the past few years, particularly in terms of the way visitors are managed. Implementation of the Management plan began in 2005.",2026-07-14,2007.0,(iii)(v),57.4269 ha,"9,194.4828 ha",1255,LOW,2,0,,,,,,,,monument; plan,engraved,OUV_ArchTerms,,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
+1231,Sacred Mijikenda Kaya Forests,Kenya,Africa,2008.0,Cultural,-3.9319444444,39.5961111111,FALSE,FALSE,ke,https://whc.unesco.org/en/list/1231,"Sacred Mijikenda Kaya Forests
+
+The Mijikenda Kaya Forests consist of 10 separate forest sites spread over some 200 km along the coast containing the remains of numerous fortified villages, known as kayas, of the Mijikenda people. The kayas, created as of the 16th century but abandoned by the 1940s, are now regarded as the abodes of ancestors and are revered as sacred sites and, as such, are maintained as by councils of elders. The site is inscribed as bearing unique testimony to a cultural tradition and for its direct link to a living tradition.
+
+Description is available under license CC-BY-SA IGO 3.0","Spread out along around 200km of the coast province of Kenya are ten separate forested sites, mostly on low hills, ranging in size from 30 to around 300 ha, in which are the remains of fortified villages, Kayas, of the Mijikenda people. They represent more than thirty surviving Kayas.
+
+The Kayas began to fall out of use in the early 20th century and are now revered as the repositories of spiritual beliefs of the Mijikenda people and are seen as the sacred abode of their ancestors.
+
+The forest around the Kayas have been nurtured by the Mijikenda community to protect the sacred graves and groves and are now almost the only remains of the once extensive coastal lowland forest.
+
+Criterion (iii): The Kayas provide focal points for Mijikenda religious beliefs and practices, are regarded as the ancestral homes of the different Mijikenda peoples, and are held to be sacred places. As such they have metonymic significance to Mijikenda and are a fundamental source of Mijikenda’s sense of ‘being-in-the-world’ and of place within the cultural landscape of contemporary Kenya. They are seen as a defining characteristic of Mijikenda identity.
+
+Criterion (v): Since their abandonment as preferred places of settlement, Kayas have been transferred from the domestic aspect of the Mijikenda landscape to its spiritual sphere. As part of this process, certain restrictions were placed on access and the utilisation of natural forest resources. As a direct consequence of this, the biodiversity of the Kayas and forests surrounding them has been sustained. The Kayas are under threat both externally and from within Mijikenda society through the decline of traditional knowledge and respect for practices.
+
+Criterion (vi): The Kayas are now the repositories of spiritual beliefs of the Mijikenda and are seen as the sacred abode of their ancestors. As a collection of sites spread over a large area, they are associated with beliefs of local and national significance, and possibly regional significance as the sites extend beyond the boundaries of Kenya.
+
+The Kayas demonstrate authenticity but aspects associated with traditional practices are highly vulnerable. The integrity of the Kayas relates to the intactness of their forest surroundings which has been compromised for Kaya Kinondo.
+
+Management needs to respect the needs of individual Kayas and to integrate the conservation of natural and cultural resources and traditional and non-traditional management practices; the authority of the Kaya elders should be established.",2026-07-14,2008.0,(iii)(v)(vi),"1,538 ha",,1231rev,LOW,3,0,,,,,,,,traditional,fortified,Name_Religious,sacred,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
+1748,Cambodian Memorial Sites: From centres of repression to places of peace and reflection,Cambodia,Asia and the Pacific,2025.0,Cultural,11.77016,104.384814,FALSE,FALSE,kh,https://whc.unesco.org/en/list/1748,"Cambodian Memorial Sites: From centres of repression to places of peace and reflection
+
+The property consists of three locations that reflect the human rights abuses of the Khmer Rouge regime in Cambodia from 1971 to 1979. The three component parts represent the widespread violence during this period: the former M-13 prison (early repression), the Tuol Sleng Genocide Museum (former S-21 prison), and the Choeung Ek Genocidal Center (former execution site of S-21). These places have been preserved and memorialized since the regime’s fall. The Tuol Sleng Museum maintains extensive archives and collections related to this period, mainly documented by the Extraordinary Chambers in the Courts of Cambodia (ECCC).
+
+Description is available under license CC-BY-SA IGO 3.0","Brief synthesis
+
+The Cambodian Memorial Sites are testimony to one of the most serious abuses of human rights in the 20th century. Between 1971 and 1979, the Khmer Rouge regime established a nation-wide security system in order to repress political opponents and impose a classless agrarian society of collective farming. The network of security centres and execution sites throughout Cambodia touched every aspect of Cambodian life through imprisonment, forced transfers and labour, and denial of the necessities of life. In a single decade, one quarter of the population perished.
+
+This serial property of three component parts illustrates the stages of the Khmer Rouge security system. The former M-13 prison (component part A) shows the initial phase during the civil war period, a prototype for subsequent developments. The centrally located former S-21 prison, now Tuol Sleng Genocide Museum, (component part B) in Phnom Penh represents the apex of the system; and its associated execution site, now Choeung Ek Genocidal Center (component part C) reveals its final elimination stage. These three sites represent the full scope of the repressive system of imprisonment, interrogation, torture and execution.
+
+Following the defeat of the Khmer Rouge regime, the Cambodian Memorial Sites became places of memorialisation to honour victims. As places of reflection and learning, the serial property encourages peaceful coexistence among peoples and fosters a commitment to never repeat such atrocities. The property provides an example of the ongoing process of navigating the joint goals of justice and national reconciliation.
+
+Criterion (vi):
+
+The Cambodian Memorial Sites demonstrate the events of the Khmer Rouge repressive system of imprisonment, interrogation, torture and execution known internationally as the “killing fields”. The scale and impact of these events and the impacts on the people of Cambodia are of outstanding universal significance. The three component parts were all managed directly by one man (Kaing Guek Eav, known as Duch) accountable to the senior leadership of the Khmer Rouge. All have direct tangible and intangible links with these events through their tangible attributes, documentary evidence and witness accounts.
+
+Integrity
+
+The serial property includes all the attributes necessary to convey the Outstanding Universal Value, and to support the continuing processes of memorialisation. The boundaries of the component parts are satisfactory but are tightly drawn, possibly requiring future revision in light of new discoveries. The component parts have a satisfactory state of conservation, although they are vulnerable due to natural processes, visitor pressures, and urban development.
+
+Authenticity
+
+The serial property is associated with tangible evidence, written and oral information sources that provide insight into the Khmer Rouge security system. The above and below ground attributes of the component parts, together with the associated collections and archives demonstrate the authenticity of the serial property in relation to its Outstanding Universal Value. These information sources are relatively more abundant for the former S-21 prison and execution grounds (component parts B and C) than for the former M-13 prison (component part A). The material evidence of the physical attributes has been well documented using maps, photographs, archaeological investigations, exhumation of human remains and witness accounts. The Tuol Sleng Genocide Museum Archives, included in the UNESCO Memory of World International Register, are a rich resource for understanding these events and their tragic outcomes. In addition, the judicial records of the international Extraordinary Chambers in the Courts of Cambodia (ECCC) support the authenticity of these sites.
+
+Protection and management requirements
+
+The three component parts are all owned by the Royal Government of Cambodia: two by the Ministry of Culture and Fine Arts (A and B) and one by the Phnom Penh Municipality (C). The Phnom Penh Municipality has given a contract to the JC Royal Company to provide the daily operations of the Choeung Ek Genocidal Center (C) as a tourism destination (until 2035).
+
+The property is protected under several Royal Decrees, laws and regulations. Protection is operationalised by the relevant municipal/provincial master plans which require urgent development and finalisation.
+
+A coordinated management mechanism for the property has been established by Royal Decree via an Inter-Ministerial Committee responsible for implementing the protection and management strategies across the three component parts. The Director of the Tuol Sleng Genocide Museum is the overall Coordinating Officer, mandated to oversee the management, conservation, interpretation and other matters related to the property.
+
+The Comprehensive Cultural Management Plan covers conservation of all attributes, visitor and property management, interpretation, protection and appropriate treatment of human remains for each component part. It also addresses the site-specific conservation requirements and regulation of their respective buffer zones. Many of the key actions will be facilitated by the grant from the Korea International Cooperation Agency and UNESCO (KOICA/UNESCO) for the period 2024-2028.
+
+The three component parts have different levels and types of visitation. Two of them (B and C) are heavily visited destinations for tourism and are significant sites of memory visited by Cambodian people. Currently component part A is not accessible for visitors and memorial activities have recently begun. Careful strategic planning for this component part is required, accompanied by rigorous Heritage Impact Assessments. A masterplan for this site will be prepared.
+
+There are few survivors of the Khmer Rouge regime still alive, but the families of victims are involved in the commemoration and educational activities of each of the component parts. The Tuol Sleng Genocide Museum has an extensive educational outreach programme for Cambodian students. There are further opportunities for community involvement in the management system.",2026-07-14,2025.0,(vi),3.9 ha,21.9 ha,1748,MEDIUM,5,0,,,,,,,,khmer; plan,,Name_Civic_Infrastructure; OUV_ArchTerms,centre,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
+1280,Chief Roi Mata’s Domain,Vanuatu,Asia and the Pacific,2008.0,Cultural,-17.6280694444,168.1777194444,FALSE,FALSE,vu,https://whc.unesco.org/en/list/1280,"Chief Roi Mata’s Domain
+
+Chief Roi Mata’s Domain is the first site to be inscribed in Vanuatu. It consists of three early 17th century AD sites on the islands of Efate, Lelepa and Artok associated with the life and death of the last paramount chief, or Roi Mata, of what is now Central Vanuatu. The property includes Roi Mata’s residence, the site of his death and Roi Mata’s mass burial site. It is closely associated with the oral traditions surrounding the chief and the moral values he espoused. The site reflects the convergence between oral tradition and archaeology and bears witness to the persistence of Roi Mata’s social reforms and conflict resolution, still relevant to the people of the region.
+
+Description is available under license CC-BY-SA IGO 3.0","The continuing cultural landscape of Chief Roi Mata’s domain, Vanuatu, has Outstanding Universal Value as an outstanding example of a landscape representative of Pacific chiefly systems. This is reflected in the interaction of people with their environment over time in respecting the tangible remains associated with Roi Mata and being guided by the spiritual and moral legacy of his social reforms. The landscape reflects continuing Pacific chiefly systems and respect for this authority through tabu prohibitions on use of Roi Mata’s residence and burial that have been observed for over 400 years and structured the local landscape and social practices. The landscape memorialises the deeds of Roi Mata who still lives for many people in contemporary Vanuatu as a source of power and inspiration.
+
+Criterion (iii): Chief Roi Mata’s Domain is a continuing cultural landscape reflecting the way chiefs derive their authority from previous title holders, and in particular how the tabu prohibitions on the use of Roi Mata’s residence and burial site have been observed for 400 years and continue to structure the local landscape and social practices.
+
+Criterion (v): Chief Roi Mata’s Domain is an outstanding example of a landscape representative of Pacific chiefly systems and the connection between Pacific people and their environment over time reflected in respect for the tangible remains of the three key sites associated with Roi Mata, guided by the spiritual and moral legacy of his social reforms.
+
+Criterion (vi): Chief Roi Mata’s Domain still lives for many people in contemporary Vanuatu, as a source of power evident through the landscape and as an inspiration for people negotiating their lives.
+
+The authenticity of Chief Roi Mata’s Domain lies in the continuing association of the landscape with the oral traditions of Roi Mata, continuity of chiefly systems of authority and customary respect for the tangible remains of his life evident in the continuing tabu prohibitions on these places.
+
+he legal protection of the nominated areas and their buffer zones are adequate. The overall management system for the property is adequate, involving both traditional management through the chiefly system and tabu prohibitions and government legislation for protection of the site. The management system involves the local community and government administrative bodies. The integrity of the site is thus maintained.",2026-07-14,2008.0,(iii)(v)(vi),886.31 ha,"1,275.42 ha",1280,LOW,2,0,,,,,,,,structure; traditional,,OUV_ArchTerms,,,NONE,0,0,,,,,,,,,TRUE,FALSE,,SKIPPED,Not evaluated
