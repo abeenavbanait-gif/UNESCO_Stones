@@ -674,6 +674,12 @@ def render_home_page(df):
             * **LOW (1 to 5):** Minimal architectural prominence.
             * **EXCLUDED (≤ 0):** Intangible traditions or pure non-building sites.
             """)
+            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("""
+            * **Title Keyword Match:** **`+2 pts`** per structural architectural word in official title (*Castle, Temple, Bridge, Palace, Fort*).
+            * **OUV Keyword Density:** **`+1 to +5 pts`** scaled dynamically by occurrence frequency of built masonry terminology in OUV text.
+            * **Typological Exclusion:** **`-8 pts`** deducted for cultural landscapes; **`-4 pts`** deducted for linear routes or non-building sites.
+            """)
 
     with sc2:
         with st.container(border=True):
@@ -688,6 +694,13 @@ def render_home_page(df):
             * **MEDIUM (8 to 14):** Confirmed lithic material usage with moderate craft detail.
             * **LOW (1 to 7):** Generic stone references without specific petrological specification.
             """)
+            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("""
+            * **Trade Stone (IUGS GHSR):** **`+4 pts`** per commercial heritage building stone (*Makrana Marble, Carrara Marble, Portland Stone*).
+            * **General Lithic Species:** **`+3 pts`** per general petrological stone family (*Granite, Marble, Sandstone, Basalt, Limestone*).
+            * **Lapidary Craft & Masonry:** **`+2 pts`** per construction verb or craft technique (*quarried, carved, ashlar, drystone, vaulted*).
+            * **Typology Congruence:** **`+3 pts`** bonus when monument forms (*Pyramid, Mausoleum*) align with historical lapidary traditions.
+            """)
 
     with sc3:
         with st.container(border=True):
@@ -701,6 +714,12 @@ def render_home_page(df):
             * **HIGH (≥ 15):** Exceptional geomorphic integration where natural rock outcrops define monumentalism (*e.g., Petra, Meteora*).
             * **MEDIUM (8 to 14):** Prominent terrain topography directly influencing structural design.
             * **LOW (1 to 7):** Standard terrain or conventional urban structural context.
+            """)
+            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("""
+            * **Natural Criterion (viii):** **`+5 pts`** bonus for properties inscribed under UNESCO natural Earth history & geodiversity criteria.
+            * **Geomorphological Setting:** **`+3 pts`** per documented landform setting or earth phenomenon (*karst, volcanic crater, outcrop, cliff, fault*).
+            * **Rock Classification:** **`+2 pts`** per underlying geological rock class (*Sedimentary, Igneous, Metamorphic*).
             """)
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
