@@ -524,7 +524,14 @@ def render_home_page(df):
             map_df['Major Rock Type'] = map_df['stone_types_found_v2'].fillna('N/A').apply(lambda x: x.replace(';', ', ').title() if x != 'N/A' else 'None')
         else:
             map_df['Major Rock Type'] = 'N/A'
-        
+
+        if 'bm_score' in map_df.columns:
+            map_df['Score'] = pd.to_numeric(map_df['bm_score'], errors='coerce').fillna(0)
+        elif 'score_v2' in map_df.columns:
+            map_df['Score'] = pd.to_numeric(map_df['score_v2'], errors='coerce').fillna(0)
+        else:
+            map_df['Score'] = 1
+
         fig_map = px.scatter_mapbox(
             map_df, 
             lat="latitude", 
@@ -533,13 +540,13 @@ def render_home_page(df):
             hover_data={
                 "latitude": False,
                 "longitude": False,
-                "score_v2": True,
+                "Score": True,
                 "Category": True,
                 "Architecture": True,
                 "Stone Mentions": True,
                 "Major Rock Type": True
             },
-            color="score_v2",
+            color="Score",
             color_continuous_scale=px.colors.sequential.YlOrRd,
             size_max=15, 
             zoom=1.5,
