@@ -24,11 +24,23 @@ To systematically evaluate **991 UNESCO Cultural World Heritage Sites** and brid
 
 Each score serves a distinct analytical purpose, transforming qualitative UNESCO dossiers, ICOMOS evaluation narratives, and geological survey literature into computable, structured data.
 
+### 1.1 Statutory Alignment with Article 1 of the 1972 UNESCO Convention
+The tripartite scoring architecture directly operationalizes the international legal framework established in **Article 1 of the 1972 UNESCO Convention Concerning the Protection of the World Cultural and Natural Heritage**. Article 1 statutorily classifies cultural heritage into three distinct architectural and environmental categories:
+
+1. **Monuments:** *"Architectural works, works of monumental sculpture and painting, elements or structures of an archaeological nature, inscriptions, cave dwellings and combinations of features, which are of outstanding universal value from the point of view of history, art or science."*
+2. **Groups of buildings:** *"Groups of separate or connected buildings which, because of their architecture, their homogeneity or their place in the landscape, are of outstanding universal value from the point of view of history, art or science."*
+3. **Sites:** *"Works of man or the combined works of nature and of man, and areas including archaeological sites which are of outstanding universal value from the historical, aesthetic, ethnological or anthropological point of view."*
+
+Our numerical metrics transform these three qualitative statutory classifications into quantifiable analytical indicators:
+* **`bm_score` (Built Monument Density) & `csm_score` (Stone Materiality):** Directly measure the physical fabric, structural integrity, and architectural homogeneity required to classify a World Heritage property under Article 1 as a **Monument** or **Group of buildings**.
+* **`gh_score` (Geological & Landscape Heritage):** Directly captures the earth science processes, geomorphology, and landscape features that ground Article 1's definition of **Sites** as the *combined works of nature and of man*.
+
 ---
 
-## 2. Detailed Breakdown of Displayed Scores
+## 2. Detailed Breakdown of Displayed Scores & Article 1 Mappings
 
 ### 2.1 `bm_score`: Built Monument Profile Score
+* **Statutory Article 1 Foundation:** Evaluates whether a World Heritage property fulfills the physical masonry and engineered structural criteria required for designation as a **Monument** (architectural works, monumental structures) or **Group of buildings** (homogeneous structural clusters).
 * **Purpose:** Determines the quantitative confidence that a cultural heritage site contains physically structured, built architectural monuments (e.g., masonry fortifications, cathedrals, temples, aqueducts, and palaces) as opposed to purely intangible landscapes, unbuilt sacred groves, or subsurface archaeological fields.
 * **Scoring Inputs & Drivers:**
   - **Title Matches (+3 to +10 pts):** Direct keyword hits in the official monument name (`castle`, `cathedral`, `temple`, `fortress`, `palace`).
@@ -36,7 +48,7 @@ Each score serves a distinct analytical purpose, transforming qualitative UNESCO
   - **Override Boosts (+10 pts):** Definitive structural classifications from architectural taxonomy dictionaries.
   - **Exclusion Penalties (-25 to -50 pts):** Triggered by non-building terms (e.g., `marine park`, `intangible oral tradition`, `natural sanctuary`, `rock art painting without built architecture`).
 * **Confidence Tiers:**
-  - **HIGH (`bm_score >= 15`):** Indisputable masonry and built structural heritage.
+  - **HIGH (`bm_score >= 15`):** Indisputable masonry and built structural heritage under Article 1.
   - **MEDIUM (`8 <= bm_score < 15`):** Substantial structural features alongside cultural landscapes.
   - **LOW (`1 <= bm_score < 8`):** Minor architectural ruins or ambient structural terms.
   - **NONE (`bm_score <= 0`):** Excluded as a non-building cultural site.
@@ -44,6 +56,7 @@ Each score serves a distinct analytical purpose, transforming qualitative UNESCO
 ---
 
 ### 2.2 `gh_score`: Geological Heritage Profile Score
+* **Statutory Article 1 Foundation:** Quantifies the geological settings and geomorphic landforms necessary to categorize a property under Article 1 as a **Site** representing the *combined works of nature and of man*.
 * **Purpose:** Quantifies the density of Earth science, geomorphological, petrological, and landscape geology terminology embedded within the site's environmental and documentation record.
 * **Scoring Inputs & Drivers:**
   - **Natural Criteria Presence (+5 pts each):** Triggered when a hybrid site includes UNESCO Natural Criteria such as `Criterion (viii)` (Earth's geological processes and geomorphology).
@@ -58,6 +71,7 @@ Each score serves a distinct analytical purpose, transforming qualitative UNESCO
 ---
 
 ### 2.3 `csm_score`: Construction & Stone Materials Score
+* **Statutory Article 1 Foundation:** Measures the lapidary materiality and building stone craftsmanship that confer physical historical authenticity upon **Monuments** and **Groups of buildings** under Article 1.
 * **Purpose:** A high-precision petrography and craft materiality index that measures the diversity, specificity, and authenticity of building stone species, IUGS/BGS trade rocks, and lapidary craftsmanship associated with the monument.
 * **Scoring Architecture & Weights:**
   $$\text{csm\_score} = (1 \times M_{\text{count}}) + (3 \times T_{\text{trade}}) + (4 \times C_{\text{craft}}) + B_{\text{congruence}}$$
