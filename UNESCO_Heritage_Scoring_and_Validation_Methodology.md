@@ -47,9 +47,9 @@ Our numerical metrics translate these three qualitative statutory classification
 
 | Confidence Tier | Score Range | Meaning & Interpretation |
 | :--- | :--- | :--- |
-| **HIGH** | `bm_score >= 15` | Indisputable masonry and built structural heritage. |
-| **MEDIUM** | `8 to 14` | Substantial structural architecture alongside cultural landscapes. |
-| **LOW** | `1 to 7` | Minor ruins, ambient masonry structures, or archaeological remains. |
+| **HIGH** | `bm_score >= 10` | Indisputable masonry and built structural heritage (e.g., *Taj Mahal* scoring **10** via dense architectural text hits). |
+| **MEDIUM** | `6 to 9` | Substantial structural architecture alongside cultural landscapes. |
+| **LOW** | `1 to 5` | Minor ruins, ambient masonry structures, or archaeological remains. |
 | **NONE** | `0 or less` | Excluded as a non-building cultural site or unbuilt field. |
 
 ---
