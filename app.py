@@ -664,62 +664,63 @@ def render_home_page(df):
         with st.container(border=True):
             st.markdown("#### 🏛️ Built Monument (`bm_score`)")
             st.markdown("---")
-            st.markdown("**1. Mechanism & Logic**\nEvaluates whether a property functions as an engineered built structure rather than an archaeological vestige or intangible landscape. It scans official site names and Outstanding Universal Value (OUV) texts against extensive built heritage dictionaries while enforcing strict exclusion filtering against non-architectural typologies.")
-            st.markdown("**2. Statutory Justification**\nAligns directly with **Article 1 of the 1972 UNESCO Convention**, which categorizes cultural heritage into *Monuments*, *Groups of buildings*, and *Sites*. This index isolates **Monuments** and **Groups of buildings** whose universal value relies upon preserved architectural structural mass.")
-            st.markdown("**3. Formula & Thresholds**")
-            st.latex(r"\text{bm\_score} = (\text{Title} \times 2) + \text{OUV Boost} - \text{Exclusions}")
+            st.markdown("**1. Mechanism & Purpose**\nDetermines the quantitative confidence that a cultural site contains physical, built architecture (*fortifications, cathedrals, temples, aqueducts, palaces*) as opposed to purely unbuilt sacred groves, intangible landscapes, or subsurface archaeology.")
+            st.markdown("**2. Statutory Foundation**\nEvaluates whether a site meets the masonry and architectural structural standards required for classification as an **Article 1 Monument** or **Group of buildings** under the 1972 UNESCO Convention.")
+            st.markdown("**3. Explicit Marking Scheme**")
             st.markdown("""
-            * **HIGH (≥ 10):** Confirmed architectural structure (*e.g., Taj Mahal, Colosseum*).
-            * **MEDIUM (6 to 9):** Mixed heritage urban complexes or historic centers.
-            * **LOW (1 to 5):** Minimal architectural prominence.
-            * **EXCLUDED (≤ 0):** Intangible traditions or pure non-building sites.
+            * **`+3 to +10 pts` (Title Matches):** Direct keyword matches in official monument name (*castle, cathedral, temple, fortress, palace*).
+            * **`+1 pt` per semantic hit (Text Density):** NLP occurrences found within site descriptions and OUV texts.
+            * **`+10 pts` (Dictionary Override):** Explicit built classification from architectural catalogs.
+            * **`-25 to -50 pts` (Exclusion Penalties):** Triggered by non-building terminology (*marine park, natural sanctuary, oral tradition*).
             """)
-            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("**4. Confidence Tiers & Ranges**")
             st.markdown("""
-            * **Title Keyword Match:** **`+2 pts`** per structural architectural word in official title (*Castle, Temple, Bridge, Palace, Fort*).
-            * **OUV Keyword Density:** **`+1 to +5 pts`** scaled dynamically by occurrence frequency of built masonry terminology in OUV text.
-            * **Typological Exclusion:** **`-8 pts`** deducted for cultural landscapes; **`-4 pts`** deducted for linear routes or non-building sites.
+            * **HIGH (≥ 10):** Indisputable masonry and built structural heritage (*e.g., Taj Mahal scoring 10*).
+            * **MEDIUM (6 to 9):** Substantial structural architecture alongside cultural landscapes.
+            * **LOW (1 to 5):** Minor ruins, ambient masonry structures, or archaeological remains.
+            * **NONE / EXCLUDED (≤ 0):** Excluded as a non-building cultural site or unbuilt field.
             """)
 
     with sc2:
         with st.container(border=True):
             st.markdown("#### 🧱 Construction & Stone Materials (`csm_score`)")
             st.markdown("---")
-            st.markdown("**1. Mechanism & Logic**\nQuantifies material tangibility and craft engineering within site dossiers. Combines rule-based NLP harvesting with deep semantic AI extraction (Gemini) to isolate explicit mentions of rock species, named commercial trade stones, decorative minerals, and lapidary construction operations (*carved, quarried, ashlar*).")
-            st.markdown("**2. Statutory Justification**\nBridges humanistic conservation with Earth sciences. Under **Article 1**, structural authenticity relies upon material fabric. By identifying designated **IUGS Global Heritage Stone Resources (GHSR)** (*e.g., Makrana Marble, Carrara Marble*), this metric verifies when cultural significance is bound to geological georesources.")
-            st.markdown("**3. Formula & Thresholds**")
-            st.latex(r"\text{csm\_score} = (\text{Stones} \times 3) + (\text{Trade} \times 4) + (\text{Craft} \times 2)")
+            st.markdown("**1. Mechanism & Purpose**\nEvaluates the diversity, specificity, and authenticity of building stone species, IUGS/BGS trade rocks, and masonry craftsmanship techniques directly linked to structural physical reality.")
+            st.markdown("**2. Statutory Foundation**\nMeasures the lapidary materiality and building stone craftsmanship that give physical authenticity and material integrity to **Article 1 Monuments** and **Groups of buildings**.")
+            st.markdown("**3. Scoring Formula & Marking Scheme**")
+            st.latex(r"\text{csm} = (1\times\text{Stones}) + (3\times\text{Trade}) + (4\times\text{Craft}) + (3\times\text{Typology})")
             st.markdown("""
-            * **HIGH (≥ 15):** Richly documented lapidary heritage uniting specific stones with engineering craft.
-            * **MEDIUM (8 to 14):** Confirmed lithic material usage with moderate craft detail.
-            * **LOW (1 to 7):** Generic stone references without specific petrological specification.
+            * **`+1 pt` each (Base Building Stone Density):** Unique lithology detected across general categories (*Sandstone, Limestone, Marble, Granite, Basalt, Tuff, Schist, Slate*).
+            * **`+3 pts` each (Heritage Trade Stone Specificity):** Authenticated historical commercial trade stone species (*Makrana Marble, Welsh Slate, Portland Stone, Carrara Marble*).
+            * **`+4 pts` each (Masonry Craftsmanship Techniques):** Specialized lapidary practices in archives (*Ashlar masonry, Drystone walling, Intarsia / Pietra Dura, Cyclopean assembly*).
+            * **`+3 pts` bonus (Typology Concordance):** Building categories (*Cathedral, Pyramid, Mausoleum*) aligning with stone traditions.
             """)
-            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("**4. Confidence Tiers & Ranges**")
             st.markdown("""
-            * **Trade Stone (IUGS GHSR):** **`+4 pts`** per commercial heritage building stone (*Makrana Marble, Carrara Marble, Portland Stone*).
-            * **General Lithic Species:** **`+3 pts`** per general petrological stone family (*Granite, Marble, Sandstone, Basalt, Limestone*).
-            * **Lapidary Craft & Masonry:** **`+2 pts`** per construction verb or craft technique (*quarried, carved, ashlar, drystone, vaulted*).
-            * **Typology Congruence:** **`+3 pts`** bonus when monument forms (*Pyramid, Mausoleum*) align with historical lapidary traditions.
+            * **HIGH (≥ 15):** Richly documented stone masonry uniting specific trade rocks & craftsmanship (*e.g., Taj Mahal scoring +16*).
+            * **MEDIUM (8 to 14):** Clear structural masonry presence with identifiable rock classifications.
+            * **LOW (1 to 7):** Generic references to masonry or building stone without petrological specificity.
+            * **NONE (0):** No physical building materials identified in primary documentation.
             """)
 
     with sc3:
         with st.container(border=True):
             st.markdown("#### 🌍 Geological Heritage (`gh_score`)")
             st.markdown("---")
-            st.markdown("**1. Mechanism & Logic**\nAssesses the geomorphic landscape setting, bedrock formations, and Earth science phenomena underlying the property. Scans dossiers for geological rock classifications (*Sedimentary, Igneous, Metamorphic*), landform morphology (*karst, volcanic crater, cliff, fault*), and natural geodiversity criteria.")
-            st.markdown("**2. Statutory Justification**\nEvaluates the third structural pillar of **Article 1**—**Sites**—specifically properties representing the *combined works of nature and of man*. Demonstrates how underlying geodiversity, topography, and natural stone outcrops dictate human building practices across civilizations.")
-            st.markdown("**3. Formula & Thresholds**")
-            st.latex(r"\text{gh\_score} = (\text{Geo} \times 3) + (\text{Class} \times 2) + \text{Crit (viii) Bonus}")
+            st.markdown("**1. Mechanism & Purpose**\nMeasures the presence of Earth science terminology, geomorphic context, rock classifications, and landscape geology within the monument's historical and architectural records.")
+            st.markdown("**2. Statutory Foundation**\nQuantifies the geological settings and landforms necessary to categorize a property under **Article 1** as a **Site** representing the *combined works of nature and of man*.")
+            st.markdown("**3. Explicit Marking Scheme**")
             st.markdown("""
-            * **HIGH (≥ 15):** Exceptional geomorphic integration where natural rock outcrops define monumentalism (*e.g., Petra, Meteora*).
-            * **MEDIUM (8 to 14):** Prominent terrain topography directly influencing structural design.
-            * **LOW (1 to 7):** Standard terrain or conventional urban structural context.
+            * **`+5 pts` (Natural Criteria Presence):** Awarded if a hybrid cultural-natural property includes UNESCO Natural Criteria, such as *Criterion (viii)* (Earth history & geomorphology).
+            * **`+1 to +3 pts` (Earth Science Terms):** Matches for landform vocabulary (*karst, escarpment, outcrop, stratification, caldera, alluvial valley, plateau*).
+            * **`+3 pts` per rock class (Lithology):** Identification of primary rock classes: **Igneous**, **Sedimentary**, and **Metamorphic**.
             """)
-            st.markdown("**4. Explicit Marking Scheme**")
+            st.markdown("**4. Confidence Tiers & Ranges**")
             st.markdown("""
-            * **Natural Criterion (viii):** **`+5 pts`** bonus for properties inscribed under UNESCO natural Earth history & geodiversity criteria.
-            * **Geomorphological Setting:** **`+3 pts`** per documented landform setting or earth phenomenon (*karst, volcanic crater, outcrop, cliff, fault*).
-            * **Rock Classification:** **`+2 pts`** per underlying geological rock class (*Sedimentary, Igneous, Metamorphic*).
+            * **HIGH (≥ 10):** Monument is carved directly into or bounded by prominent geological landforms (*e.g., Petra, Arequipa volcanic tuff valleys*).
+            * **MEDIUM (4 to 9):** Clear topographic, volcanic, or sedimentary setting documented in texts.
+            * **LOW (1 to 3):** Minor ambient landscape references (*e.g., "situated on a limestone hill"*).
+            * **NONE (≤ 0):** Complete absence of geological or earth science terminology.
             """)
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
