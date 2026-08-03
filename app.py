@@ -968,6 +968,12 @@ def render_site_explorer(df, notes):
         header_stone_label = '<strong>Designated Heritage Stone:</strong> <span style="color:#cccccc;">None Designated</span>'
         iugs_link_html = ''
 
+    ouv_val = site_data.get('ouv_statement', '')
+    if pd.notna(ouv_val) and str(ouv_val).strip() != '' and str(ouv_val).strip().lower() not in ['nan', 'none', 'null', 'absent', 'no ouv statement available for this site.']:
+        ouv_status_disp = '<strong>OUV Statement:</strong> <span style="color:#00e676; font-weight:bold;">Available ✅</span>'
+    else:
+        ouv_status_disp = '<strong>OUV Statement:</strong> <span style="color:#ff5252; font-weight:bold;">Absent ❌</span>'
+
     header_html = f'''<div class="details-bar">
 <h1 style="margin-top:0px; margin-bottom:5px; color: white;">🏛️ {site_data['site_name']}{visited_tag}</h1>
 <p style="font-size: 1.05em; margin-bottom: 15px; color: white; line-height: 1.7;">
@@ -975,7 +981,8 @@ def render_site_explorer(df, notes):
 <strong>Country:</strong> {site_data['country']} &nbsp;|&nbsp; 
 <strong>Year Inscribed:</strong> {year_disp} &nbsp;|&nbsp; 
 <strong>Criteria:</strong> <span style="color:#ffd700; font-weight:bold;">{crit_disp}</span> &nbsp;|&nbsp; 
-{header_stone_label}
+{header_stone_label} &nbsp;|&nbsp; 
+{ouv_status_disp}
 </p>
 <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
 {doc_links_html}
