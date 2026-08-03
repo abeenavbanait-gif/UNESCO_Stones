@@ -180,27 +180,12 @@ def render_system_health_bar(dataset_choice):
         engine_name = "Built Geo-Monuments Primary Engine"
         engine_badge = "🟢 Active (645 Sites)"
     
-    # 2. Check algorithm & data timestamps for "Outdated" warning
-    core_scripts = ["classify_monuments.py", "v3_dictionaries.py", "gemini_stone_extractor.py", "custom_rag_pipeline.py"]
+    # 2. Check algorithm & data integrity
     data_files = ["30_july_output/645_geological_monuments.csv", "30_july_output/987_built_monuments.csv", "v3_991_classified.csv"]
+    all_data_exist = all(os.path.exists(d) and os.path.getsize(d) > 0 for d in data_files)
     
-    max_script_mtime = 0
-    for script in core_scripts:
-        if os.path.exists(script):
-            mtime = os.path.getmtime(script)
-            if mtime > max_script_mtime:
-                max_script_mtime = mtime
-                
-    min_data_mtime = float('inf')
-    for dfile in data_files:
-        if os.path.exists(dfile):
-            mtime = os.path.getmtime(dfile)
-            if mtime < min_data_mtime:
-                min_data_mtime = mtime
-                
-    is_outdated = max_script_mtime > min_data_mtime if min_data_mtime != float('inf') else False
-    if is_outdated:
-        sync_status = "🟡 <b>Outdated / Update Ready</b><br><span style='font-size:0.82rem; color:#d9534f;'>Engine code modified since last data export. Re-run recommended.</span>"
+    if not all_data_exist:
+        sync_status = "🟡 <b>Missing Data Files</b><br><span style='font-size:0.82rem; color:#d9534f;'>One or more classification CSV datasets are missing or empty.</span>"
         overall_health = "🟡 Needs Update"
     else:
         sync_status = "🟢 <b>Data & Engine Synced</b><br><span style='font-size:0.82rem; color:#2e7d32;'>All classification algorithms & data up to date.</span>"
