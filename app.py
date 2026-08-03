@@ -669,10 +669,10 @@ def render_home_page(df):
             st.markdown("**3. Formula & Thresholds**")
             st.latex(r"\text{bm\_score} = (\text{Title} \times 2) + \text{OUV Boost} - \text{Exclusions}")
             st.markdown("""
-            * **HIGH ($\ge 10$):** Confirmed architectural structure (*e.g., Taj Mahal, Colosseum*).
-            * **MEDIUM ($6\text{--}9$):** Mixed heritage urban complexes or historic centers.
-            * **LOW ($1\text{--}5$):** Minimal architectural prominence.
-            * **EXCLUDED ($\le 0$):** Intangible traditions or pure non-building sites.
+            * **HIGH (≥ 10):** Confirmed architectural structure (*e.g., Taj Mahal, Colosseum*).
+            * **MEDIUM (6 to 9):** Mixed heritage urban complexes or historic centers.
+            * **LOW (1 to 5):** Minimal architectural prominence.
+            * **EXCLUDED (≤ 0):** Intangible traditions or pure non-building sites.
             """)
 
     with sc2:
@@ -684,9 +684,9 @@ def render_home_page(df):
             st.markdown("**3. Formula & Thresholds**")
             st.latex(r"\text{csm\_score} = (\text{Stones} \times 3) + (\text{Trade} \times 4) + (\text{Craft} \times 2)")
             st.markdown("""
-            * **HIGH ($\ge 15$):** Richly documented lapidary heritage uniting specific stones with engineering craft.
-            * **MEDIUM ($8\text{--}14$):** Confirmed lithic material usage with moderate craft detail.
-            * **LOW ($1\text{--}7$):** Generic stone references without specific petrological specification.
+            * **HIGH (≥ 15):** Richly documented lapidary heritage uniting specific stones with engineering craft.
+            * **MEDIUM (8 to 14):** Confirmed lithic material usage with moderate craft detail.
+            * **LOW (1 to 7):** Generic stone references without specific petrological specification.
             """)
 
     with sc3:
@@ -698,9 +698,9 @@ def render_home_page(df):
             st.markdown("**3. Formula & Thresholds**")
             st.latex(r"\text{gh\_score} = (\text{Geo} \times 3) + (\text{Class} \times 2) + \text{Crit (viii) Bonus}")
             st.markdown("""
-            * **HIGH ($\ge 15$):** Exceptional geomorphic integration where natural rock outcrops define monumentalism (*e.g., Petra, Meteora*).
-            * **MEDIUM ($8\text{--}14$):** Prominent terrain topography directly influencing structural design.
-            * **LOW ($1\text{--}7$):** Standard terrain or conventional urban structural context.
+            * **HIGH (≥ 15):** Exceptional geomorphic integration where natural rock outcrops define monumentalism (*e.g., Petra, Meteora*).
+            * **MEDIUM (8 to 14):** Prominent terrain topography directly influencing structural design.
+            * **LOW (1 to 7):** Standard terrain or conventional urban structural context.
             """)
 
     st.markdown("<br><hr>", unsafe_allow_html=True)
