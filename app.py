@@ -969,7 +969,8 @@ def render_site_explorer(df, notes):
         iugs_link_html = ''
 
     ouv_val = site_data.get('ouv_statement', '')
-    if pd.notna(ouv_val) and str(ouv_val).strip() != '' and str(ouv_val).strip().lower() not in ['nan', 'none', 'null', 'absent', 'no ouv statement available for this site.']:
+    ouv_str = str(ouv_val).strip()
+    if pd.notna(ouv_val) and len(ouv_str) > 30 and 'missing_on_website' not in ouv_str.lower() and ouv_str.lower() not in ['nan', 'none', 'null', 'absent', 'no ouv statement available for this site.']:
         ouv_status_disp = '<strong>OUV Statement:</strong> <span style="color:#00e676; font-weight:bold;">Available ✅</span>'
     else:
         ouv_status_disp = '<strong>OUV Statement:</strong> <span style="color:#ff5252; font-weight:bold;">Absent ❌</span>'
@@ -1867,8 +1868,9 @@ def render_site_explorer(df, notes):
     st.markdown("## 📄 Outstanding Universal Value (OUV)")
     
     ouv_text = site_data.get('ouv_statement', '')
-    if pd.notna(ouv_text) and ouv_text:
-        formatted_ouv = format_unesco_headers(ouv_text)
+    ouv_text_str = str(ouv_text).strip()
+    if pd.notna(ouv_text) and len(ouv_text_str) > 30 and 'missing_on_website' not in ouv_text_str.lower() and ouv_text_str.lower() not in ['nan', 'none', 'null', 'absent', 'no ouv statement available for this site.']:
+        formatted_ouv = format_unesco_headers(ouv_text_str)
         highlighted_ouv = highlight_text(formatted_ouv, all_stones_list, all_geo_terms_list)
             
         st.markdown("""<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;"><span style='font-size: 0.85em; color: gray;'>*(Tip: Highlight, release mouse, then click and drag into the form)*</span> <span style="font-size: 0.85em;"><strong>Key:</strong> <span class="highlight-stone" style="padding:1px 6px;">Building Stone</span> &nbsp; <span class="highlight-geo" style="padding:1px 6px;">Geological / Earth Science</span></span></div>""", unsafe_allow_html=True)
