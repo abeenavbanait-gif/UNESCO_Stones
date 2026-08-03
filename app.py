@@ -654,21 +654,55 @@ def render_home_page(df):
         
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
-    # NLP Score Explanation
-    st.markdown("### 🧠 How is the NLP Score Calculated?")
-    st.markdown("""
-    The **Confidence Score** (0-100) measures the likelihood that a UNESCO Cultural Site is a built monument primarily defined by its construction materials (stone). It is calculated in three layers:
+    # Tripartite Scoring Framework Explanation
+    st.markdown("### 🧠 Tripartite Quantitative Scoring & Validation Framework")
+    st.markdown("To systematically evaluate world heritage properties and bridge humanistic architecture with Earth sciences, the diagnostic engine computes three independent quantitative scoring profiles aligned with **Article 1 of the 1972 UNESCO World Heritage Convention**:")
     
-    1. **Layer 1: Built Heritage Criteria** (+30 pts)
-       - The site must be inscribed under specific UNESCO Criteria representing human architecture (e.g., Criterion (i) Masterpiece, (iv) Typology).
-    2. **Layer 2: Architecture Name Matching** (+40 pts)
-       - The site name is scanned against 50+ architectural keywords (e.g., *Temple*, *Castle*, *Palace*, *Bridge*).
-    3. **Layer 3: NLP OUV Text Analysis** (+30 pts)
-       - The official Outstanding Universal Value (OUV) text is processed using `NLTK` (lemmatization and tokenization).
-       - It searches for geological terms, trade stones (e.g., *Carrara marble*), construction verbs (*carved*, *quarried*), and architectural elements (*facade*, *dome*).
-       - The density of these terms heavily influences the final score.
-    """)
+    sc1, sc2, sc3 = st.columns(3)
     
+    with sc1:
+        with st.container(border=True):
+            st.markdown("#### 🏛️ Built Monument (`bm_score`)")
+            st.markdown("---")
+            st.markdown("**1. Mechanism & Logic**\nEvaluates whether a property functions as an engineered built structure rather than an archaeological vestige or intangible landscape. It scans official site names and Outstanding Universal Value (OUV) texts against extensive built heritage dictionaries while enforcing strict exclusion filtering against non-architectural typologies.")
+            st.markdown("**2. Statutory Justification**\nAligns directly with **Article 1 of the 1972 UNESCO Convention**, which categorizes cultural heritage into *Monuments*, *Groups of buildings*, and *Sites*. This index isolates **Monuments** and **Groups of buildings** whose universal value relies upon preserved architectural structural mass.")
+            st.markdown("**3. Formula & Thresholds**")
+            st.latex(r"\text{bm\_score} = (\text{Title} \times 2) + \text{OUV Boost} - \text{Exclusions}")
+            st.markdown("""
+            * **HIGH ($\ge 10$):** Confirmed architectural structure (*e.g., Taj Mahal, Colosseum*).
+            * **MEDIUM ($6\text{--}9$):** Mixed heritage urban complexes or historic centers.
+            * **LOW ($1\text{--}5$):** Minimal architectural prominence.
+            * **EXCLUDED ($\le 0$):** Intangible traditions or pure non-building sites.
+            """)
+
+    with sc2:
+        with st.container(border=True):
+            st.markdown("#### 🧱 Construction & Stone Materials (`csm_score`)")
+            st.markdown("---")
+            st.markdown("**1. Mechanism & Logic**\nQuantifies material tangibility and craft engineering within site dossiers. Combines rule-based NLP harvesting with deep semantic AI extraction (Gemini) to isolate explicit mentions of rock species, named commercial trade stones, decorative minerals, and lapidary construction operations (*carved, quarried, ashlar*).")
+            st.markdown("**2. Statutory Justification**\nBridges humanistic conservation with Earth sciences. Under **Article 1**, structural authenticity relies upon material fabric. By identifying designated **IUGS Global Heritage Stone Resources (GHSR)** (*e.g., Makrana Marble, Carrara Marble*), this metric verifies when cultural significance is bound to geological georesources.")
+            st.markdown("**3. Formula & Thresholds**")
+            st.latex(r"\text{csm\_score} = (\text{Stones} \times 3) + (\text{Trade} \times 4) + (\text{Craft} \times 2)")
+            st.markdown("""
+            * **HIGH ($\ge 15$):** Richly documented lapidary heritage uniting specific stones with engineering craft.
+            * **MEDIUM ($8\text{--}14$):** Confirmed lithic material usage with moderate craft detail.
+            * **LOW ($1\text{--}7$):** Generic stone references without specific petrological specification.
+            """)
+
+    with sc3:
+        with st.container(border=True):
+            st.markdown("#### 🌍 Geological Heritage (`gh_score`)")
+            st.markdown("---")
+            st.markdown("**1. Mechanism & Logic**\nAssesses the geomorphic landscape setting, bedrock formations, and Earth science phenomena underlying the property. Scans dossiers for geological rock classifications (*Sedimentary, Igneous, Metamorphic*), landform morphology (*karst, volcanic crater, cliff, fault*), and natural geodiversity criteria.")
+            st.markdown("**2. Statutory Justification**\nEvaluates the third structural pillar of **Article 1**—**Sites**—specifically properties representing the *combined works of nature and of man*. Demonstrates how underlying geodiversity, topography, and natural stone outcrops dictate human building practices across civilizations.")
+            st.markdown("**3. Formula & Thresholds**")
+            st.latex(r"\text{gh\_score} = (\text{Geo} \times 3) + (\text{Class} \times 2) + \text{Crit (viii) Bonus}")
+            st.markdown("""
+            * **HIGH ($\ge 15$):** Exceptional geomorphic integration where natural rock outcrops define monumentalism (*e.g., Petra, Meteora*).
+            * **MEDIUM ($8\text{--}14$):** Prominent terrain topography directly influencing structural design.
+            * **LOW ($1\text{--}7$):** Standard terrain or conventional urban structural context.
+            """)
+
     st.markdown("<br><hr>", unsafe_allow_html=True)
     
     # Data Download Section
